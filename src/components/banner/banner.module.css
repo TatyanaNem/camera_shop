@@ -1,0 +1,18 @@
+.sliderWrapper {
+  :global(.swiper-pagination) {
+    text-align: end;
+    padding-right: 40px;
+  }
+
+  :global(.swiper-pagination-bullet) {
+    width: 16px;
+    height: 16px;
+    background-color: #ffffff;
+    opacity: 1;
+  }
+
+  :global(.swiper-pagination-bullet-active) {
+    opacity: 1;
+    background-color: #7575e2;
+  }
+}
