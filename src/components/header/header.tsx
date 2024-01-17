@@ -1,3 +1,6 @@
+import { Link } from 'react-router-dom';
+import { AppRoute } from '../../common';
+
 export function Header () {
   return (
     <header className="header" id="header">
@@ -9,13 +12,25 @@ export function Header () {
         </a>
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
-            <li className="main-nav__item"><a className="main-nav__link" href="catalog.html">Каталог</a>
+            <li className="main-nav__item">
+              <Link className="main-nav__link" to={AppRoute.Root}>
+                Каталог
+              </Link>
             </li>
-            <li className="main-nav__item"><a className="main-nav__link" href="#">Гарантии</a>
+            <li className="main-nav__item">
+              <Link className="main-nav__link" to="#">
+                Гарантии
+              </Link>
             </li>
-            <li className="main-nav__item"><a className="main-nav__link" href="#">Доставка</a>
+            <li className="main-nav__item">
+              <Link className="main-nav__link" to="#">
+                Доставка
+              </Link>
             </li>
-            <li className="main-nav__item"><a className="main-nav__link" href="#">О компании</a>
+            <li className="main-nav__item">
+              <Link className="main-nav__link" to="#">
+                О компании
+              </Link>
             </li>
           </ul>
         </nav>
@@ -41,11 +56,11 @@ export function Header () {
             </svg><span className="visually-hidden">Сбросить поиск</span>
           </button>
         </div>
-        <a className="header__basket-link" href="#">
+        <Link className="header__basket-link" to={AppRoute.Basket}>
           <svg width="16" height="16" aria-hidden="true">
             <use xlinkHref="#icon-basket"></use>
           </svg>
-        </a>
+        </Link>
       </div>
     </header>
   );
