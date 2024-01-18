@@ -14,4 +14,25 @@ export const REQUEST_TIMEOUT = 5000;
 
 export enum APIRoute {
   Promo = '/promo',
+  Cameras = '/cameras'
 }
+
+export enum CameraType {
+  Collection = 'collection',
+  Instant = 'instant',
+  Digital = 'digital',
+  Film = 'film'
+}
+
+export enum CameraCategory {
+  Video = 'video',
+  Photo = 'photo'
+}
+
+export enum CameraLevel {
+  Zero = 'zero',
+  Amateur = 'amateur',
+  Professional = 'professional'
+}
+
+export const RATING_NUMBER = 5;

@@ -1,4 +1,10 @@
+import { useEffect } from 'react';
+
 export function ProductPage () {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
     <div className="page-content">
       <div className="breadcrumbs">
