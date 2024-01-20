@@ -7,30 +7,27 @@ import CatalogFilter from '../../components/catalog-filter';
 import CatalogSort from '../../components/catalog-sort';
 import ProductCard from '../../components/product-card';
 import Pagination from '../../components/pagination';
-import { AppRoute, DEFAULT_PAGE, PRODUCT_LIMIT_PER_PAGE } from '../../common/const';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { DEFAULT_PAGE, PRODUCT_LIMIT_PER_PAGE } from '../../common/const';
+import { useSearchParams } from 'react-router-dom';
 
 export function CatalogPage () {
-  const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const slides = useAppSelector(selectPromoSides);
   const products = useAppSelector(selectProducts);
-  const [currentPage, setCurrentPage] = useState<number>(Number(searchParams.get('page')));
+  const [currentPage, setCurrentPage] = useState<number>(DEFAULT_PAGE);
 
   useEffect(() => {
-    if (!currentPage) {
-      searchParams.set('page', (DEFAULT_PAGE).toString());
-      navigate(`${AppRoute.Root}?page=${DEFAULT_PAGE}`);
+    if (searchParams.size !== 0) {
+      setCurrentPage(Number(searchParams.get('page')));
     }
-    setCurrentPage(Number(searchParams.get('page')));
-  }, [searchParams, currentPage, navigate]);
+  }, [searchParams]);
 
 
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchPromoSlides());
-  }, [dispatch, searchParams]);
+  }, [dispatch]);
 
   const indexOfLastProduct = currentPage * PRODUCT_LIMIT_PER_PAGE;
   const indexOfFirstProduct = indexOfLastProduct - PRODUCT_LIMIT_PER_PAGE;
@@ -76,7 +73,7 @@ export function CatalogPage () {
                     ))
                   }
                 </div>
-                <Pagination totalItems={products.length} currentPage={currentPage} onPageChange={handleCurrentPageChange}/>
+                {products.length > 9 && <Pagination totalItems={products.length} currentPage={currentPage} onPageChange={handleCurrentPageChange}/>}
               </div>
             </div>
           </div>
