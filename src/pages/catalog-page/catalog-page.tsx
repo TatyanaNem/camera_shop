@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../common/hooks';
 import Banner from '../../components/banner';
 import { fetchProducts, fetchPromoSlides } from '../../store/api-actions';
@@ -7,16 +7,40 @@ import CatalogFilter from '../../components/catalog-filter';
 import CatalogSort from '../../components/catalog-sort';
 import ProductCard from '../../components/product-card';
 import Pagination from '../../components/pagination';
+import { AppRoute, DEFAULT_PAGE, PRODUCT_LIMIT_PER_PAGE } from '../../common/const';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export function CatalogPage () {
+  const navigate = useNavigate();
+  const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const slides = useAppSelector(selectPromoSides);
   const products = useAppSelector(selectProducts);
+  const [currentPage, setCurrentPage] = useState<number>(Number(searchParams.get('page')));
+
+  useEffect(() => {
+    if (!currentPage) {
+      searchParams.set('page', (DEFAULT_PAGE).toString());
+      navigate(`${AppRoute.Root}?page=${DEFAULT_PAGE}`);
+    }
+    setCurrentPage(Number(searchParams.get('page')));
+  }, [searchParams, currentPage, navigate]);
+
 
   useEffect(() => {
     dispatch(fetchProducts());
     dispatch(fetchPromoSlides());
-  }, [dispatch]);
+  }, [dispatch, searchParams]);
+
+  const indexOfLastProduct = currentPage * PRODUCT_LIMIT_PER_PAGE;
+  const indexOfFirstProduct = indexOfLastProduct - PRODUCT_LIMIT_PER_PAGE;
+  const currentProducts = products.slice(indexOfFirstProduct, indexOfLastProduct);
+
+  const handleCurrentPageChange = (page: number) => {
+    setCurrentPage(page);
+    setSearchParams((page.toString()));
+  };
+
   return (
     <>
       <Banner slides={slides}/>
@@ -47,12 +71,12 @@ export function CatalogPage () {
                 <CatalogSort />
                 <div className="cards catalog__cards">
                   {
-                    products.map((item) => (
+                    currentProducts.map((item) => (
                       <ProductCard key={item.id} product={item} />
                     ))
                   }
                 </div>
-                <Pagination />
+                <Pagination totalItems={products.length} currentPage={currentPage} onPageChange={handleCurrentPageChange}/>
               </div>
             </div>
           </div>

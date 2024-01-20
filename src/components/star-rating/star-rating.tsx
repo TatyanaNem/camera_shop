@@ -10,7 +10,8 @@ export function StarRating ({rating, reviewCount}: StarRatingProps) {
     <div className="rate product-card__rate">
 
       {Array.from({length: RATING_NUMBER}).map((_, index) => (
-        <svg key={1}
+        // eslint-disable-next-line react/no-array-index-key
+        <svg key={index}
           width="17"
           height="16"
           aria-hidden="true"

@@ -1,3 +1,8 @@
+
+export const RATING_NUMBER = 5;
+export const PRODUCT_LIMIT_PER_PAGE = 2;
+export const DEFAULT_PAGE = 1;
+
 export enum AppRoute {
   Root = '/',
   Product = '/product',
@@ -34,5 +39,3 @@ export enum CameraLevel {
   Amateur = 'amateur',
   Professional = 'professional'
 }
-
-export const RATING_NUMBER = 5;
