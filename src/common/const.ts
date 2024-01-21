@@ -2,6 +2,7 @@
 export const RATING_NUMBER = 5;
 export const PRODUCT_LIMIT_PER_PAGE = 9;
 export const DEFAULT_PAGE = 1;
+export const DEFAULT_TAB = 1;
 
 export enum AppRoute {
   Root = '/',

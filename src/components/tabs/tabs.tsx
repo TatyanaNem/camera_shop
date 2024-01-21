@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { CameraCategory, CameraLevel, CameraType } from '../../common/const';
+import { useEffect, useState } from 'react';
+import { CameraCategory, CameraLevel, CameraType, DEFAULT_TAB } from '../../common/const';
 import DescriptionTab from './description-tab';
 import SpecificationsTab from './specifications-tab';
+import { useSearchParams } from 'react-router-dom';
 
 type TTabsProps = {
   vendorCode: string;
@@ -32,7 +33,22 @@ export function Tabs ({vendorCode, category, type, level, description}: TTabsPro
     }
   ];
 
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState(DEFAULT_TAB);
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleActiveTabClick = (index: number) => {
+    searchParams.set('tab', index.toString());
+    setSearchParams(searchParams);
+  };
+
+  useEffect(() => {
+    if (searchParams.size !== 0) {
+      setActiveTab(Number(searchParams.get('tab')));
+    } else {
+      searchParams.set('tab', activeTab.toString());
+      setSearchParams(searchParams, {replace: true});
+    }
+  }, [searchParams, activeTab, setSearchParams]);
 
   return (
     <div className="tabs product__tabs">
@@ -43,7 +59,7 @@ export function Tabs ({vendorCode, category, type, level, description}: TTabsPro
               key={tab.title}
               className={index === activeTab ? 'tabs__control is-active' : 'tabs__control'}
               type="button"
-              onClick={() => setActiveTab(index)}
+              onClick={() => handleActiveTabClick(index)}
             >
               {tab.title}
             </button>
