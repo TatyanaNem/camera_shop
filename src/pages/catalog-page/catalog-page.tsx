@@ -20,8 +20,11 @@ export function CatalogPage () {
   useEffect(() => {
     if (searchParams.size !== 0) {
       setCurrentPage(Number(searchParams.get('page')));
+    } else {
+      searchParams.set('page', currentPage.toString());
+      setSearchParams(searchParams, {replace: true});
     }
-  }, [searchParams]);
+  }, [searchParams, currentPage, setSearchParams]);
 
 
   useEffect(() => {
