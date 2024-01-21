@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../common/const';
-import { fetchProducts, fetchPromoSlides } from '../api-actions';
+import { fetchActiveProduct, fetchProducts, fetchPromoSlides } from '../api-actions';
 import { TDataProcess } from '../../common/types/state';
 
 const initialState: TDataProcess = {
   promoSlides: [],
   products: [],
+  activeProduct: null,
 };
 
 export const dataProcess = createSlice({
@@ -19,6 +20,9 @@ export const dataProcess = createSlice({
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.products = action.payload;
+      })
+      .addCase(fetchActiveProduct.fulfilled, (state, action) => {
+        state.activeProduct = action.payload;
       });
   }
 });

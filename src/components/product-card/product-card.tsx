@@ -19,9 +19,9 @@ export function ProductCard ({product}: TProductCardProps) {
         </picture>
       </div>
       <div className="product-card__info">
-        <StarRating rating={rating} reviewCount={reviewCount} />
+        <StarRating rating={rating} reviewCount={reviewCount} block={'product-card'}/>
         <p className="product-card__title">{name}</p>
-        <p className="product-card__price"><span className="visually-hidden">Цена:</span>{`${price} ₽`}
+        <p className="product-card__price"><span className="visually-hidden">Цена:</span>{`${price.toLocaleString()} ₽`}
         </p>
       </div>
       <div className="product-card__buttons">

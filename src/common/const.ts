@@ -1,6 +1,6 @@
 
 export const RATING_NUMBER = 5;
-export const PRODUCT_LIMIT_PER_PAGE = 2;
+export const PRODUCT_LIMIT_PER_PAGE = 9;
 export const DEFAULT_PAGE = 1;
 
 export enum AppRoute {
@@ -11,7 +11,8 @@ export enum AppRoute {
 }
 
 export enum NameSpace {
-  DataProcess = 'DATA_PROCESS'
+  DataProcess = 'DATA_PROCESS',
+  AppProcess = 'APP_PROCESS'
 }
 
 export const BACKEND_URL = 'https://camera-shop.accelerator.pages.academy';
@@ -39,3 +40,10 @@ export enum CameraLevel {
   Amateur = 'amateur',
   Professional = 'professional'
 }
+
+export enum RequestStatus {
+  Idle = 'idle',
+  Loading = 'loading',
+  Success = 'success',
+  Failed = 'failed'
+ }

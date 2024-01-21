@@ -3,12 +3,12 @@ import { RATING_NUMBER } from '../../common/const';
 type StarRatingProps = {
   rating: number;
   reviewCount: number;
+  block: string;
 }
 
-export function StarRating ({rating, reviewCount}: StarRatingProps) {
+export function StarRating ({rating, reviewCount, block}: StarRatingProps) {
   return (
-    <div className="rate product-card__rate">
-
+    <div className={`rate ${block}__rate`}>
       {Array.from({length: RATING_NUMBER}).map((_, index) => (
         // eslint-disable-next-line react/no-array-index-key
         <svg key={index}
