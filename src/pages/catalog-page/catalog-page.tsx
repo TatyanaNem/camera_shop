@@ -72,7 +72,7 @@ export function CatalogPage () {
                 <div className="cards catalog__cards">
                   {
                     currentProducts.map((item) => (
-                      <ProductCard key={item.id} product={item} />
+                      <ProductCard key={item.id} product={item} className='product-card'/>
                     ))
                   }
                 </div>

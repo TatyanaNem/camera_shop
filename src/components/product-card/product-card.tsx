@@ -5,13 +5,14 @@ import { AppRoute } from '../../common/const';
 
 type TProductCardProps = {
   product: TCamera;
+  className?: string;
 }
 
-export function ProductCard ({product}: TProductCardProps) {
+export function ProductCard ({product, className}: TProductCardProps) {
   const {id, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, name, price, rating, reviewCount} = product;
 
   return (
-    <div className="product-card">
+    <div className={className}>
       <div className="product-card__img">
         <picture>
           <source type="image/webp" srcSet={`${previewImgWebp}, ${previewImgWebp2x} 2x`}/>

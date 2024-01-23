@@ -52,3 +52,21 @@ export const fetchActiveProduct = createAsyncThunk<TCamera, TCamera['id'], TExtr
     }
   }
 );
+
+export const fetchSimilarProducts = createAsyncThunk<TCamera[], TCamera['id'], TExtra>(
+  'dataProcess/fetchSimilarProducts',
+  async (id, {extra: api, rejectWithValue, dispatch}) => {
+    try {
+      dispatch(setAppStatus({status: RequestStatus.Loading}));
+      const response = await api.get<TCamera[]>(`${APIRoute.Cameras}/${id}/${APIRoute.Similar}`);
+      if (response.status === StatusCodes.OK) {
+        dispatch(setAppStatus({status: RequestStatus.Success}));
+      }
+      return response.data;
+    } catch (error) {
+      dispatch(setAppError({error: 'Упс! Что-то пошло не так...'}));
+      dispatch(setAppStatus({status: RequestStatus.Failed}));
+      return rejectWithValue(null);
+    }
+  }
+);

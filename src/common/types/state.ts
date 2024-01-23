@@ -11,6 +11,7 @@ export type TDataProcess = {
   promoSlides: TPromo[];
   products: TCamera[];
   activeProduct: null | TCamera;
+  similarProducts: TCamera[];
 }
 
 export type TAppProcess = {
