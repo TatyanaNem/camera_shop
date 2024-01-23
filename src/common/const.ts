@@ -3,6 +3,7 @@ export const RATING_NUMBER = 5;
 export const PRODUCT_LIMIT_PER_PAGE = 9;
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_TAB = 1;
+export const REVIEWS_SHOW_NUMBER = 3;
 
 export enum AppRoute {
   Root = '/',
@@ -22,7 +23,8 @@ export const REQUEST_TIMEOUT = 5000;
 export enum APIRoute {
   Promo = '/promo',
   Cameras = '/cameras',
-  Similar = 'similar'
+  Similar = '/similar',
+  Reviews = '/reviews'
 }
 
 export enum CameraType {

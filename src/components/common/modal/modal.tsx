@@ -4,7 +4,7 @@ import classNames from 'classnames';
 type TModalProps = {
   modalActive: boolean;
   setModalActive: (isActive: boolean) => void;
-  className: string;
+  className?: string;
   children: ReactNode;
 }
 

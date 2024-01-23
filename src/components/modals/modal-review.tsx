@@ -3,7 +3,7 @@ import Modal from '../common/modal';
 type TModalReviewProps = {
   modalActive: boolean;
   setModalActive: (isActive: boolean) => void;
-  className: string;
+  className?: string;
 }
 
 export function ModalReview ({modalActive, setModalActive, className}: TModalReviewProps) {

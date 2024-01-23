@@ -6,6 +6,7 @@ import { AppDispatch, State } from '../common/types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { StatusCodes } from 'http-status-codes';
 import { setAppError, setAppStatus } from './app-process/app-process';
+import { TReview } from '../common/types/review';
 
 type TExtra = {
   dispatch: AppDispatch;
@@ -58,7 +59,25 @@ export const fetchSimilarProducts = createAsyncThunk<TCamera[], TCamera['id'], T
   async (id, {extra: api, rejectWithValue, dispatch}) => {
     try {
       dispatch(setAppStatus({status: RequestStatus.Loading}));
-      const response = await api.get<TCamera[]>(`${APIRoute.Cameras}/${id}/${APIRoute.Similar}`);
+      const response = await api.get<TCamera[]>(`${APIRoute.Cameras}/${id}${APIRoute.Similar}`);
+      if (response.status === StatusCodes.OK) {
+        dispatch(setAppStatus({status: RequestStatus.Success}));
+      }
+      return response.data;
+    } catch (error) {
+      dispatch(setAppError({error: 'Упс! Что-то пошло не так...'}));
+      dispatch(setAppStatus({status: RequestStatus.Failed}));
+      return rejectWithValue(null);
+    }
+  }
+);
+
+export const fetchReviews = createAsyncThunk<TReview[], TCamera['id'], TExtra>(
+  'dataProcess/fetchReviews',
+  async (id, {extra: api, rejectWithValue, dispatch}) => {
+    try {
+      dispatch(setAppStatus({status: RequestStatus.Loading}));
+      const response = await api.get<TReview[]>(`${APIRoute.Cameras}/${id}${APIRoute.Reviews}`);
       if (response.status === StatusCodes.OK) {
         dispatch(setAppStatus({status: RequestStatus.Success}));
       }

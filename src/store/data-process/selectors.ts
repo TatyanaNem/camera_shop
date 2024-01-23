@@ -5,3 +5,4 @@ export const selectPromoSides = (state: State) => state[NameSpace.DataProcess].p
 export const selectProducts = (state: State) => state[NameSpace.DataProcess].products;
 export const selectActiveProduct = (state: State) => state[NameSpace.DataProcess].activeProduct;
 export const selectSimilarProducts = (state: State) => state[NameSpace.DataProcess].similarProducts;
+export const selectActiveProductReviews = (state: State) => state[NameSpace.DataProcess].activeProductReviews;

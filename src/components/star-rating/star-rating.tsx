@@ -2,7 +2,7 @@ import { RATING_NUMBER } from '../../common/const';
 
 type StarRatingProps = {
   rating: number;
-  reviewCount: number;
+  reviewCount?: number;
   block: string;
 }
 
