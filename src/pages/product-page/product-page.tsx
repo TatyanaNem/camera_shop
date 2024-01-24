@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../common/hooks';
 import { fetchActiveProduct, fetchReviews, fetchSimilarProducts } from '../../store/api-actions';
 import { Navigate, useParams } from 'react-router-dom';
@@ -9,8 +9,10 @@ import StarRating from '../../components/star-rating';
 import { Tabs } from '../../components/tabs/tabs';
 import SimilarProducts from '../../components/similar-products';
 import ReviewsBlock from '../../components/reviews-block';
+import GoTopButton from '../../components/common/go-top-button';
 
 export function ProductPage () {
+  const [showsScrollTop, setShowScrollTop] = useState(false);
   const dispatch = useAppDispatch();
   const {id} = useParams();
   const activeProduct = useAppSelector(selectActiveProduct);
@@ -24,8 +26,18 @@ export function ProductPage () {
       dispatch(fetchSimilarProducts(Number(id)));
       dispatch(fetchReviews(Number(id)));
     }
-    window.scrollTo(0, 0);
   }, [dispatch, id]);
+
+  useEffect(() => {
+    const scrollCallback = () => {
+      const scrolledFromTop = window.scrollY;
+      setShowScrollTop(() => scrolledFromTop > 300);
+    };
+    window.addEventListener('scroll', scrollCallback);
+    return () => {
+      window.removeEventListener('scroll', scrollCallback);
+    };
+  }, []);
 
   if (fetchingStatus === RequestStatus.Loading) {
     return <h1>Loading...</h1>;
@@ -106,6 +118,7 @@ export function ProductPage () {
       <div className="page-content__section">
         <ReviewsBlock reviews={activeProductReviews}/>
       </div>
+      {showsScrollTop && <GoTopButton />}
     </div>
   );
 }
