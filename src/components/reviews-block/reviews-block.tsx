@@ -3,13 +3,16 @@ import { ModalReview } from '../modals/modal-review';
 import { TReview } from '../../common/types/review';
 import ReviewCard from '../review-card';
 import { REVIEWS_SHOW_NUMBER } from '../../common/const';
+import { ModalReviewSuccess } from '../modals/modal-review-success';
 
 type TReviewsBlockProps = {
   reviews: TReview[];
+  activeProductId: number;
 }
 
-export function ReviewsBlock ({reviews}: TReviewsBlockProps) {
+export function ReviewsBlock ({reviews, activeProductId}: TReviewsBlockProps) {
   const [modalActive, setModalActive] = useState(false);
+  const [modalSuccessActive, setModalSuccessActive] = useState(false);
   const [reviewsToShow, setReviewsToShow] = useState<TReview[]>([]);
   const [reviewsNumber, setReviewsNumber] = useState(REVIEWS_SHOW_NUMBER);
 
@@ -21,6 +24,11 @@ export function ReviewsBlock ({reviews}: TReviewsBlockProps) {
   const handleShowMoreButtonClick = () => {
     addMoreReviews(reviewsNumber, reviewsNumber + REVIEWS_SHOW_NUMBER);
     setReviewsNumber(reviewsNumber + REVIEWS_SHOW_NUMBER);
+  };
+
+  const handleOpenModalButtonClick = () => {
+    setModalActive(true);
+    document.body.style.overflow = 'hidden';
   };
 
   useEffect(() => {
@@ -36,7 +44,7 @@ export function ReviewsBlock ({reviews}: TReviewsBlockProps) {
             <button
               className="btn"
               type="button"
-              onClick={() => setModalActive(true)}
+              onClick={handleOpenModalButtonClick}
             >
                 Оставить свой отзыв
             </button>
@@ -62,7 +70,8 @@ export function ReviewsBlock ({reviews}: TReviewsBlockProps) {
           </div>
         </div>
       </section>
-      <ModalReview modalActive={modalActive} setModalActive={setModalActive}/>
+      <ModalReview modalActive={modalActive} setModalActive={setModalActive} activeProductId={activeProductId} setModalSuccessActive={setModalSuccessActive}/>
+      <ModalReviewSuccess className='modal--narrow' modalActive={modalSuccessActive} setModalActive={setModalSuccessActive}/>
     </>
   );
 }

@@ -1,12 +1,12 @@
 import Modal from '../common/modal';
 
-type TModalBasketOrderSuccessProps = {
+type TModalReviewSuccessProps = {
   modalActive: boolean;
   setModalActive: (isActive: boolean) => void;
   className: string;
 }
 
-export function ModalBasketOrderSuccess ({modalActive, setModalActive, className}: TModalBasketOrderSuccessProps) {
+export function ModalReviewSuccess ({modalActive, setModalActive, className}: TModalReviewSuccessProps) {
   return (
     <Modal modalActive={modalActive} setModalActive={setModalActive} className={className}>
       <p className="title title--h4">Спасибо за отзыв</p>
@@ -14,7 +14,11 @@ export function ModalBasketOrderSuccess ({modalActive, setModalActive, className
         <use xlinkHref="#icon-review-success"></use>
       </svg>
       <div className="modal__buttons">
-        <button className="btn btn--purple modal__btn modal__btn--fit-width" type="button">Вернуться к покупкам
+        <button
+          className="btn btn--purple modal__btn modal__btn--fit-width"
+          type="button"
+          onClick={() => setModalActive(false)}
+        >Вернуться к покупкам
         </button>
       </div>
     </Modal>

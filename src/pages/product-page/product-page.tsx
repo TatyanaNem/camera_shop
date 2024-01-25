@@ -116,7 +116,7 @@ export function ProductPage () {
         <SimilarProducts similarProducts={similarProducts}/>
       </div>
       <div className="page-content__section">
-        <ReviewsBlock reviews={activeProductReviews}/>
+        <ReviewsBlock reviews={activeProductReviews} activeProductId={Number(id)}/>
       </div>
       {showsScrollTop && <GoTopButton />}
     </div>

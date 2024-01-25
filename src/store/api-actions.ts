@@ -1,5 +1,5 @@
 import { TCamera } from './../common/types/camera';
-import { AxiosInstance } from 'axios';
+import { AxiosInstance, AxiosResponse } from 'axios';
 import { APIRoute, RequestStatus } from '../common/const';
 import { TPromo } from '../common/types/promo';
 import { AppDispatch, State } from '../common/types/state';
@@ -7,6 +7,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import { StatusCodes } from 'http-status-codes';
 import { setAppError, setAppStatus } from './app-process/app-process';
 import { TReview } from '../common/types/review';
+import { TReviewData } from '../common/types/review-data';
 
 type TExtra = {
   dispatch: AppDispatch;
@@ -84,6 +85,20 @@ export const fetchReviews = createAsyncThunk<TReview[], TCamera['id'], TExtra>(
       return response.data;
     } catch (error) {
       dispatch(setAppError({error: 'Упс! Что-то пошло не так...'}));
+      dispatch(setAppStatus({status: RequestStatus.Failed}));
+      return rejectWithValue(null);
+    }
+  }
+);
+
+export const postReview = createAsyncThunk<AxiosResponse, TReviewData, TExtra>(
+  'dataProcess/postReview',
+  async (reviewData, {extra: api, rejectWithValue, dispatch}) => {
+    try {
+      const response = await api.post<AxiosResponse>(APIRoute.Reviews, reviewData);
+      return response;
+    } catch (error) {
+      dispatch(setAppError({error: 'Не удалось отправить отзыв.'}));
       dispatch(setAppStatus({status: RequestStatus.Failed}));
       return rejectWithValue(null);
     }

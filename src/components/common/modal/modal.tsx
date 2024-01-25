@@ -1,4 +1,4 @@
-import { KeyboardEvent, ReactNode } from 'react';
+import { KeyboardEvent, ReactNode, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 
 type TModalProps = {
@@ -9,20 +9,38 @@ type TModalProps = {
 }
 
 export function Modal ({modalActive, setModalActive, className, children}: TModalProps) {
+  const modalRef = useRef<HTMLDivElement>(null);
+
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Escape') {
       setModalActive(false);
+      document.body.style.overflow = 'visible';
     }
   };
+
+  const handleModalClick = () => {
+    setModalActive(false);
+    document.body.style.overflow = 'visible';
+  };
+
+  const handleCloseButtonClick = () => {
+    setModalActive(false);
+    document.body.style.overflow = 'visible';
+  };
+
+  useEffect(() => {
+    modalRef.current?.focus();
+  }, []);
 
   return (
     <div
       className={classNames('modal', className, {
         'is-active': modalActive
       })}
-      onClick={() => setModalActive(false)}
+      onClick={handleModalClick}
       onKeyDown={handleKeyDown}
-      tabIndex={0}
+      tabIndex={1}
+      ref={modalRef}
     >
       <div className="modal__wrapper">
         <div className="modal__overlay"></div>
@@ -31,17 +49,18 @@ export function Modal ({modalActive, setModalActive, className, children}: TModa
           onClick={(event) => event.stopPropagation()}
         >
           {children}
+          <button
+            className="cross-btn"
+            type="button"
+            aria-label="Закрыть попап"
+            onClick={handleCloseButtonClick}
+            tabIndex={1}
+          >
+            <svg width="10" height="10" aria-hidden="true">
+              <use xlinkHref="#icon-close"></use>
+            </svg>
+          </button>
         </div>
-        <button
-          className="cross-btn"
-          type="button"
-          aria-label="Закрыть попап"
-          onClick={() => setModalActive(false)}
-        >
-          <svg width="10" height="10" aria-hidden="true">
-            <use xlinkHref="#icon-close"></use>
-          </svg>
-        </button>
       </div>
     </div>
   );
