@@ -171,6 +171,10 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     minLength: {
                       value: 10,
                       message: 'Не менее 10 символов'
+                    },
+                    maxLength: {
+                      value: 160,
+                      message: 'Не более 160 символов'
                     }
                   })}
                   tabIndex={1}
@@ -181,6 +185,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
               </label>
               {errors.advantage && errors.advantage.type === 'required' && <p className="custom-input__error">{errors.advantage.message}</p>}
               {errors.advantage && errors.advantage.type === 'minLength' && <p className="custom-input__error">{errors.advantage.message}</p>}
+              {errors.advantage && errors.advantage.type === 'maxLength' && <p className="custom-input__error">{errors.advantage.message}</p>}
             </div>
             <div className={errors.disadvantage ? 'custom-input form-review__item is-invalid' : 'custom-input form-review__item'}>
               <label>
@@ -198,6 +203,10 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     minLength: {
                       value: 3,
                       message: 'Не менее 10 символов'
+                    },
+                    maxLength: {
+                      value: 160,
+                      message: 'Не более 160 символов'
                     }
                   })}
                   tabIndex={1}
@@ -208,6 +217,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
               </label>
               {errors.disadvantage && errors.disadvantage.type === 'required' && <p className="custom-input__error">{errors.disadvantage.message}</p>}
               {errors.disadvantage && errors.disadvantage.type === 'minLength' && <p className="custom-input__error">{errors.disadvantage.message}</p>}
+              {errors.disadvantage && errors.disadvantage.type === 'maxLength' && <p className="custom-input__error">{errors.disadvantage.message}</p>}
             </div>
             <div className={errors.review ? 'custom-textarea form-review__item is-invalid' : 'custom-textarea form-review__item'}>
               <label>
@@ -223,8 +233,12 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                       message: 'Нужно добавить комментарий'
                     },
                     minLength: {
+                      value: 10,
+                      message: 'Не менее 10 символов'
+                    },
+                    maxLength: {
                       value: 160,
-                      message: 'Не менее 160 символов'
+                      message: 'Не более 160 символов'
                     }
                   })}
                   tabIndex={1}
@@ -236,6 +250,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
               </label>
               {errors.review && errors.review.type === 'required' && <div className="custom-textarea__error">{errors.review.message}</div>}
               {errors.review && errors.review.type === 'minLength' && <p className="custom-input__error">{errors.review.message}</p>}
+              {errors.review && errors.review.type === 'maxLength' && <p className="custom-input__error">{errors.review.message}</p>}
             </div>
           </div>
           <button
