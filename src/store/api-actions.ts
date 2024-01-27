@@ -1,5 +1,5 @@
 import { TCamera } from './../common/types/camera';
-import { AxiosInstance, AxiosResponse } from 'axios';
+import { AxiosInstance } from 'axios';
 import { APIRoute, RequestStatus } from '../common/const';
 import { TPromo } from '../common/types/promo';
 import { AppDispatch, State } from '../common/types/state';
@@ -113,15 +113,13 @@ export const fetchReviews = createAsyncThunk<TReview[], TCamera['id'], TExtra>(
   }
 );
 
-export const postReview = createAsyncThunk<AxiosResponse, TReviewData, TExtra>(
+export const postReview = createAsyncThunk<TReview, TReviewData, TExtra>(
   'dataProcess/postReview',
   async (reviewData, {extra: api, rejectWithValue, dispatch}) => {
     try {
-      dispatch(setAppStatus({status: RequestStatus.Loading}));
-      const response = await api.post<AxiosResponse>(APIRoute.Reviews, reviewData);
-      if (response.status === StatusCodes.OK) {
-        dispatch(setAppStatus({status: RequestStatus.Success}));
-        return response;
+      const response = await api.post<TReview>(APIRoute.Reviews, reviewData);
+      if (response.status === StatusCodes.CREATED) {
+        return response.data;
       } else {
         handleServerAppError(dispatch);
         return rejectWithValue(null);

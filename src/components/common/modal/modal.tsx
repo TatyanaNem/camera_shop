@@ -1,4 +1,4 @@
-import { KeyboardEvent, ReactNode, useEffect, useRef } from 'react';
+import { KeyboardEvent, ReactNode } from 'react';
 import classNames from 'classnames';
 
 type TModalProps = {
@@ -9,7 +9,6 @@ type TModalProps = {
 }
 
 export function Modal ({modalActive, setModalActive, className, children}: TModalProps) {
-  const modalRef = useRef<HTMLDivElement>(null);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Escape') {
@@ -28,10 +27,6 @@ export function Modal ({modalActive, setModalActive, className, children}: TModa
     document.body.style.overflow = 'visible';
   };
 
-  useEffect(() => {
-    modalRef.current?.focus();
-  }, []);
-
   return (
     <div
       className={classNames('modal', className, {
@@ -39,8 +34,6 @@ export function Modal ({modalActive, setModalActive, className, children}: TModa
       })}
       onClick={handleModalClick}
       onKeyDown={handleKeyDown}
-      tabIndex={1}
-      ref={modalRef}
     >
       <div className="modal__wrapper">
         <div className="modal__overlay"></div>

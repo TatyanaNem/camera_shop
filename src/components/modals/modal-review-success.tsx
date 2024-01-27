@@ -7,6 +7,11 @@ type TModalReviewSuccessProps = {
 }
 
 export function ModalReviewSuccess ({modalActive, setModalActive, className}: TModalReviewSuccessProps) {
+  const handleButtonClick = () => {
+    setModalActive(false);
+    document.body.style.overflow = 'visible';
+  };
+
   return (
     <Modal modalActive={modalActive} setModalActive={setModalActive} className={className}>
       <p className="title title--h4">Спасибо за отзыв</p>
@@ -17,7 +22,7 @@ export function ModalReviewSuccess ({modalActive, setModalActive, className}: TM
         <button
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
-          onClick={() => setModalActive(false)}
+          onClick={handleButtonClick}
         >Вернуться к покупкам
         </button>
       </div>
