@@ -2,6 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Modal from '../common/modal';
 import { useAppDispatch } from '../../common/hooks';
 import { postReview } from '../../store/api-actions';
+import { useEffect, useRef } from 'react';
 
 type TModalReviewProps = {
   modalActive: boolean;
@@ -21,6 +22,9 @@ type TFormIValues = {
 
 export function ModalReview ({modalActive, setModalActive, className, activeProductId, setModalSuccessActive}: TModalReviewProps) {
   const dispatch = useAppDispatch();
+  const firstInputRef = useRef<HTMLFieldSetElement>(null);
+  const lastInputRef = useRef<HTMLButtonElement>(null);
+
   const { register, handleSubmit, formState: { errors, isSubmitting }, watch, reset } = useForm<TFormIValues>({
     defaultValues: {
       rating: 0,
@@ -44,6 +48,12 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
     });
   };
 
+  useEffect(() => {
+    if (firstInputRef.current) {
+      firstInputRef.current.focus();
+    }
+  }, []);
+
   return (
     <Modal modalActive={modalActive} setModalActive={setModalActive} className={className}>
       <p className="title title--h4">Оставить отзыв</p>
@@ -54,7 +64,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
             void handleSubmit(onSubmit)(event)}
         >
           <div className="form-review__rate">
-            <fieldset className={errors.rating ? 'rate form-review__item is-invalid' : 'rate form-review__item'}>
+            <fieldset className={errors.rating ? 'rate form-review__item is-invalid' : 'rate form-review__item'} ref={firstInputRef} autoFocus>
               <legend className="rate__caption">Рейтинг
                 <svg width="9" height="9" aria-hidden="true">
                   <use xlinkHref="#icon-snowflake"></use>
@@ -66,6 +76,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     {...register('rating', {
                       required: true,
                     })}
+                    tabIndex={5}
                     className="visually-hidden"
                     id="star-5"
                     name="rating"
@@ -77,6 +88,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     {...register('rating', {
                       required: true,
                     })}
+                    tabIndex={4}
                     className="visually-hidden"
                     id="star-4"
                     name="rating"
@@ -88,6 +100,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     {...register('rating', {
                       required: true,
                     })}
+                    tabIndex={3}
                     className="visually-hidden"
                     id="star-3"
                     name="rating"
@@ -99,6 +112,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     {...register('rating', {
                       required: true,
                     })}
+                    tabIndex={2}
                     className="visually-hidden"
                     id="star-2"
                     name="rating"
@@ -110,6 +124,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     {...register('rating', {
                       required: true,
                     })}
+                    tabIndex={1}
                     className="visually-hidden"
                     id="star-1"
                     name="rating"
@@ -145,7 +160,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                       message: 'Не более 15 символов'
                     }
                   })}
-                  tabIndex={1}
                   type="text"
                   name="userName"
                   placeholder="Введите ваше имя"
@@ -177,7 +191,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                       message: 'Не более 160 символов'
                     }
                   })}
-                  tabIndex={1}
                   type="text"
                   name="advantage"
                   placeholder="Основные преимущества товара"
@@ -209,7 +222,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                       message: 'Не более 160 символов'
                     }
                   })}
-                  tabIndex={1}
                   type="text"
                   name="disadvantage"
                   placeholder="Главные недостатки товара"
@@ -241,7 +253,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                       message: 'Не более 160 символов'
                     }
                   })}
-                  tabIndex={1}
                   name="review"
                   minLength={5}
                   placeholder="Поделитесь своим опытом покупки"
@@ -254,7 +265,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
             </div>
           </div>
           <button
-            tabIndex={1}
+            ref={lastInputRef}
             className="btn btn--purple form-review__btn"
             type="submit"
             disabled={isSubmitting}

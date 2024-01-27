@@ -17,7 +17,7 @@ export enum NameSpace {
   AppProcess = 'APP_PROCESS'
 }
 
-export const BACKEND_URL = 'https://camera-shop.accelerator.pages.academy';
+export const BACKEND_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
 export const REQUEST_TIMEOUT = 5000;
 
 export enum APIRoute {

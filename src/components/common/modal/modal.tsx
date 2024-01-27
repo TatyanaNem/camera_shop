@@ -54,7 +54,6 @@ export function Modal ({modalActive, setModalActive, className, children}: TModa
             type="button"
             aria-label="Закрыть попап"
             onClick={handleCloseButtonClick}
-            tabIndex={1}
           >
             <svg width="10" height="10" aria-hidden="true">
               <use xlinkHref="#icon-close"></use>
