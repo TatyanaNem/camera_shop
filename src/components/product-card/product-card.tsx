@@ -5,7 +5,7 @@ import { AppRoute } from '../../common/const';
 
 type TProductCardProps = {
   product: TCamera;
-  className?: string;
+  className: string;
 }
 
 export function ProductCard ({product, className}: TProductCardProps) {
@@ -28,7 +28,7 @@ export function ProductCard ({product, className}: TProductCardProps) {
       <div className="product-card__buttons">
         <button className="btn btn--purple product-card__btn" type="button">Купить
         </button>
-        <Link className="btn btn--transparent" to={`${AppRoute.Product}/${id}`}>Подробнее
+        <Link className="btn btn--transparent" to={`/${AppRoute.Catalog}/${id}`} state={name}>Подробнее
         </Link>
       </div>
     </div>

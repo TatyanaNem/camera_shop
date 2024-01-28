@@ -7,9 +7,10 @@ export const REVIEWS_SHOW_NUMBER = 3;
 
 export enum AppRoute {
   Root = '/',
-  Product = '/product',
-  Basket = '/basket',
-  NotFound = '/not-found'
+  Catalog='catalog',
+  Product = 'product',
+  Basket = 'basket',
+  NotFound = 'not-found'
 }
 
 export enum NameSpace {
@@ -51,3 +52,9 @@ export enum RequestStatus {
   Success = 'success',
   Failed = 'failed'
  }
+
+export const PathName: Record<string, string> = {
+  'root': 'Главная',
+  [AppRoute.Catalog]: 'Каталог',
+  [AppRoute.Basket]: 'Корзина',
+};
