@@ -1,6 +1,6 @@
 import { HelmetProvider } from 'react-helmet-async';
 import Layout from '../components/layout';
-import { Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
+import { Navigate, Route, RouterProvider, createBrowserRouter, createRoutesFromElements } from 'react-router-dom';
 import { AppRoute } from '../common/const';
 import CatalogPage from '../pages/catalog-page';
 import ProductPage from '../pages/product-page';
@@ -24,7 +24,8 @@ export function App () {
   const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path={AppRoute.Root} element={<Layout/>}>
-        <Route path={AppRoute.Catalog} element={<CatalogPage />}/>
+        <Route index element={<Navigate to={AppRoute.Catalog} />}/>
+        <Route path={AppRoute.Catalog} element={<CatalogPage/>}/>
         <Route
           path={`${AppRoute.Catalog}/:id`}
           element={<ProductPage />}

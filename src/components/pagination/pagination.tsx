@@ -44,7 +44,7 @@ export function Pagination ({totalItems, currentPage, onPageChange}: TPagination
         {portionOfButtons > 1 && (
           <Link
             className='pagination__link'
-            to={`${AppRoute.Root}?page=${firstPortionPageNumber - 1}`}
+            to={`/${AppRoute.Catalog}?page=${firstPortionPageNumber - 1}`}
             onClick={handlePrevPageClick}
           >
             Назад
@@ -58,7 +58,7 @@ export function Pagination ({totalItems, currentPage, onPageChange}: TPagination
               className={classNames('pagination__link', {
                 'pagination__link--active': page === localCurrentPage
               })}
-              to={`${AppRoute.Root}?page=${page}`}
+              to={`/${AppRoute.Catalog}?page=${page}`}
               onClick={() => handleCurrentPageChange(page)}
             >
               {page}
@@ -68,7 +68,7 @@ export function Pagination ({totalItems, currentPage, onPageChange}: TPagination
         {pagesArray.length >= lastPortionPageNumber && (
           <Link
             className='pagination__link'
-            to={`${AppRoute.Root}?page=${lastPortionPageNumber + 1}`}
+            to={`/${AppRoute.Catalog}?page=${lastPortionPageNumber + 1}`}
             onClick={handleNextPageClick}
           >
             Далее

@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { ModalReview } from '../modals/modal-review';
 import { TReview } from '../../common/types/review';
 import ReviewCard from '../review-card';
 import { REVIEWS_SHOW_NUMBER } from '../../common/const';
 import { ModalReviewSuccess } from '../modals/modal-review-success';
+import { compareDates } from '../../utils/date';
 
 type TReviewsBlockProps = {
   reviews: TReview[];
@@ -11,13 +12,14 @@ type TReviewsBlockProps = {
 }
 
 export function ReviewsBlock ({reviews, activeProductId}: TReviewsBlockProps) {
+  const reviewsItems = [...reviews].sort((a, b) => compareDates(a.createAt, b.createAt));
   const [modalActive, setModalActive] = useState(false);
   const [modalSuccessActive, setModalSuccessActive] = useState(false);
-  const [reviewsToShow, setReviewsToShow] = useState<TReview[]>([]);
+  const [reviewsToShow, setReviewsToShow] = useState<TReview[]>([...reviewsItems.slice(0, REVIEWS_SHOW_NUMBER)]);
   const [reviewsNumber, setReviewsNumber] = useState(REVIEWS_SHOW_NUMBER);
 
   const addMoreReviews = (start: number, end: number) => {
-    const slicedReviews = reviews.slice(start, end);
+    const slicedReviews = reviewsItems.slice(start, end);
     setReviewsToShow([...reviewsToShow, ...slicedReviews]);
   };
 
@@ -30,10 +32,6 @@ export function ReviewsBlock ({reviews, activeProductId}: TReviewsBlockProps) {
     setModalActive(true);
     document.body.style.overflow = 'hidden';
   };
-
-  useEffect(() => {
-    setReviewsToShow(reviews.slice(0, REVIEWS_SHOW_NUMBER));
-  }, [reviews]);
 
   return (
     <>
