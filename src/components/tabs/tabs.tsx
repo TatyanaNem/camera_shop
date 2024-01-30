@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { CameraCategory, CameraLevel, CameraType, DEFAULT_TAB } from '../../common/const';
+import { CameraCategory, CameraLevel, CameraType, DEFAULT_TAB, ProductTab } from '../../common/const';
 import DescriptionTab from './description-tab';
 import SpecificationsTab from './specifications-tab';
 import { useSearchParams } from 'react-router-dom';
@@ -15,7 +15,7 @@ type TTabsProps = {
 export function Tabs ({vendorCode, category, type, level, description}: TTabsProps) {
   const tabs = [
     {
-      title: 'Характеристики',
+      title: ProductTab.Characteristic,
       content:
       <SpecificationsTab
         vendorCode={vendorCode}
@@ -25,7 +25,7 @@ export function Tabs ({vendorCode, category, type, level, description}: TTabsPro
       />
     },
     {
-      title: 'Описание',
+      title: ProductTab.Description,
       content:
       <DescriptionTab
         text={description}

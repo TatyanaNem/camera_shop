@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../common/hooks';
 import { fetchActiveProduct, fetchReviews, fetchSimilarProducts } from '../../store/api-actions';
-import { Navigate, useParams } from 'react-router-dom';
-import { selectActiveProduct, selectActiveProductReviews, selectSimilarProducts } from '../../store/data-process/selectors';
+import { useParams } from 'react-router-dom';
+import { selectActiveProduct, selectActiveProductId, selectActiveProductReviews, selectSimilarProducts } from '../../store/data-process/selectors';
 import { selectAppStatus } from '../../store/app-process/selectors';
-import { AppRoute, RequestStatus } from '../../common/const';
+import { RequestStatus } from '../../common/const';
 import StarRating from '../../components/star-rating';
 import { Tabs } from '../../components/tabs/tabs';
 import SimilarProducts from '../../components/similar-products';
@@ -15,19 +15,24 @@ import Breadcrumbs from '../../components/breadcrumbs';
 export function ProductPage () {
   const [showsScrollTop, setShowScrollTop] = useState(false);
   const dispatch = useAppDispatch();
-  const {id} = useParams();
+  const params = useParams();
+  const id = Number(params.id);
   const activeProduct = useAppSelector(selectActiveProduct);
+  const lastLoadedId = useAppSelector(selectActiveProductId);
   const fetchingStatus = useAppSelector(selectAppStatus);
   const similarProducts = useAppSelector(selectSimilarProducts);
   const activeProductReviews = useAppSelector(selectActiveProductReviews);
 
   useEffect(() => {
-    if (id) {
-      dispatch(fetchActiveProduct(Number(id)));
-      dispatch(fetchSimilarProducts(Number(id)));
-      dispatch(fetchReviews(Number(id)));
+    if (lastLoadedId !== id) {
+      dispatch(fetchActiveProduct(id)).then((response) => {
+        if (response.meta.requestStatus === 'fulfilled') {
+          dispatch(fetchSimilarProducts(id));
+          dispatch(fetchReviews(id));
+        }
+      });
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, lastLoadedId, activeProduct]);
 
   useEffect(() => {
     const scrollCallback = () => {
@@ -42,10 +47,6 @@ export function ProductPage () {
 
   if (fetchingStatus === RequestStatus.Loading) {
     return <h1>Loading...</h1>;
-  }
-
-  if (fetchingStatus === RequestStatus.Failed) {
-    return <Navigate to={AppRoute.NotFound} />;
   }
 
   if(fetchingStatus !== RequestStatus.Success || !activeProduct) {
@@ -90,10 +91,10 @@ export function ProductPage () {
         </section>
       </div>
       <div className="page-content__section">
-        <SimilarProducts similarProducts={similarProducts}/>
+        {!!similarProducts && <SimilarProducts similarProducts={similarProducts}/>}
       </div>
       <div className="page-content__section">
-        <ReviewsBlock reviews={activeProductReviews} activeProductId={Number(id)}/>
+        {!!activeProductReviews && <ReviewsBlock reviews={activeProductReviews} activeProductId={Number(id)}/>}
       </div>
       {showsScrollTop && <GoTopButton />}
     </div>

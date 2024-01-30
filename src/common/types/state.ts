@@ -12,7 +12,7 @@ export type TDataProcess = {
   promoSlides: TPromo[];
   products: TCamera[];
   activeProduct: null | TCamera;
-  similarProducts: TCamera[];
+  similarProducts: null | TCamera[];
   activeProductReviews: TReview[];
 }
 

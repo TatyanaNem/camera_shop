@@ -57,4 +57,9 @@ export const PathName: Record<string, string> = {
   'root': 'Главная',
   [AppRoute.Catalog]: 'Каталог',
   [AppRoute.Basket]: 'Корзина',
-};
+} as const;
+
+export enum ProductTab {
+  Characteristic = 'Характеристики',
+  Description = 'Описание',
+}

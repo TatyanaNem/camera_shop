@@ -29,6 +29,7 @@ export const fetchPromoSlides = createAsyncThunk<TPromo[], undefined, TExtra>(
         return rejectWithValue(null);
       }
     } catch (error) {
+      handleServerNetworkError(error, dispatch);
       return rejectWithValue(null);
     }
   });
@@ -47,7 +48,7 @@ export const fetchProducts = createAsyncThunk<TCamera[], undefined, TExtra>(
         return rejectWithValue(null);
       }
     } catch (error) {
-      handleServerAppError(dispatch);
+      handleServerNetworkError(error, dispatch);
       return rejectWithValue(null);
     }
   });
@@ -62,11 +63,11 @@ export const fetchActiveProduct = createAsyncThunk<TCamera, TCamera['id'], TExtr
         dispatch(setAppStatus({status: RequestStatus.Success}));
         return response.data;
       } else {
-        handleServerAppError(dispatch);
         return rejectWithValue(null);
       }
     } catch (error) {
-      handleServerAppError(dispatch);
+      dispatch(setAppStatus({status: RequestStatus.Failed}));
+      dispatch(setAppError({error: 'Товар не найден...'}));
       return rejectWithValue(null);
     }
   }
@@ -86,7 +87,7 @@ export const fetchSimilarProducts = createAsyncThunk<TCamera[], TCamera['id'], T
         return rejectWithValue(null);
       }
     } catch (error) {
-      handleServerAppError(dispatch);
+      dispatch(setAppError({error: 'Похожие товары не найдены...'}));
       return rejectWithValue(null);
     }
   }
@@ -106,7 +107,7 @@ export const fetchReviews = createAsyncThunk<TReview[], TCamera['id'], TExtra>(
         return rejectWithValue(null);
       }
     } catch (error) {
-      dispatch(setAppError({error: 'Упс! Что-то пошло не так...'}));
+      dispatch(setAppError({error: 'Не удалось загрузить отзывы...'}));
       dispatch(setAppStatus({status: RequestStatus.Failed}));
       return rejectWithValue(null);
     }
@@ -121,11 +122,11 @@ export const postReview = createAsyncThunk<TReview, TReviewData, TExtra>(
       if (response.status === StatusCodes.CREATED) {
         return response.data;
       } else {
-        handleServerAppError(dispatch);
+        dispatch(setAppError({error: 'Не удалось отправить отзыв...'}));
         return rejectWithValue(null);
       }
     } catch (error) {
-      handleServerNetworkError(error, dispatch);
+      handleServerAppError(dispatch);
       return rejectWithValue(null);
     }
   }
