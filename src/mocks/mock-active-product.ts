@@ -10,7 +10,7 @@ export const mockActiveProduct: TCamera = {
   category: CameraCategory.Photo,
   description: faker.lorem.paragraph(),
   level: CameraLevel.Professional,
-  rating: 1,
+  rating: faker.datatype.number({min: 1, max: 5}),
   price: 100,
   previewImg: 'string',
   previewImg2x: 'string',

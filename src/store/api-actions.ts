@@ -1,10 +1,9 @@
 import { TCamera } from './../common/types/camera';
 import { AxiosInstance } from 'axios';
-import { APIRoute, ApiError, RequestStatus } from '../common/const';
+import { APIRoute, ApiError } from '../common/const';
 import { TPromo } from '../common/types/promo';
 import { AppDispatch, State } from '../common/types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
-import { setAppStatus } from './app-process/app-process';
 import { TReview } from '../common/types/review';
 import { TReviewData } from '../common/types/review-data';
 
@@ -51,10 +50,9 @@ export const fetchActiveProduct = createAsyncThunk<TCamera, TCamera['id'], TExtr
 
 export const fetchSimilarProducts = createAsyncThunk<TCamera[], TCamera['id'], TExtra>(
   'dataProcess/fetchSimilarProducts',
-  async (id, {extra: api, rejectWithValue, dispatch}) => {
+  async (id, {extra: api, rejectWithValue}) => {
     try {
       const response = await api.get<TCamera[]>(`${APIRoute.Cameras}/${id}${APIRoute.Similar}`);
-      dispatch(setAppStatus({status: RequestStatus.Success}));
       return response.data;
     } catch (error) {
       return rejectWithValue(ApiError.OnFetchSimilar);

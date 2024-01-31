@@ -1,7 +1,7 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace, RequestStatus } from '../../common/const';
 import { TAppProcess } from '../../common/types/state';
-import { fetchActiveProduct, fetchProducts, fetchPromoSlides, fetchReviews, postReview } from '../api-actions';
+import { fetchActiveProduct, fetchProducts, fetchPromoSlides, fetchReviews, fetchSimilarProducts, postReview } from '../api-actions';
 
 const initialState: TAppProcess = {
   status: RequestStatus.Idle,
@@ -49,6 +49,18 @@ export const appProcess = createSlice({
         state.status = RequestStatus.Success;
       })
       .addCase(fetchActiveProduct.rejected, (state, action) => {
+        state.status = RequestStatus.Failed;
+        if (action.payload) {
+          state.error = action.payload;
+        }
+      })
+      .addCase(fetchSimilarProducts.pending, (state) => {
+        state.status = RequestStatus.Loading;
+      })
+      .addCase(fetchSimilarProducts.fulfilled, (state) => {
+        state.status = RequestStatus.Success;
+      })
+      .addCase(fetchSimilarProducts.rejected, (state, action) => {
         state.status = RequestStatus.Failed;
         if (action.payload) {
           state.error = action.payload;
