@@ -11,7 +11,7 @@ type TExtra = {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
-  rejectValue: string;
+  rejectValue: ApiError;
 }
 
 export const fetchPromoSlides = createAsyncThunk<TPromo[], undefined, TExtra>(

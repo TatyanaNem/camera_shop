@@ -94,4 +94,4 @@ export const appProcess = createSlice({
 });
 
 export const {setAppStatus} = appProcess.actions;
-export const appReducer = appProcess.reducer;
+export const appProcessReducer = appProcess.reducer;

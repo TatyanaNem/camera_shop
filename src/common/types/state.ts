@@ -1,5 +1,5 @@
 import { store } from '../../store';
-import { RequestStatus } from '../const';
+import { ApiError, RequestStatus } from '../const';
 import { TCamera } from './camera';
 import { TPromo } from './promo';
 import { TReview } from './review';
@@ -18,5 +18,5 @@ export type TDataProcess = {
 
 export type TAppProcess = {
   status: RequestStatus;
-  error: null | string;
+  error: null | ApiError;
 }
