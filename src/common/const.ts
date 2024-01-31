@@ -1,4 +1,3 @@
-
 export const RATING_NUMBER = 5;
 export const PRODUCT_LIMIT_PER_PAGE = 9;
 export const DEFAULT_PAGE = 1;
@@ -63,3 +62,12 @@ export enum ProductTab {
   Characteristic = 'Характеристики',
   Description = 'Описание',
 }
+
+export const ApiError: Record<string, string> = {
+  OnFetchPromo: 'Ошибка при загрузке промо-товаров',
+  OnFetchProducts: 'Ошибка при загрузке списка товаров',
+  OnFetchActiveProduct: 'Ошибка при загрузке товара по ID',
+  OnFetchSimilar: 'Ошибка при загрузке похожих товаров',
+  OnFetchReviews: 'Ошибка при загрузке комментариев',
+  OnPostReview: 'Ошибка при записи нового комментария',
+} as const;
