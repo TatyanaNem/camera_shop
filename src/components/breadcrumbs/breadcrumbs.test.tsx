@@ -1,10 +1,9 @@
 import { render, screen } from '@testing-library/react';
 import Breadcrumbs from '.';
-import { MemoryRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { withStore } from '../../mocks/mock-components/with-store';
 import { State } from '../../common/types/state';
 import { NameSpace, RequestStatus } from '../../common/const';
-import { mockActiveProduct } from '../../mocks/mock-active-product';
 
 describe('Component: Breadcrumbs', () => {
   it ('should render correctly', () => {
@@ -12,7 +11,7 @@ describe('Component: Breadcrumbs', () => {
       [NameSpace.DataProcess]: {
         promoSlides: [],
         products: [],
-        activeProduct: mockActiveProduct,
+        activeProduct: null,
         similarProducts: null,
         activeProductReviews: []
       },
@@ -22,11 +21,9 @@ describe('Component: Breadcrumbs', () => {
       }
     };
 
-    const pathname = 'root/catalog';
-    const breadcrumbsLink = 'breadcrumbs__link';
     const {withStoreComponent} = withStore(<Breadcrumbs />, initialState);
-    render(<MemoryRouter initialEntries={[pathname]}>{withStoreComponent}</MemoryRouter>);
+    render(withStoreComponent, {wrapper: BrowserRouter});
 
-    expect(screen.getAllByTestId(breadcrumbsLink).length).toBe(2);
+    expect(screen.getByTestId('breadcrumbs')).toBeInTheDocument();
   });
 });

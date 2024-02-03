@@ -10,7 +10,7 @@ export function Breadcrumbs() {
     .filter((path) => /\D/.test(path));
 
   return (
-    <div className="breadcrumbs">
+    <div className="breadcrumbs" data-testid='breadcrumbs'>
       <div className="container">
         <ul className="breadcrumbs__list">
           {

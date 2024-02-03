@@ -5,7 +5,7 @@ import { AppRoute } from '../../common/const';
 
 export function NotFoundPage () {
   return (
-    <div className="page-content">
+    <div className="page-content" data-testid='not-found-page'>
       <div className={styles.wrapper}>
         <img src={notFoundPage} alt={'404'} className={styles.error404} />
         <Link

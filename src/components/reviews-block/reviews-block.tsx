@@ -1,10 +1,10 @@
 import { useState } from 'react';
-import { ModalReview } from '../modals/modal-review/modal-review';
+import { ModalReview } from '../modals';
 import { TReview } from '../../common/types/review';
 import ReviewCard from '../review-card';
 import { REVIEWS_SHOW_NUMBER } from '../../common/const';
-import { ModalReviewSuccess } from '../modals/modal-review-success/modal-review-success';
 import { compareDates } from '../../utils/date';
+import { ModalReviewSuccess } from '../modals';
 
 type TReviewsBlockProps = {
   reviews: TReview[];
