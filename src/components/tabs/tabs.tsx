@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import { CameraCategory, CameraLevel, CameraType, DEFAULT_TAB, ProductTab } from '../../common/const';
-import DescriptionTab from './description-tab';
-import SpecificationsTab from './specifications-tab';
+import {DescriptionTab} from './description-tab/description-tab';
+import {SpecificationsTab} from './specifications-tab/specifications-tab';
 import { useSearchParams } from 'react-router-dom';
 
 type TTabsProps = {
@@ -51,12 +51,13 @@ export function Tabs ({vendorCode, category, type, level, description}: TTabsPro
   }, [searchParams, activeTab, setSearchParams]);
 
   return (
-    <div className="tabs product__tabs">
+    <div className="tabs product__tabs" data-testid='tabs'>
       <div className="tabs__controls product__tabs-controls">
         {
           tabs && tabs.length && tabs.map((tab, index) => (
             <button
               key={tab.title}
+              data-testid={`tab-button-${index}`}
               className={index === activeTab ? 'tabs__control is-active' : 'tabs__control'}
               type="button"
               onClick={() => handleActiveTabClick(index)}

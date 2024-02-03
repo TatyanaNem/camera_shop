@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import { ModalReview } from '../modals/modal-review';
+import { ModalReview } from '../modals/modal-review/modal-review';
 import { TReview } from '../../common/types/review';
 import ReviewCard from '../review-card';
 import { REVIEWS_SHOW_NUMBER } from '../../common/const';
-import { ModalReviewSuccess } from '../modals/modal-review-success';
+import { ModalReviewSuccess } from '../modals/modal-review-success/modal-review-success';
 import { compareDates } from '../../utils/date';
 
 type TReviewsBlockProps = {
@@ -35,7 +35,7 @@ export function ReviewsBlock ({reviews, activeProductId}: TReviewsBlockProps) {
 
   return (
     <>
-      <section className="review-block">
+      <section className="review-block" data-testid='review-block'>
         <div className="container">
           <div className="page-content__headed">
             <h2 className="title title--h3">Отзывы</h2>

@@ -32,6 +32,7 @@ export function Modal ({modalActive, setModalActive, className, children}: TModa
       className={classNames('modal', className, {
         'is-active': modalActive
       })}
+      data-testid='modal'
       onClick={handleModalClick}
       onKeyDown={handleKeyDown}
     >

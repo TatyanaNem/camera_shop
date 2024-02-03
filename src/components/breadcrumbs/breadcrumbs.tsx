@@ -1,6 +1,6 @@
 import { useLocation, useParams} from 'react-router-dom';
 import BreadcrumbsItem from '../breadcrumbs-item';
-import BreadcrumbsItemProduct from '../breadcrums-item-product';
+import BreadcrumbsItemProduct from '../breadcrumbs-item-product';
 
 export function Breadcrumbs() {
   const {id} = useParams();

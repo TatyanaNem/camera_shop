@@ -1,7 +1,7 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
-import Modal from '../common/modal';
-import { useAppDispatch } from '../../common/hooks';
-import { postReview } from '../../store/api-actions';
+import Modal from '../../common/modal';
+import { useAppDispatch } from '../../../common/hooks';
+import { postReview } from '../../../store/api-actions';
 import { useEffect, useRef } from 'react';
 
 type TModalReviewProps = {
@@ -57,7 +57,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
   return (
     <Modal modalActive={modalActive} setModalActive={setModalActive} className={className}>
       <p className="title title--h4">Оставить отзыв</p>
-      <div className="form-review">
+      <div className="form-review" data-testid='form-review'>
         <form
           method="post"
           onSubmit={(event) =>
@@ -163,6 +163,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                   type="text"
                   name="userName"
                   placeholder="Введите ваше имя"
+                  data-testid='user-name'
                 />
               </label>
               {errors.userName && errors.userName.type === 'required' && <p className="custom-input__error">Нужно указать имя</p>}

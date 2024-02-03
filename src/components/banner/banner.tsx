@@ -24,7 +24,7 @@ export function Banner ({slides}: TBannerProps) {
     >
       {
         slides.map((slide) => (
-          <SwiperSlide key={slide.id}>
+          <SwiperSlide key={slide.id} data-testid='promo-slide'>
             <div className="banner">
               <picture>
                 <source type="image/webp" srcSet={`${slide.previewImgWebp}, ${slide.previewImgWebp2x} 2x`}/>

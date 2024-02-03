@@ -10,7 +10,7 @@ import { Tabs } from '../../components/tabs/tabs';
 import SimilarProducts from '../../components/similar-products';
 import ReviewsBlock from '../../components/reviews-block';
 import GoTopButton from '../../components/common/go-top-button';
-import Breadcrumbs from '../../components/breadcrumbs';
+import {Spinner} from '../../components/common/spinner/spinner';
 
 export function ProductPage () {
   const [showsScrollTop, setShowScrollTop] = useState(false);
@@ -46,7 +46,7 @@ export function ProductPage () {
   }, []);
 
   if (fetchingStatus === RequestStatus.Loading) {
-    return <h1>Loading...</h1>;
+    return <Spinner />;
   }
 
   if(fetchingStatus !== RequestStatus.Success || !activeProduct) {
@@ -56,8 +56,7 @@ export function ProductPage () {
   const {name, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, price, rating, reviewCount, vendorCode, type, category, level, description} = activeProduct;
 
   return (
-    <div className="page-content">
-      <Breadcrumbs />
+    <>
       <div className="page-content__section">
         <section className="product">
           <div className="container">
@@ -97,6 +96,6 @@ export function ProductPage () {
         {!!activeProductReviews && <ReviewsBlock reviews={activeProductReviews} activeProductId={Number(id)}/>}
       </div>
       {showsScrollTop && <GoTopButton />}
-    </div>
+    </>
   );
 }

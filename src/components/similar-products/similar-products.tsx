@@ -26,7 +26,7 @@ export function SimilarProducts ({similarProducts}: TSimilarProductsProps) {
   }
 
   return (
-    <section className="product-similar">
+    <section className="product-similar" data-testid='product-similar'>
       <div className="container">
         <h2 className="title title--h3">Похожие товары</h2>
         <div className="product-similar__slider">
@@ -46,9 +46,10 @@ export function SimilarProducts ({similarProducts}: TSimilarProductsProps) {
             }}
           >
             {
-              similarProducts.map((item) => (
+              !!similarProducts && similarProducts.map((item) => (
                 <SwiperSlide
                   key={item.id}
+                  data-testid='similar-slide'
                 >
                   <ProductCard product={item} className='is-active'/>
                 </SwiperSlide>

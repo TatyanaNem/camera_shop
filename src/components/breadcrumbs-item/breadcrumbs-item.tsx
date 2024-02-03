@@ -17,7 +17,7 @@ export function BreadcrumbsItem ({path, notLast}: TBreadcrumbsItemProps) {
       {
         notLast
           ? (
-            <Link className="breadcrumbs__link" to={getPath(path)}>
+            <Link className="breadcrumbs__link" to={getPath(path)} data-testid='breadcrumbs__link'>
               {PathName[path]}
               <svg width="5" height="8" aria-hidden="true">
                 <use xlinkHref="#icon-arrow-mini"></use>
@@ -25,7 +25,7 @@ export function BreadcrumbsItem ({path, notLast}: TBreadcrumbsItemProps) {
             </Link>
           )
           : (
-            <span className="breadcrumbs__link breadcrumbs__link--active">
+            <span className="breadcrumbs__link breadcrumbs__link--active" data-testid='breadcrumbs__link'>
               {
                 id
                   ? product?.name

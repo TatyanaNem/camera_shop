@@ -1,0 +1,32 @@
+import { render, screen } from '@testing-library/react';
+import Banner from '.';
+import { NameSpace, RequestStatus } from '../../common/const';
+import { State } from '../../common/types/state';
+import { mockActiveProduct } from '../../mocks/mock-active-product';
+import { withStore } from '../../mocks/mock-components/with-store';
+import { mockProducts } from '../../mocks/mock-products';
+import { BrowserRouter } from 'react-router-dom';
+
+describe('Component: Banner', () => {
+  it('should render correctly', () => {
+    const initialState: State = {
+      [NameSpace.DataProcess]: {
+        promoSlides: mockProducts,
+        products: [],
+        activeProduct: mockActiveProduct,
+        similarProducts: null,
+        activeProductReviews: []
+      },
+      [NameSpace.AppProcess]: {
+        status: RequestStatus.Idle,
+        error: null
+      }
+    };
+
+    const {withStoreComponent} = withStore(<Banner slides={mockProducts} />, initialState);
+    const bannerTestId = 'promo-slide';
+    render(withStoreComponent, {wrapper: BrowserRouter});
+
+    expect(screen.getAllByTestId(bannerTestId).length).toBe(3);
+  });
+});

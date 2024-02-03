@@ -14,8 +14,9 @@ export function GoTopButton () {
       className="up-btn"
       to="#header"
       onClick={handleButtonClick}
+      data-testid='go-top-button__link'
     >
-      <svg width="12" height="18" aria-hidden="true">
+      <svg width="12" height="18" aria-hidden="true" data-testid='go-top-button__image'>
         <use xlinkHref="#icon-arrow2"></use>
       </svg>
     </Link>

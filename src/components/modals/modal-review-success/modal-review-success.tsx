@@ -1,4 +1,4 @@
-import Modal from '../common/modal';
+import Modal from '../../common/modal';
 
 type TModalReviewSuccessProps = {
   modalActive: boolean;

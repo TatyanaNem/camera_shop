@@ -9,10 +9,10 @@ type TReviewCardProps = {
 export function ReviewCard ({reviewItem}: TReviewCardProps) {
   const {userName, createAt, rating, advantage, disadvantage, review} = reviewItem;
   return (
-    <li className="review-card">
+    <li className="review-card" data-testid='review-card'>
       <div className="review-card__head">
         <p className="title title--h4">{userName}</p>
-        <time className="review-card__data" dateTime="2022-04-13">{formatDate(createAt)}</time>
+        <time className="review-card__data" dateTime={createAt}>{formatDate(createAt)}</time>
       </div>
       <StarRating rating={rating} block='review-card'/>
       <ul className="review-card__list">
