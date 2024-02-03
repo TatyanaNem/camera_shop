@@ -5,6 +5,7 @@ import { TDataProcess } from '../../common/types/state';
 
 const initialState: TDataProcess = {
   promoSlides: [],
+  isPromoLoaded: false,
   products: [],
   activeProduct: null,
   similarProducts: null,
@@ -19,6 +20,7 @@ export const dataProcess = createSlice({
     builder
       .addCase(fetchPromoSlides.fulfilled, (state, action) => {
         state.promoSlides = action.payload;
+        state.isPromoLoaded = true;
       })
       .addCase(fetchProducts.fulfilled, (state, action) => {
         state.products = action.payload;

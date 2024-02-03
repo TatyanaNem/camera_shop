@@ -12,10 +12,10 @@ type TReviewsBlockProps = {
 }
 
 export function ReviewsBlock ({reviews, activeProductId}: TReviewsBlockProps) {
-  const reviewsItems = [...reviews].sort((a, b) => compareDates(a.createAt, b.createAt));
   const [modalActive, setModalActive] = useState(false);
   const [modalSuccessActive, setModalSuccessActive] = useState(false);
-  const [reviewsToShow, setReviewsToShow] = useState<TReview[]>([...reviewsItems.slice(0, REVIEWS_SHOW_NUMBER)]);
+  const [reviewsToShow, setReviewsToShow] = useState<TReview[]>([...reviews.slice(0, REVIEWS_SHOW_NUMBER)]);
+  const reviewsItems = [...reviews].sort((a, b) => compareDates(a.createAt, b.createAt));
   const [reviewsNumber, setReviewsNumber] = useState(REVIEWS_SHOW_NUMBER);
 
   const addMoreReviews = (start: number, end: number) => {
@@ -49,7 +49,7 @@ export function ReviewsBlock ({reviews, activeProductId}: TReviewsBlockProps) {
           </div>
           <ul className="review-block__list">
             {
-              reviewsToShow.map((item) => (
+              reviewsItems.slice(0, reviewsNumber).map((item) => (
                 <ReviewCard key={item.id} reviewItem={item}/>
               ))
             }
@@ -69,7 +69,7 @@ export function ReviewsBlock ({reviews, activeProductId}: TReviewsBlockProps) {
         </div>
       </section>
       <ModalReview modalActive={modalActive} setModalActive={setModalActive} activeProductId={activeProductId} setModalSuccessActive={setModalSuccessActive}/>
-      <ModalReviewSuccess className='modal--narrow' modalActive={modalSuccessActive} setModalActive={setModalSuccessActive}/>
+      <ModalReviewSuccess className='modal--narrow' modalSuccessActive={modalSuccessActive} setModalSuccessActive={setModalSuccessActive}/>
     </>
   );
 }

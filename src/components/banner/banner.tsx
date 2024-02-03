@@ -4,15 +4,14 @@ import 'swiper/css/pagination';
 import 'swiper/css/scrollbar';
 import styles from './banner.module.css';
 import { Pagination, A11y, Autoplay} from 'swiper/modules';
-import { TPromo } from '../../common/types/promo';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../common/const';
+import { useAppSelector } from '../../common/hooks';
+import { selectPromoSides } from '../../store/data-process/selectors';
 
-type TBannerProps = {
-  slides: TPromo[];
-}
+export function Banner () {
+  const slides = useAppSelector(selectPromoSides);
 
-export function Banner ({slides}: TBannerProps) {
   return (
     <Swiper
       modules={[Pagination, A11y, Autoplay]}

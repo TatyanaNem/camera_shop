@@ -10,6 +10,7 @@ export type AppDispatch = typeof store.dispatch;
 
 export type TDataProcess = {
   promoSlides: TPromo[];
+  isPromoLoaded: boolean;
   products: TCamera[];
   activeProduct: null | TCamera;
   similarProducts: null | TCamera[];

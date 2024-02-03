@@ -1,5 +1,7 @@
-import { KeyboardEvent, ReactNode } from 'react';
+import { KeyboardEvent, ReactNode, useRef } from 'react';
 import classNames from 'classnames';
+import ModalFocusCatcher from '../../modal-focus-catcher';
+import {ModalCloseButton} from '../../modal-close-button';
 
 type TModalProps = {
   modalActive: boolean;
@@ -9,6 +11,7 @@ type TModalProps = {
 }
 
 export function Modal ({modalActive, setModalActive, className, children}: TModalProps) {
+  const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Escape') {
@@ -27,6 +30,10 @@ export function Modal ({modalActive, setModalActive, className, children}: TModa
     document.body.style.overflow = 'visible';
   };
 
+  const switchFocusToCloseButton = () => {
+    closeButtonRef?.current?.focus();
+  };
+
   return (
     <div
       className={classNames('modal', className, {
@@ -42,17 +49,17 @@ export function Modal ({modalActive, setModalActive, className, children}: TModa
           className="modal__content"
           onClick={(event) => event.stopPropagation()}
         >
+          <ModalFocusCatcher
+            handleCatcherFocus={switchFocusToCloseButton}
+          />
+          <ModalCloseButton
+            handleButtonClick={handleCloseButtonClick}
+            ref={closeButtonRef}
+          />
           {children}
-          <button
-            className="cross-btn"
-            type="button"
-            aria-label="Закрыть попап"
-            onClick={handleCloseButtonClick}
-          >
-            <svg width="10" height="10" aria-hidden="true">
-              <use xlinkHref="#icon-close"></use>
-            </svg>
-          </button>
+          <ModalFocusCatcher
+            handleCatcherFocus={switchFocusToCloseButton}
+          />
         </div>
       </div>
     </div>

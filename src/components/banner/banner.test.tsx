@@ -12,6 +12,7 @@ describe('Component: Banner', () => {
     const initialState: State = {
       [NameSpace.DataProcess]: {
         promoSlides: mockProducts,
+        isPromoLoaded: false,
         products: [],
         activeProduct: mockActiveProduct,
         similarProducts: null,
@@ -23,7 +24,7 @@ describe('Component: Banner', () => {
       }
     };
 
-    const {withStoreComponent} = withStore(<Banner slides={mockProducts} />, initialState);
+    const {withStoreComponent} = withStore(<Banner />, initialState);
     const bannerTestId = 'promo-slide';
     render(withStoreComponent, {wrapper: BrowserRouter});
 

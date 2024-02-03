@@ -10,6 +10,7 @@ describe('test of data-process reducer', () => {
   it('should return the initial state', () => {
     const initialState: TDataProcess = {
       promoSlides: [],
+      isPromoLoaded: false,
       products: [],
       activeProduct: null,
       similarProducts: null,
@@ -23,9 +24,11 @@ describe('test of data-process reducer', () => {
   it('should update state with new promo slides', () => {
     const prevState: Partial<TDataProcess> = {
       promoSlides: [],
+      isPromoLoaded: false
     };
     const updatedState: Partial<TDataProcess> = {
       promoSlides: [mockPromoSlide, mockPromoSlide, mockPromoSlide],
+      isPromoLoaded: true
     };
 
     expect(dataProcessReducer(prevState as TDataProcess,

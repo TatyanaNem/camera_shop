@@ -1,8 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../common/hooks';
-import Banner from '../../components/banner';
 import { fetchProducts, fetchPromoSlides } from '../../store/api-actions';
-import { selectProducts, selectPromoSides } from '../../store/data-process/selectors';
+import { selectProducts } from '../../store/data-process/selectors';
 import CatalogFilter from '../../components/catalog-filter';
 import CatalogSort from '../../components/catalog-sort';
 import Pagination from '../../components/pagination';
@@ -15,7 +14,6 @@ import { selectAppStatus } from '../../store/app-process/selectors';
 export function CatalogPage () {
   const [searchParams, setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
-  const slides = useAppSelector(selectPromoSides);
   const products = useAppSelector(selectProducts);
   const isLoading = useAppSelector(selectAppStatus);
   const [currentPage, setCurrentPage] = useState<number>(DEFAULT_PAGE);
@@ -45,23 +43,20 @@ export function CatalogPage () {
   };
 
   return (
-    <>
-      <Banner slides={slides}/>
-      <section className="catalog">
-        <div className="container">
-          <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
-          <div className="page-content__columns">
-            <div className="catalog__aside">
-              <CatalogFilter />
-            </div>
-            <div className="catalog__content">
-              <CatalogSort />
-              {isLoading ? <ProductList currentProducts={currentProducts}/> : <Spinner />}
-              {products.length > 9 && <Pagination totalItems={products.length} currentPage={currentPage} onPageChange={handleCurrentPageChange}/>}
-            </div>
+    <section className="catalog">
+      <div className="container">
+        <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
+        <div className="page-content__columns">
+          <div className="catalog__aside">
+            <CatalogFilter />
+          </div>
+          <div className="catalog__content">
+            <CatalogSort />
+            {isLoading ? <ProductList currentProducts={currentProducts}/> : <Spinner />}
+            {products.length > 9 && <Pagination totalItems={products.length} currentPage={currentPage} onPageChange={handleCurrentPageChange}/>}
           </div>
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

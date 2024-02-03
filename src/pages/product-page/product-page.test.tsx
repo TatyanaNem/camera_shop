@@ -10,6 +10,7 @@ describe('Component: ProductPage', () => {
   const initialState: State = {
     [NameSpace.DataProcess]: {
       promoSlides: [],
+      isPromoLoaded: false,
       products: [],
       activeProduct: mockActiveProduct,
       similarProducts: null,

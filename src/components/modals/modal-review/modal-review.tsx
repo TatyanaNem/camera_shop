@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Modal from '../../common/modal';
 import { useAppDispatch } from '../../../common/hooks';
 import { postReview } from '../../../store/api-actions';
-import { useEffect, useRef } from 'react';
+import { useRef } from 'react';
 
 type TModalReviewProps = {
   modalActive: boolean;
@@ -22,8 +22,7 @@ type TFormIValues = {
 
 export function ModalReview ({modalActive, setModalActive, className, activeProductId, setModalSuccessActive}: TModalReviewProps) {
   const dispatch = useAppDispatch();
-  const firstInputRef = useRef<HTMLFieldSetElement>(null);
-  const lastInputRef = useRef<HTMLButtonElement>(null);
+  const ratingRef = useRef<HTMLInputElement | null>(null);
 
   const { register, handleSubmit, formState: { errors, isSubmitting }, watch, reset } = useForm<TFormIValues>({
     defaultValues: {
@@ -36,6 +35,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
     mode: 'onChange'
   });
   const rateStarsValue = watch('rating');
+  const {ref, ...rest} = register('rating', {required: true});
 
   const onSubmit: SubmitHandler<TFormIValues> = (data: TFormIValues, event?: React.BaseSyntheticEvent) => {
     event?.preventDefault();
@@ -43,16 +43,11 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
       if (response.meta.requestStatus === 'fulfilled') {
         setModalActive(false);
         setModalSuccessActive(true);
+        document.body.style.overflow = 'visible';
         reset();
       }
     });
   };
-
-  useEffect(() => {
-    if (firstInputRef.current) {
-      firstInputRef.current.focus();
-    }
-  }, []);
 
   return (
     <Modal modalActive={modalActive} setModalActive={setModalActive} className={className}>
@@ -64,7 +59,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
             void handleSubmit(onSubmit)(event)}
         >
           <div className="form-review__rate">
-            <fieldset className={errors.rating ? 'rate form-review__item is-invalid' : 'rate form-review__item'} ref={firstInputRef} autoFocus>
+            <fieldset className={errors.rating ? 'rate form-review__item is-invalid' : 'rate form-review__item'} autoFocus>
               <legend className="rate__caption">Рейтинг
                 <svg width="9" height="9" aria-hidden="true">
                   <use xlinkHref="#icon-snowflake"></use>
@@ -79,7 +74,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     tabIndex={5}
                     className="visually-hidden"
                     id="star-5"
-                    name="rating"
                     type="radio"
                     value="5"
                   />
@@ -91,7 +85,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     tabIndex={4}
                     className="visually-hidden"
                     id="star-4"
-                    name="rating"
                     type="radio"
                     value="4"
                   />
@@ -103,7 +96,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     tabIndex={3}
                     className="visually-hidden"
                     id="star-3"
-                    name="rating"
                     type="radio"
                     value="3"
                   />
@@ -115,7 +107,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     tabIndex={2}
                     className="visually-hidden"
                     id="star-2"
-                    name="rating"
                     type="radio"
                     value="2"
                   />
@@ -127,9 +118,13 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     tabIndex={1}
                     className="visually-hidden"
                     id="star-1"
-                    name="rating"
                     type="radio"
                     value="1"
+                    ref={(evt) => {
+                      ref(evt);
+                      ratingRef.current = evt;
+                    }}
+                    {...rest}
                   />
                   <label className="rate__label" htmlFor="star-1" title="Ужасно"></label>
                 </div>
@@ -266,7 +261,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
             </div>
           </div>
           <button
-            ref={lastInputRef}
             className="btn btn--purple form-review__btn"
             type="submit"
             disabled={isSubmitting}
