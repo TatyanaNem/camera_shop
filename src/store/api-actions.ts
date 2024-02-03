@@ -1,6 +1,6 @@
 import { TCamera } from './../common/types/camera';
 import { AxiosInstance } from 'axios';
-import { APIRoute, ApiError } from '../common/const';
+import { APIRoute, ApiError, NameSpace } from '../common/const';
 import { TPromo } from '../common/types/promo';
 import { AppDispatch, State } from '../common/types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -15,7 +15,7 @@ type TExtra = {
 }
 
 export const fetchPromoSlides = createAsyncThunk<TPromo[], undefined, TExtra>(
-  'dataProcess/fetchPromoSlides',
+  `${NameSpace.DataProcess}/fetchPromoSlides`,
   async (_arg, {extra: api, rejectWithValue}) => {
     try {
       const response = await api.get<TPromo[]>(APIRoute.Promo);
@@ -26,7 +26,7 @@ export const fetchPromoSlides = createAsyncThunk<TPromo[], undefined, TExtra>(
   });
 
 export const fetchProducts = createAsyncThunk<TCamera[], undefined, TExtra>(
-  'dataProcess/fetchProducts',
+  `${NameSpace.DataProcess}/fetchProducts`,
   async (_arg, {extra: api, rejectWithValue}) => {
     try {
       const response = await api.get<TCamera[]>(APIRoute.Cameras);
@@ -37,7 +37,7 @@ export const fetchProducts = createAsyncThunk<TCamera[], undefined, TExtra>(
   });
 
 export const fetchActiveProduct = createAsyncThunk<TCamera, TCamera['id'], TExtra>(
-  'dataProcess/fetchActiveProduct',
+  `${NameSpace.DataProcess}/fetchActiveProduct`,
   async (id, {extra: api, rejectWithValue}) => {
     try {
       const response = await api.get<TCamera>(`${APIRoute.Cameras}/${id}`);
@@ -49,7 +49,7 @@ export const fetchActiveProduct = createAsyncThunk<TCamera, TCamera['id'], TExtr
 );
 
 export const fetchSimilarProducts = createAsyncThunk<TCamera[], TCamera['id'], TExtra>(
-  'dataProcess/fetchSimilarProducts',
+  `${NameSpace.DataProcess}/fetchSimilarProducts`,
   async (id, {extra: api, rejectWithValue}) => {
     try {
       const response = await api.get<TCamera[]>(`${APIRoute.Cameras}/${id}${APIRoute.Similar}`);
@@ -61,7 +61,7 @@ export const fetchSimilarProducts = createAsyncThunk<TCamera[], TCamera['id'], T
 );
 
 export const fetchReviews = createAsyncThunk<TReview[], TCamera['id'], TExtra>(
-  'dataProcess/fetchReviews',
+  `${NameSpace.DataProcess}/fetchReviews`,
   async (id, {extra: api, rejectWithValue}) => {
     try {
       const response = await api.get<TReview[]>(`${APIRoute.Cameras}/${id}${APIRoute.Reviews}`);
@@ -73,7 +73,7 @@ export const fetchReviews = createAsyncThunk<TReview[], TCamera['id'], TExtra>(
 );
 
 export const postReview = createAsyncThunk<TReview, TReviewData, TExtra>(
-  'dataProcess/postReview',
+  `${NameSpace.DataProcess}/postReview`,
   async (reviewData, {extra: api, rejectWithValue}) => {
     try {
       const response = await api.post<TReview>(APIRoute.Reviews, reviewData);
