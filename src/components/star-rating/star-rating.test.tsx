@@ -9,6 +9,7 @@ describe('Component: StarRating', () => {
     const initialState: State = {
       [NameSpace.DataProcess]: {
         promoSlides: [],
+        isPromoLoaded: false,
         products: [],
         activeProduct: null,
         similarProducts: null,

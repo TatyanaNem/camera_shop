@@ -7,6 +7,7 @@ import { withStore } from '../mocks/mock-components/with-store';
 const initialState: State = {
   [NameSpace.DataProcess]: {
     promoSlides: [],
+    isPromoLoaded: false,
     products: [],
     activeProduct: null,
     similarProducts: null,

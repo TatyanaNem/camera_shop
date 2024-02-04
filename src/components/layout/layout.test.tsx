@@ -10,6 +10,7 @@ describe('Component: Layout', () => {
     const initialState: State = {
       [NameSpace.DataProcess]: {
         promoSlides: [],
+        isPromoLoaded: false,
         products: [],
         activeProduct: null,
         similarProducts: null,

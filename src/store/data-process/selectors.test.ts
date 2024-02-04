@@ -9,6 +9,7 @@ describe('DataProcess selectors', () => {
   const state = {
     [NameSpace.DataProcess]: {
       promoSlides: [mockPromoSlide, mockPromoSlide],
+      isPromoLoaded: true,
       products: mockProducts,
       activeProduct: mockActiveProduct,
       similarProducts: mockProducts,

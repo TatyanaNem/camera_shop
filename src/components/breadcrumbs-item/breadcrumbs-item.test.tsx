@@ -10,6 +10,7 @@ describe('Component: BreadcrumbsItem', () => {
     const initialState: State = {
       [NameSpace.DataProcess]: {
         promoSlides: [],
+        isPromoLoaded: false,
         products: [],
         activeProduct: null,
         similarProducts: null,
