@@ -6,3 +6,8 @@ export type TReviewData = {
   review: string;
   rating: number;
 }
+
+export type TPostReviewProps = {
+  reviewData: TReviewData;
+  callWhenResolved: () => void;
+}

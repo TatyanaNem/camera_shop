@@ -5,7 +5,7 @@ import { TPromo } from '../common/types/promo';
 import { AppDispatch, State } from '../common/types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TReview } from '../common/types/review';
-import { TReviewData } from '../common/types/review-data';
+import { TPostReviewProps } from '../common/types/review-data';
 
 type TExtra = {
   dispatch: AppDispatch;
@@ -72,11 +72,12 @@ export const fetchReviews = createAsyncThunk<TReview[], TCamera['id'], TExtra>(
   }
 );
 
-export const postReview = createAsyncThunk<TReview, TReviewData, TExtra>(
+export const postReview = createAsyncThunk<TReview, TPostReviewProps, TExtra>(
   `${NameSpace.DataProcess}/postReview`,
-  async (reviewData, {extra: api, rejectWithValue}) => {
+  async ({reviewData, callWhenResolved}, {extra: api, rejectWithValue}) => {
     try {
       const response = await api.post<TReview>(APIRoute.Reviews, reviewData);
+      callWhenResolved();
       return response.data;
     } catch (error) {
       return rejectWithValue(ApiError.OnPostReview);

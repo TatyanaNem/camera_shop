@@ -6,10 +6,10 @@ import { useRef } from 'react';
 
 type TModalReviewProps = {
   modalActive: boolean;
-  setModalActive: (isActive: boolean) => void;
+  setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
   className?: string;
   activeProductId: number;
-  setModalSuccessActive: (isActive: boolean) => void;
+  setModalSuccessActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 type TFormIValues = {
@@ -39,18 +39,19 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
 
   const onSubmit: SubmitHandler<TFormIValues> = (data: TFormIValues, event?: React.BaseSyntheticEvent) => {
     event?.preventDefault();
-    dispatch(postReview({...data, rating: Number(data.rating), cameraId: activeProductId})).then((response) => {
-      if (response.meta.requestStatus === 'fulfilled') {
+    dispatch(postReview({
+      reviewData: {...data, rating: Number(data.rating), cameraId: activeProductId},
+      callWhenResolved: () => {
         setModalActive(false);
         setModalSuccessActive(true);
         document.body.style.overflow = 'visible';
         reset();
       }
-    });
+    }));
   };
 
   return (
-    <Modal modalActive={modalActive} setModalActive={setModalActive} className={className}>
+    <Modal modalActive={modalActive} setModalActive={setModalActive} className={className} defaultFocusedElement={ratingRef}>
       <p className="title title--h4">Оставить отзыв</p>
       <div className="form-review" data-testid='form-review'>
         <form
@@ -71,7 +72,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     {...register('rating', {
                       required: true,
                     })}
-                    tabIndex={5}
                     className="visually-hidden"
                     id="star-5"
                     type="radio"
@@ -82,7 +82,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     {...register('rating', {
                       required: true,
                     })}
-                    tabIndex={4}
                     className="visually-hidden"
                     id="star-4"
                     type="radio"
@@ -93,7 +92,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     {...register('rating', {
                       required: true,
                     })}
-                    tabIndex={3}
                     className="visually-hidden"
                     id="star-3"
                     type="radio"
@@ -104,7 +102,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     {...register('rating', {
                       required: true,
                     })}
-                    tabIndex={2}
                     className="visually-hidden"
                     id="star-2"
                     type="radio"
@@ -115,7 +112,6 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     {...register('rating', {
                       required: true,
                     })}
-                    tabIndex={1}
                     className="visually-hidden"
                     id="star-1"
                     type="radio"

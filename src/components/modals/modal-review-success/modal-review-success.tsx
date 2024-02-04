@@ -1,3 +1,4 @@
+import { useRef } from 'react';
 import Modal from '../../common/modal';
 
 type TModalReviewSuccessProps = {
@@ -7,13 +8,20 @@ type TModalReviewSuccessProps = {
 }
 
 export function ModalReviewSuccess ({modalSuccessActive, setModalSuccessActive, className}: TModalReviewSuccessProps) {
+  debugger;
+  const continueButtonRef = useRef<HTMLButtonElement>(null);
   const handleButtonClick = () => {
     setModalSuccessActive(false);
     document.body.style.overflow = 'visible';
   };
 
   return (
-    <Modal modalActive={modalSuccessActive} setModalActive={setModalSuccessActive} className={className}>
+    <Modal
+      modalActive={modalSuccessActive}
+      setModalActive={setModalSuccessActive}
+      className={className}
+      defaultFocusedElement={continueButtonRef}
+    >
       <p className="title title--h4">Спасибо за отзыв</p>
       <svg className="modal__icon" width="80" height="78" aria-hidden="true">
         <use xlinkHref="#icon-review-success"></use>
@@ -23,6 +31,7 @@ export function ModalReviewSuccess ({modalSuccessActive, setModalSuccessActive, 
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
           onClick={handleButtonClick}
+          ref={continueButtonRef}
         >Вернуться к покупкам
         </button>
       </div>

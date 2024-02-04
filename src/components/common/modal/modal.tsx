@@ -1,4 +1,4 @@
-import { KeyboardEvent, ReactNode, useRef } from 'react';
+import { KeyboardEvent, MutableRefObject, ReactNode, useCallback, useEffect, useRef } from 'react';
 import classNames from 'classnames';
 import ModalFocusCatcher from '../../modal-focus-catcher';
 import {ModalCloseButton} from '../../modal-close-button';
@@ -8,9 +8,10 @@ type TModalProps = {
   setModalActive: (isActive: boolean) => void;
   className?: string;
   children: ReactNode;
+  defaultFocusedElement?: MutableRefObject<HTMLElement | null>;
 }
 
-export function Modal ({modalActive, setModalActive, className, children}: TModalProps) {
+export function Modal ({modalActive, setModalActive, className, children, defaultFocusedElement}: TModalProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -33,6 +34,19 @@ export function Modal ({modalActive, setModalActive, className, children}: TModa
   const switchFocusToCloseButton = () => {
     closeButtonRef?.current?.focus();
   };
+
+  const setupDefaultFocus = useCallback(() => {
+    defaultFocusedElement?.current?.focus();
+  }, [defaultFocusedElement]);
+
+  useEffect(() => {
+    if (modalActive) {
+      setTimeout(() => {
+        setupDefaultFocus();
+      }, 100);
+    }
+  },
+  [modalActive, defaultFocusedElement, setupDefaultFocus]);
 
   return (
     <div
