@@ -20,5 +20,4 @@ export type TDataProcess = {
 export type TAppProcess = {
   status: RequestStatus;
   error: null | ApiError;
-  reviewSendStatus: RequestStatus;
 }

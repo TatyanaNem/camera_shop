@@ -5,8 +5,7 @@ import { fetchActiveProduct, fetchProducts, fetchPromoSlides, fetchReviews, fetc
 
 const initialState: TAppProcess = {
   status: RequestStatus.Idle,
-  error: null,
-  reviewSendStatus: RequestStatus.Idle
+  error: null
 };
 
 export const appProcess = createSlice({
@@ -80,13 +79,13 @@ export const appProcess = createSlice({
         }
       })
       .addCase(postReview.pending, (state) => {
-        state.reviewSendStatus = RequestStatus.Loading;
+        state.status = RequestStatus.Loading;
       })
       .addCase(postReview.fulfilled, (state) => {
-        state.reviewSendStatus = RequestStatus.Success;
+        state.status = RequestStatus.Success;
       })
       .addCase(postReview.rejected, (state, action) => {
-        state.reviewSendStatus = RequestStatus.Failed;
+        state.status = RequestStatus.Failed;
         if (action.payload) {
           state.error = action.payload;
         }

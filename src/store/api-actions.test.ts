@@ -225,7 +225,10 @@ describe('when async actions', () => {
 
       expect(store.getActions()).toEqual([]);
 
-      await store.dispatch(postReview(mockReviewData));
+      await store.dispatch(postReview({
+        reviewData: mockReviewData,
+        callWhenResolved: () => vi.fn()
+      }));
       const actions = extractActionTypes(store.getActions());
       const postReviewFulfilled = (store.getActions()).at(1) as ReturnType<typeof postReview.fulfilled>;
 
@@ -246,7 +249,10 @@ describe('when async actions', () => {
 
       expect(store.getActions()).toEqual([]);
 
-      await store.dispatch(postReview(mockReviewData));
+      await store.dispatch(postReview({
+        reviewData: mockReviewData,
+        callWhenResolved: () => vi.fn()
+      }));
       const actions = extractActionTypes(store.getActions());
 
       expect(actions).toEqual(

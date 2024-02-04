@@ -8,7 +8,6 @@ type TModalReviewSuccessProps = {
 }
 
 export function ModalReviewSuccess ({modalSuccessActive, setModalSuccessActive, className}: TModalReviewSuccessProps) {
-  debugger;
   const continueButtonRef = useRef<HTMLButtonElement>(null);
   const handleButtonClick = () => {
     setModalSuccessActive(false);

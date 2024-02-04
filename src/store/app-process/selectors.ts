@@ -3,4 +3,3 @@ import { State } from '../../common/types/state';
 
 export const selectAppStatus = (state: Pick<State, NameSpace.AppProcess>): RequestStatus => state[NameSpace.AppProcess].status;
 export const selectAppError = (state: Pick<State, NameSpace.AppProcess>): string | null => state[NameSpace.AppProcess].error;
-export const selectReviewSendStatus = (state: Pick<State, NameSpace.AppProcess>): RequestStatus => state[NameSpace.AppProcess].reviewSendStatus;
