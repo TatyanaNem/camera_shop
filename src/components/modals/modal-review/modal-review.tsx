@@ -1,36 +1,35 @@
 import { SubmitHandler, useForm } from 'react-hook-form';
 import Modal from '../../common/modal';
-import { useAppDispatch } from '../../../common/hooks';
-import { postReview } from '../../../store/api-actions';
-import { useRef } from 'react';
+import { useAppSelector } from '../../../common/hooks';
+import { useLayoutEffect, useRef } from 'react';
+import { selectModalReviewState, selectShouldResetStatus } from '../../../store/review-process/selectors';
+import { TReviewFormData } from '../../../common/types/review-data';
 
 type TModalReviewProps = {
-  modalActive: boolean;
-  setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
-  className?: string;
-  activeProductId: number;
-  setModalSuccessActive: React.Dispatch<React.SetStateAction<boolean>>;
+  onModalSubmit: (data: TReviewFormData) => void;
+  onModalClose: () => void;
 }
 
 type TFormIValues = {
   rating: number;
   userName: string;
-  advantage: string;
-  disadvantage: string;
-  review: string;
+  userPlus: string;
+  userMinus: string;
+  userComment: string;
 }
 
-export function ModalReview ({modalActive, setModalActive, className, activeProductId, setModalSuccessActive}: TModalReviewProps) {
-  const dispatch = useAppDispatch();
+export function ModalReview ({onModalSubmit, onModalClose}: TModalReviewProps) {
+  const isModalActive = useAppSelector(selectModalReviewState);
+  const shouldResetStatus = useAppSelector(selectShouldResetStatus);
   const ratingRef = useRef<HTMLInputElement | null>(null);
 
-  const { register, handleSubmit, formState: { errors, isSubmitting }, watch, reset } = useForm<TFormIValues>({
+  const { register, handleSubmit, formState: { errors, isSubmitting }, watch, reset} = useForm<TFormIValues>({
     defaultValues: {
       rating: 0,
       userName: '',
-      advantage: '',
-      disadvantage: '',
-      review: ''
+      userPlus: '',
+      userMinus: '',
+      userComment: ''
     },
     mode: 'onChange'
   });
@@ -39,20 +38,29 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
 
   const onSubmit: SubmitHandler<TFormIValues> = (data: TFormIValues, event?: React.BaseSyntheticEvent) => {
     event?.preventDefault();
-    dispatch(postReview({
-      reviewData: {...data, rating: Number(data.rating), cameraId: activeProductId},
-      callWhenResolved: () => {
-        setModalActive(false);
-        setModalSuccessActive(true);
-        document.body.style.overflow = 'visible';
-        reset();
-      }
-    }));
+    onModalSubmit({
+      userName: data.userName,
+      advantage: data.userPlus,
+      disadvantage: data.userMinus,
+      review: data.userComment,
+      rating: Number(data.rating)
+    });
   };
 
+  useLayoutEffect(() => {
+    if (shouldResetStatus) {
+      reset();
+    }
+  }, [shouldResetStatus, reset]);
+
   return (
-    <Modal modalActive={modalActive} setModalActive={setModalActive} className={className} defaultFocusedElement={ratingRef}>
-      <p className="title title--h4">Оставить отзыв</p>
+    <Modal
+      title='Оставить отзыв'
+      isNarrow={false}
+      modalActive={isModalActive}
+      onPopupClose={onModalClose}
+      defaultFocusedElement={ratingRef}
+    >
       <div className="form-review" data-testid='form-review'>
         <form
           method="post"
@@ -161,7 +169,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
               {errors.userName && errors.userName.type === 'minLength' && <p className="custom-input__error">{errors.userName.message}</p>}
               {errors.userName && errors.userName.type === 'maxLength' && <p className="custom-input__error">{errors.userName.message}</p>}
             </div>
-            <div className={errors.advantage ? 'custom-input form-review__item is-invalid' : 'custom-input form-review__item'}>
+            <div className={errors.userPlus ? 'custom-input form-review__item is-invalid' : 'custom-input form-review__item'}>
               <label>
                 <span className="custom-input__label">Достоинства
                   <svg width="9" height="9" aria-hidden="true">
@@ -169,7 +177,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                   </svg>
                 </span>
                 <input
-                  {...register('advantage', {
+                  {...register('userPlus', {
                     required: {
                       value: true,
                       message: 'Нужно указать достоинства'
@@ -184,15 +192,15 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     }
                   })}
                   type="text"
-                  name="advantage"
+                  name="userPlus"
                   placeholder="Основные преимущества товара"
                 />
               </label>
-              {errors.advantage && errors.advantage.type === 'required' && <p className="custom-input__error">{errors.advantage.message}</p>}
-              {errors.advantage && errors.advantage.type === 'minLength' && <p className="custom-input__error">{errors.advantage.message}</p>}
-              {errors.advantage && errors.advantage.type === 'maxLength' && <p className="custom-input__error">{errors.advantage.message}</p>}
+              {errors.userPlus && errors.userPlus.type === 'required' && <p className="custom-input__error">{errors.userPlus.message}</p>}
+              {errors.userPlus && errors.userPlus.type === 'minLength' && <p className="custom-input__error">{errors.userPlus.message}</p>}
+              {errors.userPlus && errors.userPlus.type === 'maxLength' && <p className="custom-input__error">{errors.userPlus.message}</p>}
             </div>
-            <div className={errors.disadvantage ? 'custom-input form-review__item is-invalid' : 'custom-input form-review__item'}>
+            <div className={errors.userMinus ? 'custom-input form-review__item is-invalid' : 'custom-input form-review__item'}>
               <label>
                 <span className="custom-input__label">Недостатки
                   <svg width="9" height="9" aria-hidden="true">
@@ -200,7 +208,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                   </svg>
                 </span>
                 <input
-                  {...register('disadvantage', {
+                  {...register('userMinus', {
                     required: {
                       value: true,
                       message: 'Нужно указать недостатки'
@@ -215,15 +223,15 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                     }
                   })}
                   type="text"
-                  name="disadvantage"
+                  name="userMinus"
                   placeholder="Главные недостатки товара"
                 />
               </label>
-              {errors.disadvantage && errors.disadvantage.type === 'required' && <p className="custom-input__error">{errors.disadvantage.message}</p>}
-              {errors.disadvantage && errors.disadvantage.type === 'minLength' && <p className="custom-input__error">{errors.disadvantage.message}</p>}
-              {errors.disadvantage && errors.disadvantage.type === 'maxLength' && <p className="custom-input__error">{errors.disadvantage.message}</p>}
+              {errors.userMinus && errors.userMinus.type === 'required' && <p className="custom-input__error">{errors.userMinus.message}</p>}
+              {errors.userMinus && errors.userMinus.type === 'minLength' && <p className="custom-input__error">{errors.userMinus.message}</p>}
+              {errors.userMinus && errors.userMinus.type === 'maxLength' && <p className="custom-input__error">{errors.userMinus.message}</p>}
             </div>
-            <div className={errors.review ? 'custom-textarea form-review__item is-invalid' : 'custom-textarea form-review__item'}>
+            <div className={errors.userComment ? 'custom-textarea form-review__item is-invalid' : 'custom-textarea form-review__item'}>
               <label>
                 <span className="custom-textarea__label">Комментарий
                   <svg width="9" height="9" aria-hidden="true">
@@ -231,7 +239,7 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                   </svg>
                 </span>
                 <textarea
-                  {...register('review', {
+                  {...register('userComment', {
                     required: {
                       value: true,
                       message: 'Нужно добавить комментарий'
@@ -245,15 +253,15 @@ export function ModalReview ({modalActive, setModalActive, className, activeProd
                       message: 'Не более 160 символов'
                     }
                   })}
-                  name="review"
+                  name="userComment"
                   minLength={5}
                   placeholder="Поделитесь своим опытом покупки"
                 >
                 </textarea>
               </label>
-              {errors.review && errors.review.type === 'required' && <div className="custom-textarea__error">{errors.review.message}</div>}
-              {errors.review && errors.review.type === 'minLength' && <p className="custom-input__error">{errors.review.message}</p>}
-              {errors.review && errors.review.type === 'maxLength' && <p className="custom-input__error">{errors.review.message}</p>}
+              {errors.userComment && errors.userComment.type === 'required' && <div className="custom-textarea__error">{errors.userComment.message}</div>}
+              {errors.userComment && errors.userComment.type === 'minLength' && <p className="custom-input__error">{errors.userComment.message}</p>}
+              {errors.userComment && errors.userComment.type === 'maxLength' && <p className="custom-input__error">{errors.userComment.message}</p>}
             </div>
           </div>
           <button

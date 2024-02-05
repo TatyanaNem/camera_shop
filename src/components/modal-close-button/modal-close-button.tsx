@@ -2,21 +2,21 @@
 import {forwardRef} from 'react';
 
 type TModalCloseButtonProps = {
-  handleButtonClick: () => void;
+  onButtonClick: () => void;
 }
 
 export const ModalCloseButton = forwardRef<
   HTMLButtonElement,
   TModalCloseButtonProps
 >((props: TModalCloseButtonProps, ref) => {
-  const {handleButtonClick} = props;
+  const {onButtonClick} = props;
 
   return (
     <button
       className="cross-btn"
       type="button"
       aria-label="Закрыть попап"
-      onClick={handleButtonClick}
+      onClick={onButtonClick}
       ref={ref}
       data-testid='close-button'
     >

@@ -74,7 +74,8 @@ export const fetchReviews = createAsyncThunk<TReview[], TCamera['id'], TExtra>(
 
 export const postReview = createAsyncThunk<TReview, TPostReviewProps, TExtra>(
   `${NameSpace.DataProcess}/postReview`,
-  async ({reviewData, callWhenResolved}, {extra: api, rejectWithValue}) => {
+  async (props, {extra: api, rejectWithValue}) => {
+    const {reviewData, callWhenResolved} = props;
     try {
       const response = await api.post<TReview>(APIRoute.Reviews, reviewData);
       callWhenResolved();

@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../common/hooks';
 import { fetchActiveProduct, fetchReviews, fetchSimilarProducts } from '../../store/api-actions';
 import { useParams } from 'react-router-dom';
-import { selectActiveProduct, selectActiveProductId, selectActiveProductReviews, selectSimilarProducts } from '../../store/data-process/selectors';
+import { selectActiveProduct, selectActiveProductId, selectSimilarProducts } from '../../store/data-process/selectors';
 import { selectAppStatus } from '../../store/app-process/selectors';
 import { RequestStatus } from '../../common/const';
 import StarRating from '../../components/star-rating';
@@ -11,6 +11,7 @@ import SimilarProducts from '../../components/similar-products';
 import ReviewsBlock from '../../components/reviews-block';
 import GoTopButton from '../../components/common/go-top-button';
 import {Spinner} from '../../components/common/spinner/spinner';
+import { selectReviews } from '../../store/review-process/selectors';
 
 export function ProductPage () {
   const [showsScrollTop, setShowScrollTop] = useState(false);
@@ -21,7 +22,7 @@ export function ProductPage () {
   const lastLoadedId = useAppSelector(selectActiveProductId);
   const fetchingStatus = useAppSelector(selectAppStatus);
   const similarProducts = useAppSelector(selectSimilarProducts);
-  const activeProductReviews = useAppSelector(selectActiveProductReviews);
+  const activeProductReviews = useAppSelector(selectReviews);
 
   useEffect(() => {
     if (lastLoadedId !== id) {

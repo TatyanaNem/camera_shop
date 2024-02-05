@@ -5,6 +5,10 @@ import ReviewCard from '../review-card';
 import { REVIEWS_SHOW_NUMBER } from '../../common/const';
 import { compareDates } from '../../utils/date';
 import { ModalReviewSuccess } from '../modals';
+import { useAppDispatch } from '../../common/hooks';
+import { closeModalReview, closeSuccessModal, openModalReview, openSuccessModal, resetModal } from '../../store/review-process/review-process';
+import { TReviewFormData } from '../../common/types/review-data';
+import { postReview } from '../../store/api-actions';
 
 type TReviewsBlockProps = {
   reviews: TReview[];
@@ -12,8 +16,7 @@ type TReviewsBlockProps = {
 }
 
 export function ReviewsBlock ({reviews, activeProductId}: TReviewsBlockProps) {
-  const [modalActive, setModalActive] = useState(false);
-  const [modalSuccessActive, setModalSuccessActive] = useState(false);
+  const dispatch = useAppDispatch();
   const [reviewsToShow, setReviewsToShow] = useState<TReview[]>([...reviews.slice(0, REVIEWS_SHOW_NUMBER)]);
   const reviewsItems = [...reviews].sort((a, b) => compareDates(a.createAt, b.createAt));
   const [reviewsNumber, setReviewsNumber] = useState(REVIEWS_SHOW_NUMBER);
@@ -29,8 +32,28 @@ export function ReviewsBlock ({reviews, activeProductId}: TReviewsBlockProps) {
   };
 
   const handleOpenModalButtonClick = () => {
-    setModalActive(true);
+    dispatch(openModalReview());
     document.body.style.overflow = 'hidden';
+  };
+
+  const handleOnReviewModalClose = () => {
+    dispatch(closeModalReview());
+  };
+
+  const handleOnSuccessModalClose = () => {
+    dispatch(closeSuccessModal());
+  };
+
+  const handleOnReviewModalSubmit = (data: TReviewFormData) => {
+    dispatch(postReview({
+      reviewData: {...data, cameraId: activeProductId},
+      callWhenResolved: () => {
+        document.body.style.overflow = 'visible';
+        dispatch(resetModal());
+        dispatch(closeModalReview());
+        dispatch(openSuccessModal());
+      }
+    }));
   };
 
   return (
@@ -68,8 +91,8 @@ export function ReviewsBlock ({reviews, activeProductId}: TReviewsBlockProps) {
           </div>
         </div>
       </section>
-      <ModalReview modalActive={modalActive} setModalActive={setModalActive} activeProductId={activeProductId} setModalSuccessActive={setModalSuccessActive}/>
-      <ModalReviewSuccess className='modal--narrow' modalSuccessActive={modalSuccessActive} setModalSuccessActive={setModalSuccessActive}/>
+      <ModalReview onModalSubmit={handleOnReviewModalSubmit} onModalClose={handleOnReviewModalClose}/>
+      <ModalReviewSuccess onModalClose={handleOnSuccessModalClose}/>
     </>
   );
 }

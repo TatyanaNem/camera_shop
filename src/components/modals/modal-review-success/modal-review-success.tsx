@@ -1,24 +1,26 @@
 import { useRef } from 'react';
 import Modal from '../../common/modal';
+import { useAppSelector } from '../../../common/hooks';
+import { selectModalSuccessStatus } from '../../../store/review-process/selectors';
 
 type TModalReviewSuccessProps = {
-  modalSuccessActive: boolean;
-  setModalSuccessActive: (isActive: boolean) => void;
-  className: string;
+  onModalClose: () => void;
 }
 
-export function ModalReviewSuccess ({modalSuccessActive, setModalSuccessActive, className}: TModalReviewSuccessProps) {
+export function ModalReviewSuccess ({onModalClose}: TModalReviewSuccessProps) {
   const continueButtonRef = useRef<HTMLButtonElement>(null);
+  const isModalActive = useAppSelector(selectModalSuccessStatus);
   const handleButtonClick = () => {
-    setModalSuccessActive(false);
+    onModalClose();
     document.body.style.overflow = 'visible';
   };
 
   return (
     <Modal
-      modalActive={modalSuccessActive}
-      setModalActive={setModalSuccessActive}
-      className={className}
+      title='Спасибо за покупку'
+      isNarrow
+      modalActive={isModalActive}
+      onPopupClose={onModalClose}
       defaultFocusedElement={continueButtonRef}
     >
       <p className="title title--h4">Спасибо за отзыв</p>

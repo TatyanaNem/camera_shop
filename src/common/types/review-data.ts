@@ -1,5 +1,4 @@
-export type TReviewData = {
-  cameraId: number;
+export type TReviewFormData = {
   userName: string;
   advantage: string;
   disadvantage: string;
@@ -7,7 +6,11 @@ export type TReviewData = {
   rating: number;
 }
 
+export type TPostReviewData = TReviewFormData & {
+  cameraId: number;
+}
+
 export type TPostReviewProps = {
-  reviewData: TReviewData;
+  reviewData: TPostReviewData;
   callWhenResolved: () => void;
 }

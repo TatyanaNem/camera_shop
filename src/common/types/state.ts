@@ -14,10 +14,18 @@ export type TDataProcess = {
   products: TCamera[];
   activeProduct: null | TCamera;
   similarProducts: null | TCamera[];
-  activeProductReviews: TReview[];
 }
 
 export type TAppProcess = {
   status: RequestStatus;
   error: null | ApiError;
+}
+
+export type TReviewProcess = {
+  isReviewModalOpen: boolean;
+  isSuccessModalOpen: boolean;
+  reviews: TReview[];
+  reviewSendingStatus: RequestStatus;
+  reviewsFetchingStatus: RequestStatus;
+  shouldReset: boolean;
 }

@@ -66,26 +66,12 @@ export const appProcess = createSlice({
           state.error = action.payload;
         }
       })
-      .addCase(fetchReviews.pending, (state) => {
-        state.status = RequestStatus.Loading;
-      })
-      .addCase(fetchReviews.fulfilled, (state) => {
-        state.status = RequestStatus.Success;
-      })
       .addCase(fetchReviews.rejected, (state, action) => {
-        state.status = RequestStatus.Failed;
         if (action.payload) {
           state.error = action.payload;
         }
       })
-      .addCase(postReview.pending, (state) => {
-        state.status = RequestStatus.Loading;
-      })
-      .addCase(postReview.fulfilled, (state) => {
-        state.status = RequestStatus.Success;
-      })
       .addCase(postReview.rejected, (state, action) => {
-        state.status = RequestStatus.Failed;
         if (action.payload) {
           state.error = action.payload;
         }

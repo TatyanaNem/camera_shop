@@ -1,33 +1,33 @@
 import { KeyboardEvent, MutableRefObject, ReactNode, useCallback, useEffect, useRef } from 'react';
-import classNames from 'classnames';
 import ModalFocusCatcher from '../../modal-focus-catcher';
 import {ModalCloseButton} from '../../modal-close-button';
 
 type TModalProps = {
+  title: string;
   modalActive: boolean;
-  setModalActive: (isActive: boolean) => void;
-  className?: string;
-  children: ReactNode;
+  isNarrow: boolean;
   defaultFocusedElement?: MutableRefObject<HTMLElement | null>;
+  onPopupClose: () => void;
+  children?: ReactNode;
 }
 
-export function Modal ({modalActive, setModalActive, className, children, defaultFocusedElement}: TModalProps) {
+export function Modal ({modalActive, title, isNarrow, onPopupClose, children, defaultFocusedElement}: TModalProps) {
   const closeButtonRef = useRef<HTMLButtonElement>(null);
 
   const handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     if (event.key === 'Escape') {
-      setModalActive(false);
+      onPopupClose();
       document.body.style.overflow = 'visible';
     }
   };
 
   const handleModalClick = () => {
-    setModalActive(false);
+    onPopupClose();
     document.body.style.overflow = 'visible';
   };
 
   const handleCloseButtonClick = () => {
-    setModalActive(false);
+    onPopupClose();
     document.body.style.overflow = 'visible';
   };
 
@@ -50,9 +50,7 @@ export function Modal ({modalActive, setModalActive, className, children, defaul
 
   return (
     <div
-      className={classNames('modal', className, {
-        'is-active': modalActive
-      })}
+      className={`modal ${modalActive ? 'is-active ' : ''}${isNarrow ? 'modal--narrow' : ''}`}
       data-testid='modal'
       onClick={handleModalClick}
       onKeyDown={handleKeyDown}
@@ -63,11 +61,12 @@ export function Modal ({modalActive, setModalActive, className, children, defaul
           className="modal__content"
           onClick={(event) => event.stopPropagation()}
         >
+          <p className="title title--h4">{title}</p>
           <ModalFocusCatcher
             handleCatcherFocus={switchFocusToCloseButton}
           />
           <ModalCloseButton
-            handleButtonClick={handleCloseButtonClick}
+            onButtonClick={handleCloseButtonClick}
             ref={closeButtonRef}
           />
           {children}

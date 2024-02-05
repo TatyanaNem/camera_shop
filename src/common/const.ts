@@ -14,7 +14,8 @@ export enum AppRoute {
 
 export enum NameSpace {
   DataProcess = 'DATA_PROCESS',
-  AppProcess = 'APP_PROCESS'
+  AppProcess = 'APP_PROCESS',
+  ReviewProcess = 'REVIEW_PROCESS'
 }
 
 export const BACKEND_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
