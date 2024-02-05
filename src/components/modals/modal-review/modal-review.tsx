@@ -2,7 +2,7 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Modal from '../../common/modal';
 import { useAppSelector } from '../../../common/hooks';
 import { useLayoutEffect, useRef } from 'react';
-import { selectModalReviewState, selectReviewsSendingStatus, selectShouldResetStatus } from '../../../store/review-process/selectors';
+import { selectModalReviewStatus, selectReviewsSendingStatus, selectShouldResetStatus } from '../../../store/review-process/selectors';
 import { TReviewFormData } from '../../../common/types/review-data';
 import { RequestStatus } from '../../../common/const';
 
@@ -20,7 +20,7 @@ type TFormIValues = {
 }
 
 export function ModalReview ({onModalSubmit, onModalClose}: TModalReviewProps) {
-  const isModalActive = useAppSelector(selectModalReviewState);
+  const isModalActive = useAppSelector(selectModalReviewStatus);
   const shouldResetStatus = useAppSelector(selectShouldResetStatus);
   const sendingStatus = useAppSelector(selectReviewsSendingStatus);
   const ratingRef = useRef<HTMLInputElement | null>(null);
