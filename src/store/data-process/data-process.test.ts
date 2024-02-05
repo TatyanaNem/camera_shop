@@ -2,8 +2,7 @@ import { TDataProcess } from '../../common/types/state';
 import { mockActiveProduct } from '../../mocks/mock-active-product';
 import { mockProducts } from '../../mocks/mock-products';
 import { mockPromoSlide } from '../../mocks/mock-promo-slide';
-import { mockReview } from '../../mocks/mock-review';
-import { fetchActiveProduct, fetchProducts, fetchPromoSlides, fetchReviews, fetchSimilarProducts } from '../api-actions';
+import { fetchActiveProduct, fetchProducts, fetchPromoSlides, fetchSimilarProducts } from '../api-actions';
 import { dataProcessReducer } from './data-process';
 
 describe('test of data-process reducer', () => {
@@ -14,7 +13,6 @@ describe('test of data-process reducer', () => {
       products: [],
       activeProduct: null,
       similarProducts: null,
-      activeProductReviews: []
     };
 
     expect(dataProcessReducer(undefined, {type: undefined}))
@@ -73,18 +71,5 @@ describe('test of data-process reducer', () => {
       {type: fetchSimilarProducts.fulfilled.type, payload: mockProducts}))
       .toEqual(updatedState);
     expect(updatedState.similarProducts?.length).toBe(3);
-  });
-
-  it('should update state with active product reviews', () => {
-    const prevState: Partial<TDataProcess> = {
-      activeProductReviews: [],
-    };
-    const updatedState: Partial<TDataProcess> = {
-      activeProductReviews: [mockReview, mockReview],
-    };
-    expect(dataProcessReducer(prevState as TDataProcess,
-      {type: fetchReviews.fulfilled.type, payload: [mockReview, mockReview]}))
-      .toEqual(updatedState);
-    expect(updatedState.activeProductReviews?.length).toBe(2);
   });
 });

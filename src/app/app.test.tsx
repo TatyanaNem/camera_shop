@@ -4,14 +4,13 @@ import { render } from '@testing-library/react';
 import App from '.';
 import { withStore } from '../mocks/mock-components/with-store';
 
-const initialState: State = {
+const initialState: Partial<State> = {
   [NameSpace.DataProcess]: {
     promoSlides: [],
     isPromoLoaded: false,
     products: [],
     activeProduct: null,
     similarProducts: null,
-    activeProductReviews: []
   },
   [NameSpace.AppProcess]: {
     status: RequestStatus.Idle,

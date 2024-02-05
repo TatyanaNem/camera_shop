@@ -11,6 +11,7 @@ import { mockActiveProduct } from '../mocks/mock-active-product';
 import { mockPromoSlide } from '../mocks/mock-promo-slide';
 import { mockReview } from '../mocks/mock-review';
 import { mockReviewData } from '../mocks/mock-review-data';
+import { closeModalReview, openSuccessModal, resetModal } from './review-process/review-process';
 
 describe('when async actions', () => {
   const axios = createApi();
@@ -221,21 +222,28 @@ describe('when async actions', () => {
       const store = mockStoreCreator();
       mockAxiosAdapter
         .onPost(APIRoute.Reviews)
-        .reply(201, mockReview);
+        .reply(200, mockReview);
 
       expect(store.getActions()).toEqual([]);
 
       await store.dispatch(postReview({
         reviewData: mockReviewData,
-        callWhenResolved: () => vi.fn()
+        callWhenResolved: () => {
+          store.dispatch(resetModal());
+          store.dispatch(closeModalReview());
+          store.dispatch(openSuccessModal());
+        },
       }));
       const actions = extractActionTypes(store.getActions());
-      const postReviewFulfilled = (store.getActions()).at(1) as ReturnType<typeof postReview.fulfilled>;
+      const postReviewFulfilled = (store.getActions()).at(-1) as ReturnType<typeof postReview.fulfilled>;
 
       expect(actions).toEqual(
         [
           postReview.pending.type,
-          postReview.fulfilled.type
+          resetModal.type,
+          closeModalReview.type,
+          openSuccessModal.type,
+          postReview.fulfilled.type,
         ]);
 
       expect(postReviewFulfilled.payload).toEqual(mockReview);
@@ -251,7 +259,11 @@ describe('when async actions', () => {
 
       await store.dispatch(postReview({
         reviewData: mockReviewData,
-        callWhenResolved: () => vi.fn()
+        callWhenResolved: () => {
+          store.dispatch(resetModal());
+          store.dispatch(closeModalReview());
+          store.dispatch(openSuccessModal());
+        },
       }));
       const actions = extractActionTypes(store.getActions());
 

@@ -6,14 +6,13 @@ import { withStore } from '../../mocks/mock-components/with-store';
 
 describe('Component: StarRating', () => {
   it('should render correctly', () => {
-    const initialState: State = {
+    const initialState: Partial<State> = {
       [NameSpace.DataProcess]: {
         promoSlides: [],
         isPromoLoaded: false,
         products: [],
         activeProduct: null,
-        similarProducts: null,
-        activeProductReviews: []
+        similarProducts: null
       },
       [NameSpace.AppProcess]: {
         status: RequestStatus.Idle,

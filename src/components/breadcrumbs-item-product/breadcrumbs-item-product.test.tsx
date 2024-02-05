@@ -7,14 +7,13 @@ import { render, screen } from '@testing-library/react';
 
 describe('Component: BreadrcumbsItemProduct', () => {
   it('should render correctly', () => {
-    const initialState: State = {
+    const initialState: Partial<State> = {
       [NameSpace.DataProcess]: {
         promoSlides: [],
         isPromoLoaded: false,
         products: [],
         activeProduct: {...mockActiveProduct, name: 'Very good camera'},
-        similarProducts: null,
-        activeProductReviews: []
+        similarProducts: null
       },
       [NameSpace.AppProcess]: {
         status: RequestStatus.Idle,

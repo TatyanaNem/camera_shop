@@ -7,14 +7,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 describe('Component: BreadcrumbsItem', () => {
   it('should render correctly', () => {
-    const initialState: State = {
+    const initialState: Partial<State> = {
       [NameSpace.DataProcess]: {
         promoSlides: [],
         isPromoLoaded: false,
         products: [],
         activeProduct: null,
-        similarProducts: null,
-        activeProductReviews: []
+        similarProducts: null
       },
       [NameSpace.AppProcess]: {
         status: RequestStatus.Idle,

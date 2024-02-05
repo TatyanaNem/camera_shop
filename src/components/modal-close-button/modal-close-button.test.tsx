@@ -3,7 +3,7 @@ import { ModalCloseButton } from '.';
 
 describe('Component: ModalCloseButton', () => {
   it('should render correctly', () => {
-    render(<ModalCloseButton handleButtonClick={vi.fn()}/>);
+    render(<ModalCloseButton onButtonClick={vi.fn()}/>);
 
     expect(screen.getByTestId('close-button')).toBeInTheDocument();
   });

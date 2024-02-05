@@ -6,14 +6,13 @@ import { NameSpace, RequestStatus } from '../../common/const';
 import NotFoundPage from '.';
 
 describe('Component: NotFoundPage', () => {
-  const initialState: State = {
+  const initialState: Partial<State> = {
     [NameSpace.DataProcess]: {
       promoSlides: [],
       isPromoLoaded: false,
       products: [],
       activeProduct: null,
-      similarProducts: null,
-      activeProductReviews: []
+      similarProducts: null
     },
     [NameSpace.AppProcess]: {
       status: RequestStatus.Idle,

@@ -50,8 +50,8 @@ export function Modal ({modalActive, title, isNarrow, onPopupClose, children, de
 
   return (
     <div
+      data-testid='modal-container'
       className={`modal ${modalActive ? 'is-active ' : ''}${isNarrow ? 'modal--narrow' : ''}`}
-      data-testid='modal'
       onClick={handleModalClick}
       onKeyDown={handleKeyDown}
     >

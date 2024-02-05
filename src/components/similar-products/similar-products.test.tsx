@@ -8,14 +8,13 @@ import { BrowserRouter } from 'react-router-dom';
 
 describe('Component: SimilarProducts', () => {
   it('should render correctly', () => {
-    const initialState: State = {
+    const initialState: Partial<State> = {
       [NameSpace.DataProcess]: {
         promoSlides: [],
         isPromoLoaded: false,
         products: [],
         activeProduct: null,
-        similarProducts: mockProducts,
-        activeProductReviews: []
+        similarProducts: mockProducts
       },
       [NameSpace.AppProcess]: {
         status: RequestStatus.Idle,

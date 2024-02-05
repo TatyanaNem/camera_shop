@@ -34,12 +34,6 @@ describe('test of app-process reducer', () => {
     expect(appProcessReducer(prevState as TAppProcess,
       {type: fetchSimilarProducts.pending.type}))
       .toEqual(updatedState);
-    expect(appProcessReducer(prevState as TAppProcess,
-      {type: fetchReviews.pending.type}))
-      .toEqual(updatedState);
-    expect(appProcessReducer(prevState as TAppProcess,
-      {type: postReview.pending.type}))
-      .toEqual(updatedState);
   });
 
   it('should update state with "success" status while request is resolved', () => {
@@ -62,12 +56,6 @@ describe('test of app-process reducer', () => {
     expect(appProcessReducer(prevState as TAppProcess,
       {type: fetchSimilarProducts.fulfilled.type}))
       .toEqual(updatedState);
-    expect(appProcessReducer(prevState as TAppProcess,
-      {type: fetchReviews.fulfilled.type}))
-      .toEqual(updatedState);
-    expect(appProcessReducer(prevState as TAppProcess,
-      {type: postReview.fulfilled.type}))
-      .toEqual(updatedState);
   });
 
   it('should update state with "failed" status while request is rejected', () => {
@@ -89,12 +77,6 @@ describe('test of app-process reducer', () => {
       .toEqual(updatedState);
     expect(appProcessReducer(prevState as TAppProcess,
       {type: fetchSimilarProducts.rejected.type}))
-      .toEqual(updatedState);
-    expect(appProcessReducer(prevState as TAppProcess,
-      {type: fetchReviews.rejected.type}))
-      .toEqual(updatedState);
-    expect(appProcessReducer(prevState as TAppProcess,
-      {type: postReview.rejected.type}))
       .toEqual(updatedState);
   });
 
@@ -160,11 +142,11 @@ describe('test of app-process reducer', () => {
 
   it('should update state with expected error on fetchReviews.rejected', () => {
     const prevState: Partial<TAppProcess> = {
-      status: RequestStatus.Loading,
+      status: RequestStatus.Idle,
       error: null,
     };
     const updatedState: Partial<TAppProcess> = {
-      status: RequestStatus.Failed,
+      status: RequestStatus.Idle,
       error: ApiError.OnFetchReviews,
     };
 
@@ -175,11 +157,11 @@ describe('test of app-process reducer', () => {
 
   it('should update state with expected error on postReview.rejected', () => {
     const prevState: Partial<TAppProcess> = {
-      status: RequestStatus.Loading,
+      status: RequestStatus.Idle,
       error: null,
     };
     const updatedState: Partial<TAppProcess> = {
-      status: RequestStatus.Failed,
+      status: RequestStatus.Idle,
       error: ApiError.OnPostReview,
     };
 

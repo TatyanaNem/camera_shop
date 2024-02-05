@@ -7,14 +7,13 @@ import { NameSpace, RequestStatus } from '../../common/const';
 
 describe('Component: Layout', () => {
   it('should render correctly', () => {
-    const initialState: State = {
+    const initialState: Partial<State> = {
       [NameSpace.DataProcess]: {
         promoSlides: [],
         isPromoLoaded: false,
         products: [],
         activeProduct: null,
-        similarProducts: null,
-        activeProductReviews: []
+        similarProducts: null
       },
       [NameSpace.AppProcess]: {
         status: RequestStatus.Idle,

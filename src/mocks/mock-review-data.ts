@@ -1,7 +1,7 @@
 import faker from 'faker';
-import { TReviewData } from '../common/types/review-data';
+import { TPostReviewData } from '../common/types/review-data';
 
-export const mockReviewData: TReviewData = {
+export const mockReviewData: TPostReviewData = {
   cameraId: faker.datatype.number(20),
   userName: faker.lorem.word(),
   advantage: faker.lorem.sentence(),

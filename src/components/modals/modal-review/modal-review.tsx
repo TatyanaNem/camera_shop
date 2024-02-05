@@ -2,8 +2,9 @@ import { SubmitHandler, useForm } from 'react-hook-form';
 import Modal from '../../common/modal';
 import { useAppSelector } from '../../../common/hooks';
 import { useLayoutEffect, useRef } from 'react';
-import { selectModalReviewState, selectShouldResetStatus } from '../../../store/review-process/selectors';
+import { selectModalReviewState, selectReviewsSendingStatus, selectShouldResetStatus } from '../../../store/review-process/selectors';
 import { TReviewFormData } from '../../../common/types/review-data';
+import { RequestStatus } from '../../../common/const';
 
 type TModalReviewProps = {
   onModalSubmit: (data: TReviewFormData) => void;
@@ -21,9 +22,10 @@ type TFormIValues = {
 export function ModalReview ({onModalSubmit, onModalClose}: TModalReviewProps) {
   const isModalActive = useAppSelector(selectModalReviewState);
   const shouldResetStatus = useAppSelector(selectShouldResetStatus);
+  const sendingStatus = useAppSelector(selectReviewsSendingStatus);
   const ratingRef = useRef<HTMLInputElement | null>(null);
 
-  const { register, handleSubmit, formState: { errors, isSubmitting }, watch, reset} = useForm<TFormIValues>({
+  const { register, handleSubmit, formState: { errors }, watch, reset} = useForm<TFormIValues>({
     defaultValues: {
       rating: 0,
       userName: '',
@@ -267,8 +269,8 @@ export function ModalReview ({onModalSubmit, onModalClose}: TModalReviewProps) {
           <button
             className="btn btn--purple form-review__btn"
             type="submit"
-            disabled={isSubmitting}
-          >{isSubmitting ? 'Отправляю...' : 'Отправить отзыв'}
+            disabled={sendingStatus === RequestStatus.Loading}
+          >{sendingStatus === RequestStatus.Loading ? 'Отправляю...' : 'Отправить отзыв'}
           </button>
         </form>
       </div>
