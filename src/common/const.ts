@@ -3,6 +3,8 @@ export const PRODUCT_LIMIT_PER_PAGE = 9;
 export const DEFAULT_PAGE = 1;
 export const DEFAULT_TAB = 1;
 export const REVIEWS_SHOW_NUMBER = 3;
+export const FIRST_SLIDE_ITEM_INDEX = 0;
+export const SLIDES_PER_VIEW = 3;
 
 export enum AppRoute {
   Root = '/',
