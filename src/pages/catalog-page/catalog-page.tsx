@@ -53,7 +53,7 @@ export function CatalogPage () {
           <div className="catalog__content">
             <CatalogSort />
             {isLoading ? <ProductList currentProducts={currentProducts}/> : <Spinner />}
-            {products.length > 9 && <Pagination totalItems={products.length} currentPage={currentPage} onPageChange={handleCurrentPageChange}/>}
+            {products.length > PRODUCT_LIMIT_PER_PAGE && <Pagination totalItems={products.length} currentPage={currentPage} onPageChange={handleCurrentPageChange}/>}
           </div>
         </div>
       </div>

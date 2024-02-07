@@ -1,4 +1,4 @@
-import { PayloadAction, createSlice } from '@reduxjs/toolkit';
+import { createSlice } from '@reduxjs/toolkit';
 import { NameSpace, RequestStatus } from '../../common/const';
 import { TAppProcess } from '../../common/types/state';
 import { fetchActiveProduct, fetchProducts, fetchPromoSlides, fetchReviews, fetchSimilarProducts, postReview } from '../api-actions';
@@ -11,11 +11,7 @@ const initialState: TAppProcess = {
 export const appProcess = createSlice({
   name: NameSpace.AppProcess,
   initialState,
-  reducers: {
-    setAppStatus: (state, action: PayloadAction<{ status: RequestStatus }>) => {
-      state.status = action.payload.status;
-    },
-  },
+  reducers: {},
   extraReducers (builder) {
     builder
       .addCase(fetchProducts.pending, (state) => {
@@ -79,5 +75,4 @@ export const appProcess = createSlice({
   }
 });
 
-export const {setAppStatus} = appProcess.actions;
 export const appProcessReducer = appProcess.reducer;
