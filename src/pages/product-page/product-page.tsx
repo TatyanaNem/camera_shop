@@ -12,7 +12,7 @@ import ReviewsBlock from '../../components/reviews-block';
 import GoTopButton from '../../components/common/go-top-button';
 import {Spinner} from '../../components/common/spinner/spinner';
 import { selectReviews } from '../../store/review-process/selectors';
-import { ModalAddToCart } from '../../components/modals/modal-add-to-cart/modalAddToCart';
+import ModalAddToCart from '../../components/modals/modal-add-to-cart';
 import { closeAddToCartModal } from '../../store/cart-process/cart-process';
 
 export function ProductPage () {

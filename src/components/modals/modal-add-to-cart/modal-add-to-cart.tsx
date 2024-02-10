@@ -21,7 +21,7 @@ export function ModalAddToCart ({onModalClose}: TModalAddToCartProps) {
       defaultFocusedElement={addButtonRef}
     >
       {!!product &&
-      <div className="basket-item basket-item--short">
+      <div className="basket-item basket-item--short" data-testid='cart-modal'>
         <div className="basket-item__img">
           <picture>
             <source type="image/webp" srcSet={`${product.previewImgWebp}, ${product.previewImgWebp2x} 2x`}/>

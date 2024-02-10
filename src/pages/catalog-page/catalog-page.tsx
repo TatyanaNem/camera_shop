@@ -10,7 +10,7 @@ import { useSearchParams } from 'react-router-dom';
 import { ProductList } from '../../components/product-list/product-list';
 import {Spinner} from '../../components/common/spinner/spinner';
 import { selectAppStatus } from '../../store/app-process/selectors';
-import { ModalAddToCart } from '../../components/modals/modal-add-to-cart/modalAddToCart';
+import ModalAddToCart from '../../components/modals/modal-add-to-cart';
 import { closeAddToCartModal } from '../../store/cart-process/cart-process';
 
 export function CatalogPage () {
