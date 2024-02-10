@@ -35,7 +35,7 @@ export function Banner () {
                 <span className="banner__text">Профессиональная камера от&nbsp;известного производителя</span>
                 <Link
                   className="btn"
-                  to={`${AppRoute.Product}/${slide.id}`}
+                  to={`${AppRoute.Catalog}/${slide.id}`}
                 >
                   Подробнее
                 </Link>

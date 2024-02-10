@@ -2,6 +2,8 @@ import { Link } from 'react-router-dom';
 import { TCamera } from '../../common/types/camera';
 import StarRating from '../star-rating';
 import { AppRoute } from '../../common/const';
+import { useAppDispatch } from '../../common/hooks';
+import { openAddToCartModal } from '../../store/cart-process/cart-process';
 
 type TProductCardProps = {
   product: TCamera;
@@ -10,6 +12,11 @@ type TProductCardProps = {
 
 export function ProductCard ({product, className}: TProductCardProps) {
   const {id, previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, name, price, rating, reviewCount} = product;
+  const dispatch = useAppDispatch();
+
+  function handleBuyButtonClick () {
+    dispatch(openAddToCartModal(product));
+  }
 
   return (
     <div className={className} data-testid='product-card'>
@@ -26,7 +33,12 @@ export function ProductCard ({product, className}: TProductCardProps) {
         </p>
       </div>
       <div className="product-card__buttons">
-        <button className="btn btn--purple product-card__btn" type="button">Купить
+        <button
+          className="btn btn--purple product-card__btn"
+          type="button"
+          onClick={handleBuyButtonClick}
+        >
+          Купить
         </button>
         <Link className="btn btn--transparent" to={`/${AppRoute.Catalog}/${id}`} state={name}>Подробнее
         </Link>

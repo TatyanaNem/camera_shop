@@ -27,6 +27,10 @@ describe('Component: ProductPage', () => {
       reviewSendingStatus: RequestStatus.Idle,
       reviewsFetchingStatus: RequestStatus.Success,
       shouldReset: false
+    },
+    [NameSpace.CartProcess]: {
+      isAddToCartModalOpen: false,
+      product: null
     }
   };
   it('should render correctly', () => {

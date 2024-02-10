@@ -12,6 +12,8 @@ import ReviewsBlock from '../../components/reviews-block';
 import GoTopButton from '../../components/common/go-top-button';
 import {Spinner} from '../../components/common/spinner/spinner';
 import { selectReviews } from '../../store/review-process/selectors';
+import { ModalAddToCart } from '../../components/modals/modal-add-to-cart/modalAddToCart';
+import { closeAddToCartModal } from '../../store/cart-process/cart-process';
 
 export function ProductPage () {
   const [showsScrollTop, setShowScrollTop] = useState(false);
@@ -23,6 +25,10 @@ export function ProductPage () {
   const fetchingStatus = useAppSelector(selectAppStatus);
   const similarProducts = useAppSelector(selectSimilarProducts);
   const activeProductReviews = useAppSelector(selectReviews);
+
+  const handleModalClose = () => {
+    dispatch(closeAddToCartModal());
+  };
 
   useEffect(() => {
     if (lastLoadedId !== id) {
@@ -96,6 +102,7 @@ export function ProductPage () {
       <div className="page-content__section">
         {!!activeProductReviews && <ReviewsBlock reviews={activeProductReviews} activeProductId={Number(id)}/>}
       </div>
+      <ModalAddToCart onModalClose={handleModalClose}/>
       {showsScrollTop && <GoTopButton />}
     </>
   );

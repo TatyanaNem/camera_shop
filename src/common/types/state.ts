@@ -29,3 +29,8 @@ export type TReviewProcess = {
   reviewsFetchingStatus: RequestStatus;
   shouldReset: boolean;
 }
+
+export type TCartProcess = {
+  isAddToCartModalOpen: boolean;
+  product: null | TCamera;
+}

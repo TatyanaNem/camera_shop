@@ -10,6 +10,8 @@ import { useSearchParams } from 'react-router-dom';
 import { ProductList } from '../../components/product-list/product-list';
 import {Spinner} from '../../components/common/spinner/spinner';
 import { selectAppStatus } from '../../store/app-process/selectors';
+import { ModalAddToCart } from '../../components/modals/modal-add-to-cart/modalAddToCart';
+import { closeAddToCartModal } from '../../store/cart-process/cart-process';
 
 export function CatalogPage () {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -42,21 +44,28 @@ export function CatalogPage () {
     setSearchParams((page.toString()));
   };
 
+  const handleModalClose = () => {
+    dispatch(closeAddToCartModal());
+  };
+
   return (
-    <section className="catalog">
-      <div className="container">
-        <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
-        <div className="page-content__columns">
-          <div className="catalog__aside">
-            <CatalogFilter />
-          </div>
-          <div className="catalog__content">
-            <CatalogSort />
-            {isLoading ? <ProductList currentProducts={currentProducts}/> : <Spinner />}
-            {products.length > PRODUCT_LIMIT_PER_PAGE && <Pagination totalItems={products.length} currentPage={currentPage} onPageChange={handleCurrentPageChange}/>}
+    <>
+      <section className="catalog">
+        <div className="container">
+          <h1 className="title title--h2">Каталог фото- и видеотехники</h1>
+          <div className="page-content__columns">
+            <div className="catalog__aside">
+              <CatalogFilter />
+            </div>
+            <div className="catalog__content">
+              <CatalogSort />
+              {isLoading ? <ProductList currentProducts={currentProducts}/> : <Spinner />}
+              {products.length > PRODUCT_LIMIT_PER_PAGE && <Pagination totalItems={products.length} currentPage={currentPage} onPageChange={handleCurrentPageChange}/>}
+            </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+      <ModalAddToCart onModalClose={handleModalClose}/>
+    </>
   );
 }

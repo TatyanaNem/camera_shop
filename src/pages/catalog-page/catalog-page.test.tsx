@@ -17,6 +17,10 @@ describe('Component: CatalogPage', () => {
     [NameSpace.AppProcess]: {
       status: RequestStatus.Idle,
       error: null
+    },
+    [NameSpace.CartProcess]: {
+      isAddToCartModalOpen: false,
+      product: null
     }
   };
   it('should render correctly', () => {

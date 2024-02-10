@@ -79,7 +79,7 @@ export function ReviewsBlock ({reviews, activeProductId}: TReviewsBlockProps) {
           </ul>
           <div className="review-block__buttons">
             {
-              reviews.length > 3 && reviews.length !== reviewsToShow.length &&
+              reviewsNumber <= reviews.length &&
               <button
                 className="btn btn--purple"
                 type="button"
