@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useEffect, useRef } from 'react';
 import Modal from '../../common/modal';
 import { useAppSelector } from '../../../common/hooks';
 import { selectModalSuccessStatus } from '../../../store/review-process/selectors';
@@ -14,6 +14,12 @@ export function ModalReviewSuccess ({onModalClose}: TModalReviewSuccessProps) {
     onModalClose();
     document.body.style.overflow = 'visible';
   };
+
+  useEffect(() => {
+    if (isModalActive) {
+      document.body.style.overflow = 'hidden';
+    }
+  }, [isModalActive]);
 
   return (
     <Modal

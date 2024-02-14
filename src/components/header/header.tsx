@@ -5,11 +5,11 @@ export function Header () {
   return (
     <header className="header" id="header" data-testid='header'>
       <div className="container">
-        <a className="header__logo" href="index.html" aria-label="Переход на главную">
+        <Link className="header__logo" to={AppRoute.Root} aria-label="Переход на главную">
           <svg width="100" height="36" aria-hidden="true">
             <use xlinkHref="#icon-logo"></use>
           </svg>
-        </a>
+        </Link>
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">

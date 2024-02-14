@@ -16,6 +16,7 @@ export function ProductCard ({product, className}: TProductCardProps) {
 
   function handleBuyButtonClick () {
     dispatch(openAddToCartModal(product));
+    document.body.style.overflow = 'hidden';
   }
 
   return (
