@@ -18,6 +18,10 @@ describe('Component: Layout', () => {
       [NameSpace.AppProcess]: {
         status: RequestStatus.Idle,
         error: null
+      },
+      [NameSpace.SearchProcess]: {
+        searchProducts: [],
+        searchProductsFetchingStatus: RequestStatus.Idle
       }
     };
     const layoutTestId = 'app-layout';
