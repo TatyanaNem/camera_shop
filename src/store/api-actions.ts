@@ -36,6 +36,17 @@ export const fetchProducts = createAsyncThunk<TCamera[], undefined, TExtra>(
     }
   });
 
+export const fetchProductsWithSearchValue = createAsyncThunk<TCamera[], string, TExtra>(
+  `${NameSpace.DataProcess}/fetchProductsWithSearchValue`,
+  async (value, {extra: api, rejectWithValue}) => {
+    try {
+      const response = await api.get<TCamera[]>(`${APIRoute.Cameras}?name_like=${value}`);
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(ApiError.OnFetchProducts);
+    }
+  });
+
 export const fetchActiveProduct = createAsyncThunk<TCamera, TCamera['id'], TExtra>(
   `${NameSpace.DataProcess}/fetchActiveProduct`,
   async (id, {extra: api, rejectWithValue}) => {

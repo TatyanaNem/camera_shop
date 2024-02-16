@@ -34,3 +34,8 @@ export type TCartProcess = {
   isAddToCartModalOpen: boolean;
   product: null | TCamera;
 }
+
+export type TSearchProcess = {
+  searchProducts: TCamera[];
+  searchProductsFetchingStatus: RequestStatus;
+}

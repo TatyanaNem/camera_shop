@@ -18,7 +18,8 @@ export enum NameSpace {
   DataProcess = 'DATA_PROCESS',
   AppProcess = 'APP_PROCESS',
   ReviewProcess = 'REVIEW_PROCESS',
-  CartProcess = 'CART_PROCESS'
+  CartProcess = 'CART_PROCESS',
+  SearchProcess = 'SEARCH_PROCESS'
 }
 
 export const BACKEND_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
@@ -74,4 +75,11 @@ export enum ApiError {
   OnFetchSimilar = 'Ошибка при загрузке похожих товаров',
   OnFetchReviews = 'Ошибка при загрузке комментариев',
   OnPostReview = 'Ошибка при записи нового комментария',
+}
+
+export enum SearchProductsError {
+  DataLoadingError = 'Произошла ошибка загрузки данных',
+  EmptyDataResult = 'Ничего не найдено',
+  LoadingData = 'Ищем...',
+  NotEnoughSearchValueLength = 'Не менее 3 символов'
 }
