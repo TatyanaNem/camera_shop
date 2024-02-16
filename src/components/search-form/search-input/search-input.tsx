@@ -1,14 +1,15 @@
 import { ChangeEvent } from 'react';
+import { debounce } from '../../../utils/debounce';
 
 type TSearchInputProps = {
-  searchValue: string;
   onChange: (value: string) => void;
 }
 
-export function SearchInput ({searchValue, onChange}: TSearchInputProps) {
-  function handleInputChange (event: ChangeEvent<HTMLInputElement>) {
-    onChange(event.target.value);
-  }
+export function SearchInput ({onChange}: TSearchInputProps) {
+  const handleInputChange = debounce((evt: ChangeEvent<HTMLInputElement>) => {
+    onChange(evt.target.value);
+  });
+
   return (
     <label>
       <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
@@ -19,7 +20,6 @@ export function SearchInput ({searchValue, onChange}: TSearchInputProps) {
         type="text"
         autoComplete="off"
         placeholder="Поиск по сайту"
-        value={searchValue}
         onChange={handleInputChange}
       />
     </label>

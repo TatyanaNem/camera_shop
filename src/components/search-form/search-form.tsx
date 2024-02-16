@@ -3,13 +3,13 @@ import { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames';
 import { SearchInput, SearchList, SearchResetButton } from '.';
 import { useAppDispatch, useAppSelector } from '../../common/hooks';
-import { fetchProductsWithSearchValue } from '../../store/api-actions';
 import { selectSearchFetchingStatus, selectSearchProducts } from '../../store/search-process/selectors';
 import { resetSearchFetchingStatus, resetSearchProducts } from '../../store/search-process/search-process';
 import { useNavigate } from 'react-router-dom';
 import { AppRoute, DEFAULT_TAB } from '../../common/const';
 import useOnClickOutside from '../../common/hooks/use-on-click-outside';
 import useKeyPressed from '../../common/hooks/use-key-pressed';
+import { fetchProductsWithSearchValue } from '../../store/api-actions';
 
 export function SearchForm () {
   const searchRef = useRef<HTMLDivElement | null>(null);
@@ -23,7 +23,6 @@ export function SearchForm () {
 
   const arrowUpPressed = useKeyPressed('ArrowUp');
   const arrowDownPressed = useKeyPressed('ArrowDown');
-
 
   useEffect(() => {
     if (searchCameras.length && arrowUpPressed) {
@@ -77,7 +76,7 @@ export function SearchForm () {
       ref={searchRef}
     >
       <form onReset={handleFormReset}>
-        <SearchInput searchValue={searchValue} onChange={handleInputChange}/>
+        <SearchInput onChange={handleInputChange}/>
         {!!searchCameras &&
         <SearchList
           products={searchCameras}
