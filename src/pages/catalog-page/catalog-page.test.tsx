@@ -21,6 +21,10 @@ describe('Component: CatalogPage', () => {
     [NameSpace.CartProcess]: {
       isAddToCartModalOpen: false,
       product: null
+    },
+    [NameSpace.SortProcess]: {
+      currentSortOrder: 'asc',
+      currentSortType: 'price'
     }
   };
   it('should render correctly', () => {

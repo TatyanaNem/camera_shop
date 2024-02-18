@@ -24,15 +24,17 @@ describe('when async actions', () => {
     (actions: Action<string>[]) => actions.map(({ type }) => type);
 
   describe('fetch products', () => {
+    const url = 'https://camera-shop.accelerator.htmlacademy.pro/cameras?page=2_sort=rating&_order=asc';
+
     it('should call actions with server 200 response', async () => {
       const store = mockStoreCreator();
       mockAxiosAdapter
-        .onGet(APIRoute.Cameras)
+        .onGet(url)
         .reply(200, mockProducts);
 
       expect(store.getActions()).toEqual([]);
 
-      await store.dispatch(fetchProducts());
+      await store.dispatch(fetchProducts({url}));
       const actions = extractActionTypes(store.getActions());
 
       expect(actions).toEqual(
@@ -45,12 +47,12 @@ describe('when async actions', () => {
     it('should call actions while request is rejected', async () => {
       const store = mockStoreCreator();
       mockAxiosAdapter
-        .onGet(`${APIRoute.Cameras}`)
+        .onGet(url)
         .reply(400);
 
       expect(store.getActions()).toEqual([]);
 
-      await store.dispatch(fetchProducts());
+      await store.dispatch(fetchProducts({url}));
       const actions = extractActionTypes(store.getActions());
 
       expect(actions).toEqual(
