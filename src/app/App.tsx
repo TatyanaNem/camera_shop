@@ -22,7 +22,10 @@ export function App () {
     createRoutesFromElements(
       <Route path={AppRoute.Root} element={<Layout/>}>
         <Route index element={<Navigate to={AppRoute.Catalog} />}/>
-        <Route path={AppRoute.Catalog} element={<CatalogPage/>}/>
+        <Route
+          path={`${AppRoute.Catalog}`}
+          element={<CatalogPage/>}
+        />
         <Route
           path={`${AppRoute.Catalog}/:id`}
           element={<ProductPage />}

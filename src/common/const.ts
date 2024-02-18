@@ -1,3 +1,5 @@
+import { TSortInputType, TSortType } from './types/sort-types';
+
 export const RATING_NUMBER = 5;
 export const PRODUCT_LIMIT_PER_PAGE = 9;
 export const DEFAULT_PAGE = 1;
@@ -20,7 +22,8 @@ export enum NameSpace {
   AppProcess = 'APP_PROCESS',
   ReviewProcess = 'REVIEW_PROCESS',
   CartProcess = 'CART_PROCESS',
-  SearchProcess = 'SEARCH_PROCESS'
+  SearchProcess = 'SEARCH_PROCESS',
+  SortProcess = 'SORT_PROCESS'
 }
 
 export const BACKEND_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
@@ -84,3 +87,22 @@ export enum SearchProductsError {
   LoadingData = 'Ищем...',
   NotEnoughSearchValueLength = 'Не менее 3 символов'
 }
+
+export enum QueryKey {
+  Search = 'name_like',
+  SortOrder = '_order',
+  SortType = '_sort',
+  FilterType = 'type',
+  FilterCategory = 'category',
+  FilterLevel = 'level',
+  BottomPrice = 'price_gte',
+  TopPrice = 'price_lte',
+  Page = 'page'
+}
+
+export const SortInputData: Partial<Record<TSortType, TSortInputType>> = {
+  price: {id: 'sortPrice', label: 'по цене'},
+  rating: {id: 'sortPopular', label: 'по популярности'},
+};
+
+export const DEFAULT_SORT_TYPE: TSortType = 'price';

@@ -25,11 +25,11 @@ export const fetchPromoSlides = createAsyncThunk<TPromo[], undefined, TExtra>(
     }
   });
 
-export const fetchProducts = createAsyncThunk<TCamera[], undefined, TExtra>(
+export const fetchProducts = createAsyncThunk<TCamera[], {url: string}, TExtra>(
   `${NameSpace.DataProcess}/fetchProducts`,
-  async (_arg, {extra: api, rejectWithValue}) => {
+  async ({url}, {extra: api, rejectWithValue}) => {
     try {
-      const response = await api.get<TCamera[]>(APIRoute.Cameras);
+      const response = await api.get<TCamera[]>(url);
       return response.data;
     } catch (error) {
       return rejectWithValue(ApiError.OnFetchProducts);

@@ -3,6 +3,7 @@ import { ApiError, RequestStatus } from '../const';
 import { TCamera } from './camera';
 import { TPromo } from './promo';
 import { TReview } from './review';
+import { TSortOrder, TSortType } from './sort-types';
 
 export type State = ReturnType<typeof store.getState>;
 
@@ -38,4 +39,9 @@ export type TCartProcess = {
 export type TSearchProcess = {
   searchProducts: TCamera[];
   searchProductsFetchingStatus: RequestStatus;
+}
+
+export type TSortProcess = {
+  currentSortOrder: TSortOrder;
+  currentSortType: TSortType;
 }
