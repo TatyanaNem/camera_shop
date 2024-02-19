@@ -13,6 +13,7 @@ describe('Component: ProductPage', () => {
       promoSlides: [],
       isPromoLoaded: false,
       products: [],
+      totalPagesCount: 0,
       activeProduct: mockActiveProduct,
       similarProducts: null,
     },

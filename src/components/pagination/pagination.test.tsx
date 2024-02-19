@@ -5,10 +5,9 @@ import { BrowserRouter } from 'react-router-dom';
 describe('Component: Pagination', () => {
   it('should render pages with current page 2', () => {
     const mockCurrentPage = 2;
-    const totalItems = 36;
-    const onPageChange = vi.fn();
+    const totalPagesCount = 7;
 
-    render(<Pagination totalItems={totalItems} currentPage={mockCurrentPage} onPageChange={onPageChange}/>, {wrapper: BrowserRouter});
+    render(<Pagination totalPagesCount={totalPagesCount} currentPage={mockCurrentPage}/>, {wrapper: BrowserRouter});
     const forwardButton = screen.getByText('Далее');
     const activeButton = screen.getByRole('link', {name: mockCurrentPage.toString()});
 

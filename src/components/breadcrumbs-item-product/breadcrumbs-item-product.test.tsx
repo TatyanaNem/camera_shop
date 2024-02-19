@@ -12,6 +12,7 @@ describe('Component: BreadrcumbsItemProduct', () => {
         promoSlides: [],
         isPromoLoaded: false,
         products: [],
+        totalPagesCount: 0,
         activeProduct: {...mockActiveProduct, name: 'Very good camera'},
         similarProducts: null
       },

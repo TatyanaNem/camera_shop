@@ -11,6 +11,7 @@ describe('DataProcess selectors', () => {
       promoSlides: [mockPromoSlide, mockPromoSlide],
       isPromoLoaded: true,
       products: mockProducts,
+      totalPagesCount: 1,
       activeProduct: mockActiveProduct,
       similarProducts: mockProducts,
       activeProductReviews: [mockReview, mockReview, mockReview]

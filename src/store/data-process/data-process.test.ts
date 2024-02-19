@@ -11,6 +11,7 @@ describe('test of data-process reducer', () => {
       promoSlides: [],
       isPromoLoaded: false,
       products: [],
+      totalPagesCount: 0,
       activeProduct: null,
       similarProducts: null,
     };
@@ -38,13 +39,15 @@ describe('test of data-process reducer', () => {
   it('should update state with new product list', () => {
     const prevState: Partial<TDataProcess> = {
       products: [],
+      totalPagesCount: 0
     };
     const updatedState: Partial<TDataProcess> = {
       products: mockProducts,
+      totalPagesCount: 1
     };
 
     expect(dataProcessReducer(prevState as TDataProcess,
-      {type: fetchProducts.fulfilled.type, payload: mockProducts}))
+      {type: fetchProducts.fulfilled.type, payload: {products: mockProducts, totalPagesCount: 1}}))
       .toEqual(updatedState);
   });
 

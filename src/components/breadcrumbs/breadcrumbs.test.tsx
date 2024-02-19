@@ -12,6 +12,7 @@ describe('Component: Breadcrumbs', () => {
         promoSlides: [],
         isPromoLoaded: false,
         products: [],
+        totalPagesCount: 0,
         activeProduct: null,
         similarProducts: null
       },

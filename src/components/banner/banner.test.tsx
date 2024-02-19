@@ -14,6 +14,7 @@ describe('Component: Banner', () => {
         promoSlides: mockProducts,
         isPromoLoaded: false,
         products: [],
+        totalPagesCount: 0,
         activeProduct: mockActiveProduct,
         similarProducts: null,
       }

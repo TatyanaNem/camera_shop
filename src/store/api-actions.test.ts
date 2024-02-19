@@ -24,13 +24,13 @@ describe('when async actions', () => {
     (actions: Action<string>[]) => actions.map(({ type }) => type);
 
   describe('fetch products', () => {
-    const url = 'https://camera-shop.accelerator.htmlacademy.pro/cameras?page=2_sort=rating&_order=asc';
+    const url = 'https://camera-shop.accelerator.htmlacademy.pro/cameras?_start=0&_limit=9';
 
     it('should call actions with server 200 response', async () => {
       const store = mockStoreCreator();
       mockAxiosAdapter
         .onGet(url)
-        .reply(200, mockProducts);
+        .reply(200, mockProducts, {'x-total-count': 1});
 
       expect(store.getActions()).toEqual([]);
 
