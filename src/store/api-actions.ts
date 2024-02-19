@@ -1,6 +1,6 @@
 import { TCamera } from './../common/types/camera';
 import { AxiosInstance } from 'axios';
-import { APIRoute, ApiError, NameSpace } from '../common/const';
+import { APIRoute, ApiError, NameSpace, PRODUCT_LIMIT_PER_PAGE } from '../common/const';
 import { TPromo } from '../common/types/promo';
 import { AppDispatch, State } from '../common/types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
@@ -14,6 +14,11 @@ type TExtra = {
   rejectValue: ApiError;
 }
 
+type TFetchProductsReturnType = {
+  products: TCamera[];
+  totalPagesCount: number;
+}
+
 export const fetchPromoSlides = createAsyncThunk<TPromo[], undefined, TExtra>(
   `${NameSpace.DataProcess}/fetchPromoSlides`,
   async (_arg, {extra: api, rejectWithValue}) => {
@@ -25,12 +30,15 @@ export const fetchPromoSlides = createAsyncThunk<TPromo[], undefined, TExtra>(
     }
   });
 
-export const fetchProducts = createAsyncThunk<TCamera[], {url: string}, TExtra>(
+export const fetchProducts = createAsyncThunk<TFetchProductsReturnType, {url: string}, TExtra>(
   `${NameSpace.DataProcess}/fetchProducts`,
   async ({url}, {extra: api, rejectWithValue}) => {
     try {
       const response = await api.get<TCamera[]>(url);
-      return response.data;
+      const maxCatalogCount = Number(response.headers['x-total-count']);
+      const products = response.data;
+      const totalPagesCount = products.length ? Math.ceil(maxCatalogCount / PRODUCT_LIMIT_PER_PAGE) : 0;
+      return {products, totalPagesCount};
     } catch (error) {
       return rejectWithValue(ApiError.OnFetchProducts);
     }

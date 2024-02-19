@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../common/const';
+import { AppRoute, DEFAULT_PAGE } from '../../common/const';
 import SearchForm from '../search-form';
 
 export function Header () {
@@ -14,7 +14,7 @@ export function Header () {
         <nav className="main-nav header__main-nav">
           <ul className="main-nav__list">
             <li className="main-nav__item">
-              <Link className="main-nav__link" to={AppRoute.Catalog}>
+              <Link className="main-nav__link" to={`${AppRoute.Catalog}/${DEFAULT_PAGE}`}>
                 Каталог
               </Link>
             </li>

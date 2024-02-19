@@ -2,18 +2,18 @@ import { APIRoute, BACKEND_URL, PRODUCT_LIMIT_PER_PAGE } from '../common/const';
 import { TSearchParams } from '../common/types/search-params';
 
 type TArguments = {
-  currentPage: number;
+  pageNumber: number;
   params: Partial<TSearchParams>;
 }
 
 export const getStartPrice = (page: number) => (page - 1) * PRODUCT_LIMIT_PER_PAGE;
 
 export function getUrlWithSearchParams (searchParams: TArguments) {
-  const {currentPage, params} = searchParams;
+  const {pageNumber, params} = searchParams;
   let url = `${BACKEND_URL}${APIRoute.Cameras}`;
 
-  if (currentPage) {
-    const start = getStartPrice(currentPage);
+  if (pageNumber) {
+    const start = getStartPrice(pageNumber);
     url = `${url}?_start=${start}&_limit=${PRODUCT_LIMIT_PER_PAGE}`;
   }
 
@@ -24,6 +24,5 @@ export function getUrlWithSearchParams (searchParams: TArguments) {
   if (params.order) {
     url = `${url}&_order=${params.order}`;
   }
-  console.log(url);
   return url;
 }

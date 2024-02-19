@@ -1,42 +1,34 @@
 import { Link } from 'react-router-dom';
-import { AppRoute, PRODUCT_LIMIT_PER_PAGE } from '../../common/const';
-import { getPagesArray, getPagesCount } from '../../utils/pagination';
+import { AppRoute } from '../../common/const';
+import { getPagesArray } from '../../utils/pagination';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type TPaginationProps = {
-  totalItems: number;
+  totalPagesCount: number;
   currentPage: number;
-  onPageChange: (page: number) => void;
 }
 
-export function Pagination ({totalItems, currentPage, onPageChange}: TPaginationProps) {
-  const pagesCount = getPagesCount(totalItems, PRODUCT_LIMIT_PER_PAGE);
-  const pagesArray = getPagesArray(pagesCount);
+export function Pagination ({totalPagesCount, currentPage}: TPaginationProps) {
+  const pagesArray = getPagesArray(totalPagesCount);
   const PAGES_IN_PORTION = 3;
-  const [portionOfButtons, setPortionOfButtons] = useState(Math.ceil(currentPage / PAGES_IN_PORTION));
-  const [localCurrentPage, setLocalCurrentPage] = useState(currentPage);
+  const [portionOfButtons, setPortionOfButtons] = useState(1);
 
   const lastPortionPageNumber = portionOfButtons * PAGES_IN_PORTION;
   const firstPortionPageNumber = (portionOfButtons - 1) * PAGES_IN_PORTION + 1;
   const pagesToShow = pagesArray.filter((page) => page >= firstPortionPageNumber && page <= lastPortionPageNumber);
 
-  const handleCurrentPageChange = (page: number) => {
-    setLocalCurrentPage(page);
-    onPageChange(page);
-  };
-
   const handleNextPageClick = () => {
     setPortionOfButtons(portionOfButtons + 1);
-    setLocalCurrentPage(lastPortionPageNumber + 1);
-    onPageChange(localCurrentPage);
   };
 
   const handlePrevPageClick = () => {
     setPortionOfButtons(portionOfButtons - 1);
-    setLocalCurrentPage(firstPortionPageNumber - 1);
-    onPageChange(localCurrentPage);
   };
+
+  useEffect(() => {
+    setPortionOfButtons(Math.ceil(currentPage / PAGES_IN_PORTION));
+  }, [currentPage]);
 
   return (
     <div className="pagination">
@@ -44,7 +36,7 @@ export function Pagination ({totalItems, currentPage, onPageChange}: TPagination
         {portionOfButtons > 1 && (
           <Link
             className='pagination__link'
-            to={`/${AppRoute.Catalog}?page=${firstPortionPageNumber - 1}`}
+            to={`/${AppRoute.Catalog}/${firstPortionPageNumber - 1}`}
             onClick={handlePrevPageClick}
           >
             Назад
@@ -56,10 +48,9 @@ export function Pagination ({totalItems, currentPage, onPageChange}: TPagination
           >
             <Link
               className={classNames('pagination__link', {
-                'pagination__link--active': page === localCurrentPage
+                'pagination__link--active': page === currentPage
               })}
-              to={`/${AppRoute.Catalog}?page=${page}`}
-              onClick={() => handleCurrentPageChange(page)}
+              to={`/${AppRoute.Catalog}/${page}`}
             >
               {page}
             </Link>
@@ -68,7 +59,7 @@ export function Pagination ({totalItems, currentPage, onPageChange}: TPagination
         {pagesArray.length >= lastPortionPageNumber && (
           <Link
             className='pagination__link'
-            to={`/${AppRoute.Catalog}?page=${lastPortionPageNumber + 1}`}
+            to={`/${AppRoute.Catalog}/${lastPortionPageNumber + 1}`}
             onClick={handleNextPageClick}
           >
             Далее

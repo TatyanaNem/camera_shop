@@ -9,3 +9,4 @@ export const selectProducts = (state: Pick<State, NameSpace.DataProcess>): TCame
 export const selectActiveProduct = (state: Pick<State, NameSpace.DataProcess>):TCamera | null => state[NameSpace.DataProcess].activeProduct;
 export const selectActiveProductId = (state: Pick<State, NameSpace.DataProcess>): number | undefined => state[NameSpace.DataProcess].activeProduct?.id;
 export const selectSimilarProducts = (state: Pick<State, NameSpace.DataProcess>): TCamera[] | null => state[NameSpace.DataProcess].similarProducts;
+export const selectTotalPagesCount = (state: Pick<State, NameSpace.DataProcess>): number => state[NameSpace.DataProcess].totalPagesCount;

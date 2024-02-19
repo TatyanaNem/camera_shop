@@ -13,6 +13,7 @@ export type TDataProcess = {
   promoSlides: TPromo[];
   isPromoLoaded: boolean;
   products: TCamera[];
+  totalPagesCount: number;
   activeProduct: null | TCamera;
   similarProducts: null | TCamera[];
 }
