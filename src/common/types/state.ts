@@ -46,3 +46,8 @@ export type TSortProcess = {
   currentSortOrder: TSortOrder;
   currentSortType: TSortType;
 }
+
+export type TFilterProcess = {
+  minPrice: string;
+  maxPrice: string;
+}

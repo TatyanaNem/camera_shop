@@ -1,11 +1,12 @@
 import { TCamera } from './../common/types/camera';
 import { AxiosInstance } from 'axios';
-import { APIRoute, ApiError, NameSpace, PRODUCT_LIMIT_PER_PAGE } from '../common/const';
+import { APIRoute, ApiError, BACKEND_URL, NameSpace, PRODUCT_LIMIT_PER_PAGE } from '../common/const';
 import { TPromo } from '../common/types/promo';
 import { AppDispatch, State } from '../common/types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TReview } from '../common/types/review';
 import { TPostReviewProps } from '../common/types/review-data';
+import { TSortOrder } from '../common/types/sort-types';
 
 type TExtra = {
   dispatch: AppDispatch;
@@ -14,7 +15,7 @@ type TExtra = {
   rejectValue: ApiError;
 }
 
-type TFetchProductsReturnType = {
+type FetchProductsReturnType = {
   products: TCamera[];
   totalPagesCount: number;
 }
@@ -30,7 +31,7 @@ export const fetchPromoSlides = createAsyncThunk<TPromo[], undefined, TExtra>(
     }
   });
 
-export const fetchProducts = createAsyncThunk<TFetchProductsReturnType, {url: string}, TExtra>(
+export const fetchProducts = createAsyncThunk<FetchProductsReturnType, {url: string}, TExtra>(
   `${NameSpace.DataProcess}/fetchProducts`,
   async ({url}, {extra: api, rejectWithValue}) => {
     try {
@@ -101,6 +102,19 @@ export const postReview = createAsyncThunk<TReview, TPostReviewProps, TExtra>(
       return response.data;
     } catch (error) {
       return rejectWithValue(ApiError.OnPostReview);
+    }
+  }
+);
+
+export const fetchPrice = createAsyncThunk<string, TSortOrder, TExtra>(
+  `${NameSpace.FilterProcess}/fetchPrice`,
+  async (order, {extra: api, rejectWithValue}) => {
+    const URL = `${BACKEND_URL}/cameras?_sort=price&_order=${order}&_start=0&_limit=1`;
+    try {
+      const {data} = await api.get<TCamera[]>(URL);
+      return data[0].price.toString();
+    } catch (error) {
+      return rejectWithValue(ApiError.OnFetchProducts);
     }
   }
 );

@@ -1,23 +1,18 @@
+import { useNavigate } from 'react-router-dom';
+import { FilterPrice } from '.';
+import { AppRoute, DEFAULT_PAGE } from '../../common/const';
+
 export function CatalogFilter () {
+  const navigate = useNavigate();
+
+  function navigateToDefaultPage () {
+    navigate(`/${AppRoute.Catalog}/${DEFAULT_PAGE}`);
+  }
   return (
     <div className="catalog-filter" data-testid="catalog-filter">
       <form action="#">
         <h2 className="visually-hidden">Фильтр</h2>
-        <fieldset className="catalog-filter__block">
-          <legend className="title title--h5">Цена, ₽</legend>
-          <div className="catalog-filter__price-range">
-            <div className="custom-input">
-              <label>
-                <input type="number" name="price" placeholder="от"/>
-              </label>
-            </div>
-            <div className="custom-input">
-              <label>
-                <input type="number" name="priceUp" placeholder="до"/>
-              </label>
-            </div>
-          </div>
-        </fieldset>
+        <FilterPrice navigateToDefaultPage={navigateToDefaultPage}/>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Категория</legend>
           <div className="custom-checkbox catalog-filter__item">

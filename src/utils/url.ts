@@ -24,5 +24,18 @@ export function getUrlWithSearchParams (searchParams: TArguments) {
   if (params.order) {
     url = `${url}&_order=${params.order}`;
   }
+
+  if (params?.minPrice && params?.maxPrice && params?.minPrice === params?.maxPrice) {
+    url = `${url}&_like=${params?.minPrice}`;
+  }
+
+  if (params?.minPrice && !/_like/g.test(url)) {
+    url = `${url}&price_gte=${params?.minPrice}`;
+  }
+
+  if (params?.maxPrice && !/_like=/g.test(url)) {
+    url = `${url}&price_lte=${params?.maxPrice}`;
+  }
+
   return url;
 }

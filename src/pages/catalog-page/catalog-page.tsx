@@ -15,6 +15,7 @@ import { closeAddToCartModal } from '../../store/cart-process/cart-process';
 import { selectCurrentSortOrder, selectCurrentSortType } from '../../store/sort-process/selectors';
 import { TSearchParams } from '../../common/types/search-params';
 import { getUrlWithSearchParams } from '../../utils/url';
+import { selectMaxPrice, selectMinPrice } from '../../store/filter-process/selectors';
 
 export function CatalogPage () {
   const [, setSearchParams] = useSearchParams();
@@ -27,6 +28,8 @@ export function CatalogPage () {
   const isLoading = useAppSelector(selectAppStatus);
   const sort = useAppSelector(selectCurrentSortType);
   const order = useAppSelector(selectCurrentSortOrder);
+  const minPrice = useAppSelector(selectMinPrice);
+  const maxPrice = useAppSelector(selectMaxPrice);
 
   const updateSearchParams = useCallback((params: TSearchParams) => {
     const updatedParams: { [key: string]: string | string[] } = {};
@@ -39,14 +42,14 @@ export function CatalogPage () {
   }, [setSearchParams]);
 
   useLayoutEffect(() => {
-    const params: TSearchParams = {sort, order};
+    const params: TSearchParams = {sort, order, minPrice, maxPrice};
     const url = getUrlWithSearchParams({
       pageNumber,
       params
     });
     dispatch(fetchProducts({url}));
     updateSearchParams(params);
-  }, [sort, order, updateSearchParams, pageNumber, dispatch, navigate]);
+  }, [sort, order, updateSearchParams, pageNumber, minPrice, maxPrice, dispatch, navigate]);
 
   useEffect(() => {
     dispatch(fetchPromoSlides());

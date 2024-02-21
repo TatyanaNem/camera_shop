@@ -23,7 +23,8 @@ export enum NameSpace {
   ReviewProcess = 'REVIEW_PROCESS',
   CartProcess = 'CART_PROCESS',
   SearchProcess = 'SEARCH_PROCESS',
-  SortProcess = 'SORT_PROCESS'
+  SortProcess = 'SORT_PROCESS',
+  FilterProcess = 'FILTER_PROCESS'
 }
 
 export const BACKEND_URL = 'https://camera-shop.accelerator.htmlacademy.pro';
