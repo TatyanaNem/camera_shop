@@ -25,7 +25,11 @@ describe('Component: CatalogPage', () => {
     },
     [NameSpace.SortProcess]: {
       currentSortOrder: 'asc',
-      currentSortType: 'price'
+      currentSortType: 'price',
+    },
+    [NameSpace.FilterProcess]: {
+      minPrice: '1990',
+      maxPrice: '199000'
     }
   };
   it('should render correctly', () => {
