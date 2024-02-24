@@ -1,6 +1,7 @@
 import { store } from '../../store';
-import { ApiError, RequestStatus } from '../const';
+import { ApiError, CameraCategory, RequestStatus } from '../const';
 import { TCamera } from './camera';
+import { TUnavailableType } from './filter-types';
 import { TPromo } from './promo';
 import { TReview } from './review';
 import { TSortOrder, TSortType } from './sort-types';
@@ -50,4 +51,6 @@ export type TSortProcess = {
 export type TFilterProcess = {
   minPrice: string;
   maxPrice: string;
+  category: CameraCategory | null;
+  unavailableType: TUnavailableType[];
 }

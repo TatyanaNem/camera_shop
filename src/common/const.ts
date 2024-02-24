@@ -1,3 +1,4 @@
+import { TUnavailableType } from './types/filter-types';
 import { TSortInputType, TSortType } from './types/sort-types';
 
 export const RATING_NUMBER = 5;
@@ -38,15 +39,15 @@ export enum APIRoute {
 }
 
 export enum CameraType {
-  Collection = 'collection',
-  Instant = 'instant',
-  Digital = 'digital',
-  Film = 'film'
+  Collection = 'Коллекционная',
+  Instant = 'Моментальная',
+  Digital = 'Цифровая',
+  Film = 'Плёночная'
 }
 
 export enum CameraCategory {
-  Video = 'video',
-  Photo = 'photo'
+  Videocamera = 'Видеокамера',
+  Photocamera = 'Фотоаппарат'
 }
 
 export enum CameraLevel {
@@ -107,3 +108,4 @@ export const SortInputData: Partial<Record<TSortType, TSortInputType>> = {
 };
 
 export const DEFAULT_SORT_TYPE: TSortType = 'price';
+export const UNAVAILABLE_TYPE: TUnavailableType[] = ['Моментальная', 'Плёночная'];

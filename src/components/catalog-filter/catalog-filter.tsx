@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router-dom';
 import { FilterPrice } from '.';
 import { AppRoute, DEFAULT_PAGE } from '../../common/const';
+import { FilterCategory } from './filter-category/filter-category';
 
 export function CatalogFilter () {
   const navigate = useNavigate();
@@ -13,21 +14,7 @@ export function CatalogFilter () {
       <form action="#">
         <h2 className="visually-hidden">Фильтр</h2>
         <FilterPrice navigateToDefaultPage={navigateToDefaultPage}/>
-        <fieldset className="catalog-filter__block">
-          <legend className="title title--h5">Категория</legend>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="photocamera"/>
-              <span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Фотокамера</span>
-            </label>
-          </div>
-          <div className="custom-checkbox catalog-filter__item">
-            <label>
-              <input type="checkbox" name="videocamera"/>
-              <span className="custom-checkbox__icon"></span><span className="custom-checkbox__label">Видеокамера</span>
-            </label>
-          </div>
-        </fieldset>
+        <FilterCategory navigateToDefaultPage={navigateToDefaultPage}/>
         <fieldset className="catalog-filter__block">
           <legend className="title title--h5">Тип камеры</legend>
           <div className="custom-checkbox catalog-filter__item">

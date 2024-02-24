@@ -1,3 +1,4 @@
+import { CameraCategory } from '../const';
 import { TSortOrder, TSortType } from './sort-types';
 
 export type TSearchParams = {
@@ -5,4 +6,5 @@ export type TSearchParams = {
   order: TSortOrder;
   minPrice: string;
   maxPrice: string;
+  category: CameraCategory | null;
 }

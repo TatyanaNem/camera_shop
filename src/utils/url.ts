@@ -37,5 +37,9 @@ export function getUrlWithSearchParams (searchParams: TArguments) {
     url = `${url}&price_lte=${params?.maxPrice}`;
   }
 
+  if (params?.category) {
+    url = `${url}&category=${params?.category}`;
+  }
+
   return url;
 }
