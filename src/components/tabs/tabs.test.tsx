@@ -6,7 +6,7 @@ import userEvent from '@testing-library/user-event';
 
 describe('Component: Tabs', () => {
   const vendorCode = '12345';
-  const category = CameraCategory.Photo;
+  const category = CameraCategory.Photocamera;
   const type = CameraType.Collection;
   const level = CameraLevel.Amateur;
   const description = 'lorem ipsum';
