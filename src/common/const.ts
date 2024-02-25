@@ -39,10 +39,10 @@ export enum APIRoute {
 }
 
 export enum CameraType {
-  Collection = 'Коллекционная',
-  Instant = 'Моментальная',
   Digital = 'Цифровая',
-  Film = 'Плёночная'
+  Film = 'Плёночная',
+  Snapshot = 'Моментальная',
+  Collection = 'Коллекционная',
 }
 
 export enum CameraCategory {
@@ -108,4 +108,4 @@ export const SortInputData: Partial<Record<TSortType, TSortInputType>> = {
 };
 
 export const DEFAULT_SORT_TYPE: TSortType = 'price';
-export const UNAVAILABLE_TYPE: TUnavailableType[] = ['Моментальная', 'Плёночная'];
+export const UNAVAILABLE_TYPE: TUnavailableType[] = [CameraType.Film, CameraType.Snapshot];

@@ -7,7 +7,7 @@ export const mockActiveProduct: TCamera = {
   name: faker.lorem.words(3),
   vendorCode: faker.random.alphaNumeric(20),
   type: CameraType.Collection,
-  category: CameraCategory.Photo,
+  category: CameraCategory.Photocamera,
   description: faker.lorem.paragraph(),
   level: CameraLevel.Professional,
   rating: faker.datatype.number({min: 1, max: 5}),

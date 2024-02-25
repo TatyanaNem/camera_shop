@@ -1,8 +1,8 @@
-import { ChangeEvent } from 'react';
+import { ChangeEvent, useEffect } from 'react';
 import { CameraCategory, UNAVAILABLE_TYPE } from '../../../common/const';
 import { useAppDispatch, useAppSelector } from '../../../common/hooks';
-import { selectCategory } from '../../../store/filter-process/selectors';
-import { addUnavailableTypes, removeCategory, removeUnavailableTypes, setCategory } from '../../../store/filter-process/filter-process';
+import { selectCategory, selectUnavailableTypes } from '../../../store/filter-process/selectors';
+import { addUnavailableTypes, removeCameraType, removeCategory, removeUnavailableTypes, setCategory } from '../../../store/filter-process/filter-process';
 
 type TFilterCategoryProps = {
   navigateToDefaultPage: () => void;
@@ -11,11 +11,19 @@ type TFilterCategoryProps = {
 export function FilterCategory ({navigateToDefaultPage}: TFilterCategoryProps) {
   const dispatch = useAppDispatch();
   const currentCategory = useAppSelector(selectCategory);
+  const unavailableTypes = useAppSelector(selectUnavailableTypes);
+
   const handleCategoryChange = (category: CameraCategory, checked: boolean) => {
     if (checked) {
       dispatch(setCategory(category));
       if (category === 'Видеокамера') {
         dispatch(addUnavailableTypes(UNAVAILABLE_TYPE));
+        unavailableTypes.forEach((item) => {
+          dispatch(removeCameraType(item));
+        });
+      }
+      if (category === 'Фотоаппарат') {
+        dispatch(removeUnavailableTypes());
       }
     } else {
       dispatch(removeCategory());
@@ -23,6 +31,12 @@ export function FilterCategory ({navigateToDefaultPage}: TFilterCategoryProps) {
     }
     navigateToDefaultPage();
   };
+
+  useEffect(() => {
+    unavailableTypes.forEach((item) => {
+      dispatch(removeCameraType(item));
+    });
+  }, [dispatch, unavailableTypes]);
 
   return (
     <fieldset className="catalog-filter__block">

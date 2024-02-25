@@ -7,7 +7,8 @@ export function Breadcrumbs() {
   const {pathname} = useLocation();
   const crumbs = `root${pathname}`
     .split('/')
-    .filter((path) => /\D/.test(path));
+    .filter((path) => /\D/.test(path))
+    .filter((item) => item !== 'product');
 
   return (
     <div className="breadcrumbs" data-testid='breadcrumbs'>

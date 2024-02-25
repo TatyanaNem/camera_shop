@@ -27,7 +27,7 @@ export function App () {
           element={<CatalogPage/>}
         />
         <Route
-          path={`${AppRoute.Catalog}/:id`}
+          path={`${AppRoute.Product}/:id`}
           element={<ProductPage />}
         />
         <Route

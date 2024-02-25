@@ -41,5 +41,9 @@ export function getUrlWithSearchParams (searchParams: TArguments) {
     url = `${url}&category=${params?.category}`;
   }
 
+  if (params?.type?.length) {
+    url = params.type.reduce((acc, type) => `${acc}&type=${type}`, url);
+  }
+
   return url;
 }

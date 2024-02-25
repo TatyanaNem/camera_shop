@@ -4,6 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { withStore } from '../../mocks/mock-components/with-store';
 import { NameSpace, RequestStatus } from '../../common/const';
 import { State } from '../../common/types/state';
+import { mockProducts } from '../../mocks/mock-products';
 
 describe('Component: CatalogFilter', () => {
   it('should render correctly', () => {
@@ -11,7 +12,7 @@ describe('Component: CatalogFilter', () => {
       [NameSpace.DataProcess]: {
         promoSlides: [],
         isPromoLoaded: false,
-        products: [],
+        products: mockProducts,
         totalPagesCount: 0,
         activeProduct: null,
         similarProducts: null
@@ -26,7 +27,10 @@ describe('Component: CatalogFilter', () => {
       },
       [NameSpace.FilterProcess]: {
         minPrice: '1990',
-        maxPrice: '199000'
+        maxPrice: '199000',
+        category: null,
+        unavailableType: [],
+        cameraType: []
       }
     };
     const {withStoreComponent} = withStore(<CatalogFilter />, initialState);

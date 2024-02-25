@@ -3,27 +3,24 @@ import { NameSpace, RequestStatus } from '../common/const';
 import { render } from '@testing-library/react';
 import App from '.';
 import { withStore } from '../mocks/mock-components/with-store';
+import { mockProducts } from '../mocks/mock-products';
 
-const initialState: Partial<State> = {
+const initialState: State = {
   [NameSpace.DataProcess]: {
     promoSlides: [],
     isPromoLoaded: false,
-    products: [],
-    totalPagesCount: 0,
+    products: mockProducts,
+    totalPagesCount: 1,
     activeProduct: null,
-    similarProducts: null,
+    similarProducts: null
   },
   [NameSpace.AppProcess]: {
     status: RequestStatus.Idle,
     error: null
   },
-  [NameSpace.SearchProcess]: {
-    searchProducts: [],
-    searchProductsFetchingStatus: RequestStatus.Idle
-  },
-  [NameSpace.SortProcess]: {
-    currentSortOrder: 'asc',
-    currentSortType: 'price'
+  [NameSpace.CartProcess]: {
+    isAddToCartModalOpen: false,
+    product: null
   },
   [NameSpace.ReviewProcess]: {
     isSuccessModalOpen: false,
@@ -33,9 +30,20 @@ const initialState: Partial<State> = {
     reviewSendingStatus: RequestStatus.Idle,
     shouldReset: false,
   },
-  [NameSpace.CartProcess]: {
-    isAddToCartModalOpen: false,
-    product: null
+  [NameSpace.SortProcess]: {
+    currentSortOrder: '',
+    currentSortType: '',
+  },
+  [NameSpace.SearchProcess]: {
+    searchProducts: [],
+    searchProductsFetchingStatus: RequestStatus.Idle
+  },
+  [NameSpace.FilterProcess]: {
+    minPrice: '',
+    maxPrice: '',
+    category: null,
+    unavailableType: [],
+    cameraType: []
   }
 };
 

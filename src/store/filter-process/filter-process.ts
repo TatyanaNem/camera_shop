@@ -1,13 +1,14 @@
 import { TUnavailableType } from './../../common/types/filter-types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { CameraCategory, NameSpace } from '../../common/const';
+import { CameraCategory, CameraType, NameSpace } from '../../common/const';
 import { TFilterProcess } from '../../common/types/state';
 
 const initialState: TFilterProcess = {
   minPrice: '',
   maxPrice: '',
   category: null,
-  unavailableType:[]
+  unavailableType:[],
+  cameraType: []
 };
 
 export const filterProcess = createSlice({
@@ -31,8 +32,16 @@ export const filterProcess = createSlice({
     },
     removeUnavailableTypes: (state) => {
       state.unavailableType = [];
-    }
+    },
+    addCameraType: (state, action: PayloadAction<CameraType>) => {
+      if (!state.cameraType.includes(action.payload)) {
+        state.cameraType.push(action.payload);
+      }
+    },
+    removeCameraType: (state, action: PayloadAction<CameraType>) => {
+      state.cameraType = state.cameraType.filter((cameraType) => cameraType !== action.payload);
+    },
   }
 });
 
-export const {setMinPrice, setMaxPrice, setCategory, removeCategory,addUnavailableTypes, removeUnavailableTypes} = filterProcess.actions;
+export const {setMinPrice, setMaxPrice, setCategory, removeCategory,addUnavailableTypes, removeUnavailableTypes, addCameraType, removeCameraType} = filterProcess.actions;

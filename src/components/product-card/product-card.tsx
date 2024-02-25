@@ -41,7 +41,7 @@ export function ProductCard ({product, className}: TProductCardProps) {
         >
           Купить
         </button>
-        <Link className="btn btn--transparent" to={`/${AppRoute.Catalog}/${id}`} state={name}>Подробнее
+        <Link className="btn btn--transparent" to={`/${AppRoute.Product}/${id}`} state={name}>Подробнее
         </Link>
       </div>
     </div>

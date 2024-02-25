@@ -1,5 +1,5 @@
 import { store } from '../../store';
-import { ApiError, CameraCategory, RequestStatus } from '../const';
+import { ApiError, CameraCategory, CameraType, RequestStatus } from '../const';
 import { TCamera } from './camera';
 import { TUnavailableType } from './filter-types';
 import { TPromo } from './promo';
@@ -53,4 +53,5 @@ export type TFilterProcess = {
   maxPrice: string;
   category: CameraCategory | null;
   unavailableType: TUnavailableType[];
+  cameraType: CameraType[];
 }
