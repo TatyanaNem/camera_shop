@@ -51,9 +51,9 @@ export enum CameraCategory {
 }
 
 export enum CameraLevel {
-  Zero = 'zero',
-  Amateur = 'amateur',
-  Professional = 'professional'
+  Zero = 'Нулевой',
+  Hobby = 'Любительский',
+  Professional = 'Профессиональный'
 }
 
 export enum RequestStatus {

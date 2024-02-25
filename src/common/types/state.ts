@@ -1,5 +1,5 @@
 import { store } from '../../store';
-import { ApiError, CameraCategory, CameraType, RequestStatus } from '../const';
+import { ApiError, CameraCategory, CameraLevel, CameraType, RequestStatus } from '../const';
 import { TCamera } from './camera';
 import { TUnavailableType } from './filter-types';
 import { TPromo } from './promo';
@@ -54,4 +54,5 @@ export type TFilterProcess = {
   category: CameraCategory | null;
   unavailableType: TUnavailableType[];
   cameraType: CameraType[];
+  levels: CameraLevel[];
 }

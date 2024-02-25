@@ -8,7 +8,7 @@ describe('Component: Tabs', () => {
   const vendorCode = '12345';
   const category = CameraCategory.Photocamera;
   const type = CameraType.Collection;
-  const level = CameraLevel.Amateur;
+  const level = CameraLevel.Hobby;
   const description = 'lorem ipsum';
 
   it('should render correctly', () => {

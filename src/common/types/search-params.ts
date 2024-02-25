@@ -1,4 +1,4 @@
-import { CameraCategory, CameraType } from '../const';
+import { CameraCategory, CameraLevel, CameraType } from '../const';
 import { TSortOrder, TSortType } from './sort-types';
 
 export type TSearchParams = {
@@ -8,4 +8,5 @@ export type TSearchParams = {
   maxPrice: string;
   category: CameraCategory | null;
   type: CameraType[];
+  level: CameraLevel[];
 }

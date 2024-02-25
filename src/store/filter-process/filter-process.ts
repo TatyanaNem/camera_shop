@@ -1,6 +1,6 @@
 import { TUnavailableType } from './../../common/types/filter-types';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { CameraCategory, CameraType, NameSpace } from '../../common/const';
+import { CameraCategory, CameraLevel, CameraType, NameSpace } from '../../common/const';
 import { TFilterProcess } from '../../common/types/state';
 
 const initialState: TFilterProcess = {
@@ -8,7 +8,8 @@ const initialState: TFilterProcess = {
   maxPrice: '',
   category: null,
   unavailableType:[],
-  cameraType: []
+  cameraType: [],
+  levels: []
 };
 
 export const filterProcess = createSlice({
@@ -41,7 +42,35 @@ export const filterProcess = createSlice({
     removeCameraType: (state, action: PayloadAction<CameraType>) => {
       state.cameraType = state.cameraType.filter((cameraType) => cameraType !== action.payload);
     },
+    addCameraLevel: (state, action: PayloadAction<CameraLevel>) => {
+      if (!state.levels.includes(action.payload)) {
+        state.levels.push(action.payload);
+      }
+    },
+    removeCameraLevel: (state, action: PayloadAction<CameraLevel>) => {
+      state.levels = state.levels.filter((level) => level !== action.payload);
+    },
+    resetFilters: (state) => {
+      state.minPrice = '';
+      state.maxPrice = '';
+      state.category = null;
+      state.unavailableType = [];
+      state.levels = [];
+      state.cameraType = [];
+    }
   }
 });
 
-export const {setMinPrice, setMaxPrice, setCategory, removeCategory,addUnavailableTypes, removeUnavailableTypes, addCameraType, removeCameraType} = filterProcess.actions;
+export const {
+  setMinPrice,
+  setMaxPrice,
+  setCategory,
+  removeCategory,
+  addUnavailableTypes,
+  removeUnavailableTypes,
+  addCameraType,
+  removeCameraType,
+  addCameraLevel,
+  removeCameraLevel,
+  resetFilters
+} = filterProcess.actions;

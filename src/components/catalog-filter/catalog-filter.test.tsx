@@ -30,7 +30,8 @@ describe('Component: CatalogFilter', () => {
         maxPrice: '199000',
         category: null,
         unavailableType: [],
-        cameraType: []
+        cameraType: [],
+        levels: []
       }
     };
     const {withStoreComponent} = withStore(<CatalogFilter />, initialState);

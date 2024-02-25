@@ -43,7 +43,8 @@ const initialState: State = {
     maxPrice: '',
     category: null,
     unavailableType: [],
-    cameraType: []
+    cameraType: [],
+    levels: []
   }
 };
 

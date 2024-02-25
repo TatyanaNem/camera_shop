@@ -45,5 +45,9 @@ export function getUrlWithSearchParams (searchParams: TArguments) {
     url = params.type.reduce((acc, type) => `${acc}&type=${type}`, url);
   }
 
+  if (params?.level?.length) {
+    url = params.level.reduce((acc, level) => `${acc}&level=${level}`, url);
+  }
+
   return url;
 }

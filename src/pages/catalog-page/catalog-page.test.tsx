@@ -46,7 +46,8 @@ describe('Component: CatalogPage', () => {
       maxPrice: '',
       category: null,
       unavailableType: [],
-      cameraType: []
+      cameraType: [],
+      levels: []
     }
   };
   it('should render correctly', () => {

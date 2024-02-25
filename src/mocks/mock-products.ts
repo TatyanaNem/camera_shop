@@ -26,7 +26,7 @@ export const mockProducts: TCamera[] = [
     type: CameraType.Film,
     category: CameraCategory.Videocamera,
     description: faker.lorem.paragraph(),
-    level: CameraLevel.Amateur,
+    level: CameraLevel.Hobby,
     rating: faker.datatype.number({min: 1, max: 5}),
     price: faker.datatype.number(10000),
     previewImg: 'string',
