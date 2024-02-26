@@ -100,11 +100,15 @@ export function FilterPrice ({navigateToDefaultPage}: TFilterPriceProps) {
   };
 
   useLayoutEffect(() => {
-    dispatch(fetchPrice('asc')).unwrap().then((res) => {
-      setMinCatalogPrice(res);
+    dispatch(fetchPrice('asc')).then((res) => {
+      if (res.payload) {
+        setMinCatalogPrice(res.payload);
+      }
     });
-    dispatch(fetchPrice('desc')).unwrap().then((res) => {
-      setMaxCatalogPrice(res);
+    dispatch(fetchPrice('desc')).then((res) => {
+      if (res.payload) {
+        setMaxCatalogPrice(res.payload);
+      }
     });
   }, [dispatch]);
 
