@@ -35,3 +35,4 @@ export const searchProcess = createSlice({
 });
 
 export const {resetSearchProducts, resetSearchFetchingStatus} = searchProcess.actions;
+export const searchProcessReducer = searchProcess.reducer;

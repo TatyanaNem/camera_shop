@@ -5,8 +5,8 @@ import { State } from '../common/types/state';
 import { Action } from 'redux';
 import thunk, {ThunkDispatch} from 'redux-thunk';
 import { mockProducts } from '../mocks/mock-products';
-import { APIRoute } from '../common/const';
-import { fetchActiveProduct, fetchProducts, fetchPromoSlides, fetchReviews, fetchSimilarProducts, postReview } from './api-actions';
+import { APIRoute, BACKEND_URL } from '../common/const';
+import { fetchActiveProduct, fetchPrice, fetchProducts, fetchPromoSlides, fetchReviews, fetchSimilarProducts, postReview } from './api-actions';
 import { mockActiveProduct } from '../mocks/mock-active-product';
 import { mockPromoSlide } from '../mocks/mock-promo-slide';
 import { mockReview } from '../mocks/mock-review';
@@ -274,6 +274,46 @@ describe('when async actions', () => {
           postReview.pending.type,
           postReview.rejected.type
         ]);
+    });
+  });
+
+  describe('fetch price', () => {
+    const URL = `${BACKEND_URL}/cameras?_sort=price&_order=asc&_start=0&_limit=1`;
+    it('should call actions with server 200 response', async () => {
+      const store = mockStoreCreator();
+      mockAxiosAdapter
+        .onGet(URL)
+        .reply(200, mockProducts);
+
+      expect(store.getActions()).toEqual([]);
+
+      await store.dispatch(fetchPrice('asc'));
+      const actions = extractActionTypes(store.getActions());
+
+      expect(actions).toEqual(
+        [
+          fetchPrice.pending.type,
+          fetchPrice.fulfilled.type
+        ]);
+    });
+
+    it('should call actions while request is rejected', async () => {
+      const store = mockStoreCreator();
+      mockAxiosAdapter
+        .onGet(URL)
+        .reply(400);
+
+      expect(store.getActions()).toEqual([]);
+
+      await store.dispatch(fetchPrice('desc'));
+      const actions = extractActionTypes(store.getActions());
+
+      expect(actions).toEqual(
+        [
+          fetchPrice.pending.type,
+          fetchPrice.rejected.type
+        ]);
+
     });
   });
 });

@@ -3,7 +3,7 @@ import { DEFAULT_SORT_TYPE, NameSpace } from '../../common/const';
 import { TSortProcess } from '../../common/types/state';
 import { TSortOrder, TSortType } from '../../common/types/sort-types';
 
-const initialState: TSortProcess = {
+export const initialState: TSortProcess = {
   currentSortType: '',
   currentSortOrder: ''
 };
@@ -25,3 +25,4 @@ export const sortProcess = createSlice({
 });
 
 export const {setCurrentSortType, setCurrentOrderType} = sortProcess.actions;
+export const sortProcessReducer = sortProcess.reducer;
