@@ -74,6 +74,7 @@ export function SearchForm () {
         'list-opened': searchValue
       })}
       ref={searchRef}
+      data-testid='search-form'
     >
       <form onReset={handleFormReset}>
         <SearchInput onChange={handleInputChange}/>

@@ -74,3 +74,5 @@ export const {
   removeCameraLevel,
   resetFilters
 } = filterProcess.actions;
+
+export const filterProcessReducer = filterProcess.reducer;

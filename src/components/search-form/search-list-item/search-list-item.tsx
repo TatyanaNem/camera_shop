@@ -31,7 +31,6 @@ export function SearchListItem ({product, onSelectListItem, isFocused}: TSearchL
 
     if (event.key === 'ArrowUp' || event.key === 'ArrowDown') {
       event.preventDefault();
-      //setNextFocus(event.key === 'ArrowDown');
     }
   }
 
@@ -51,6 +50,7 @@ export function SearchListItem ({product, onSelectListItem, isFocused}: TSearchL
       onClick={handleListItemClick}
       onKeyDown={handleListItemKeydown}
       ref={liItemRef}
+      data-testid='search-list-item'
     >
       {product.name}
     </li>

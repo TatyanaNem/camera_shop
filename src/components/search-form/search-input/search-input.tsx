@@ -11,7 +11,7 @@ export function SearchInput ({onChange}: TSearchInputProps) {
   });
 
   return (
-    <label>
+    <label >
       <svg className="form-search__icon" width="16" height="16" aria-hidden="true">
         <use xlinkHref="#icon-lens"></use>
       </svg>
@@ -21,6 +21,7 @@ export function SearchInput ({onChange}: TSearchInputProps) {
         autoComplete="off"
         placeholder="Поиск по сайту"
         onChange={handleInputChange}
+        data-testid='search-input'
       />
     </label>
   );

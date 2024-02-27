@@ -1,6 +1,6 @@
 export function SearchResetButton () {
   return (
-    <button className="form-search__reset" type="reset">
+    <button className="form-search__reset" type="reset" data-testid='reset-button'>
       <svg width="10" height="10" aria-hidden="true">
         <use xlinkHref="#icon-close"></use>
       </svg><span className="visually-hidden">Сбросить поиск</span>
