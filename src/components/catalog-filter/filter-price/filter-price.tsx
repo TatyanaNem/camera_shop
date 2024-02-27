@@ -4,6 +4,7 @@ import { useAppDispatch, useAppSelector } from '../../../common/hooks';
 import { selectMaxPrice, selectMinPrice } from '../../../store/filter-process/selectors';
 import { debounce } from '../../../utils/debounce';
 import { setMaxPrice, setMinPrice } from '../../../store/filter-process/filter-process';
+import { setCurrentOrderType } from '../../../store/sort-process/sort-process';
 
 type TFilterPriceProps = {
   navigateToDefaultPage: () => void;
@@ -75,6 +76,7 @@ export function FilterPrice ({navigateToDefaultPage}: TFilterPriceProps) {
       price = 0;
     }
     dispatch(setMinPrice(price === 0 ? '' : price.toString()));
+    dispatch(setCurrentOrderType('asc'));
     updateMinPriceModifier(!evt.target.value ? evt.target.value : price.toString());
     updateMinPrice();
     navigateToDefaultPage();
@@ -94,6 +96,7 @@ export function FilterPrice ({navigateToDefaultPage}: TFilterPriceProps) {
       price = 0;
     }
     dispatch(setMaxPrice(price === 0 ? '' : price.toString()));
+    dispatch(setCurrentOrderType('desc'));
     updateMaxPriceModifier(!evt.target.value ? evt.target.value : price.toString());
     updateMaxPrice();
     navigateToDefaultPage();
@@ -123,7 +126,7 @@ export function FilterPrice ({navigateToDefaultPage}: TFilterPriceProps) {
   useEffect(() => {
     updateMinPriceModifier(minPrice ? minPrice.toString() : '');
     updateMaxPriceModifier(maxPrice ? maxPrice.toString() : '');
-  }, []);
+  }, [minPrice, maxPrice]);
 
   return (
     <fieldset className="catalog-filter__block">

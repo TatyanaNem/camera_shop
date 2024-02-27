@@ -12,7 +12,7 @@ import useKeyPressed from '../../common/hooks/use-key-pressed';
 import { fetchProductsWithSearchValue } from '../../store/api-actions';
 
 export function SearchForm () {
-  const searchRef = useRef<HTMLDivElement | null>(null);
+  const searchRef = useRef<HTMLFormElement | null>(null);
   const navigate = useNavigate();
   const [searchValue, setSearchValue] = useState<string>('');
   const [isDropdownActive, setIsDropdownActive] = useState<boolean>(false);
@@ -52,31 +52,30 @@ export function SearchForm () {
     }
   }
 
-  function handleFormReset () {
+  const handleFormReset = () => {
     setIsDropdownActive(false);
     dispatch(resetSearchProducts());
     dispatch(resetSearchFetchingStatus());
     setSearchValue('');
     setActiveProductIndex(0);
     setActiveProductIndex(-1);
-  }
+  };
 
   function handleFormSelectItem (id: string) {
-    handleFormReset();
-    navigate(`/${AppRoute.Catalog}/${id}?tab=${DEFAULT_TAB}`);
+    searchRef.current?.reset();
+    navigate(`/${AppRoute.Product}/${id}?tab=${DEFAULT_TAB}`);
   }
 
-  useOnClickOutside(searchRef, handleFormReset);
+  useOnClickOutside(searchRef, () => searchRef.current?.reset());
 
   return (
     <div
       className={classNames('form-search', {
         'list-opened': searchValue
       })}
-      ref={searchRef}
       data-testid='search-form'
     >
-      <form onReset={handleFormReset}>
+      <form onReset={handleFormReset} ref={searchRef}>
         <SearchInput onChange={handleInputChange}/>
         {!!searchCameras &&
         <SearchList
