@@ -81,7 +81,6 @@ export function SearchForm () {
         <SearchList
           products={searchCameras}
           searchFetchingStatus={searchFetchingStatus}
-          searchValue={searchValue}
           onSelectListItem={handleFormSelectItem}
           activeProductIndex={activeProductIndex}
         />}
