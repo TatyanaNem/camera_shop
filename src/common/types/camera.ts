@@ -9,7 +9,7 @@ export type TCamera = {
   description: string;
   level: CameraLevel;
   price: number;
-  rating: number;
+  rating: number | null;
   reviewCount: number;
   previewImg: string;
   previewImg2x: string;

@@ -1,6 +1,6 @@
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../common/const';
-import { fetchActiveProduct, fetchProducts, fetchPromoSlides, fetchSimilarProducts } from '../api-actions';
+import { fetchActiveProduct, fetchAverageRating, fetchProducts, fetchPromoSlides, fetchSimilarProducts } from '../api-actions';
 import { TDataProcess } from '../../common/types/state';
 
 const initialState: TDataProcess = {
@@ -39,6 +39,12 @@ export const dataProcess = createSlice({
       })
       .addCase(fetchSimilarProducts.fulfilled, (state, action) => {
         state.similarProducts = action.payload;
+      })
+      .addCase(fetchAverageRating.fulfilled, (state, action) => {
+        const camera = state.products.find((item) => item.id === action.payload.id);
+        if (camera) {
+          camera.rating = action.payload.rating;
+        }
       });
   }
 });

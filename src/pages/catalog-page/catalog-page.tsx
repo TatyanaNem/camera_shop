@@ -16,6 +16,7 @@ import { selectCurrentSortOrder, selectCurrentSortType } from '../../store/sort-
 import { TSearchParams } from '../../common/types/search-params';
 import { getUrlWithSearchParams } from '../../utils/url';
 import { selectCategory, selectCurrentCameraLevels, selectCurrentCameraTypes, selectMaxPrice, selectMinPrice } from '../../store/filter-process/selectors';
+import { getSortedProducts } from '../../utils/sort';
 
 export function CatalogPage () {
   const [, setSearchParams] = useSearchParams();
@@ -62,6 +63,8 @@ export function CatalogPage () {
     dispatch(closeAddToCartModal());
   };
 
+  const sortedProducts = getSortedProducts(products, order);
+
   return (
     <>
       <section className="catalog">
@@ -73,7 +76,7 @@ export function CatalogPage () {
             </div>
             <div className="catalog__content">
               <CatalogSort />
-              {isLoading ? <ProductList currentProducts={products}/> : <Spinner />}
+              {isLoading ? <ProductList currentProducts={sort === 'rating' ? sortedProducts : products}/> : <Spinner />}
               {totalPagesCount > 1 && <Pagination totalPagesCount={totalPagesCount} currentPage={pageNumber}/>}
             </div>
           </div>

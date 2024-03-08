@@ -20,6 +20,11 @@ type FetchProductsReturnType = {
   totalPagesCount: number;
 }
 
+type FetchAverageRatingReturnType = {
+  id: number;
+  rating: number | null;
+}
+
 export const fetchPromoSlides = createAsyncThunk<TPromo[], undefined, TExtra>(
   `${NameSpace.DataProcess}/fetchPromoSlides`,
   async (_arg, {extra: api, rejectWithValue}) => {
@@ -115,6 +120,30 @@ export const fetchPrice = createAsyncThunk<string, TSortOrder, TExtra>(
       return data[0].price.toString();
     } catch (error) {
       return rejectWithValue(ApiError.OnFetchProducts);
+    }
+  }
+);
+
+export const fetchAverageRating = createAsyncThunk<FetchAverageRatingReturnType, number, {
+  dispatch: AppDispatch;
+  state: State;
+  extra: AxiosInstance;
+}
+>(
+  'camera/fetchAvarageRatings',
+  async (id, { extra: api, rejectWithValue}) => {
+    try {
+      const { data } = await api.get<TReview[]>(`${ APIRoute.Cameras }/${ id }${ APIRoute.Reviews}`);
+
+      const rating = data.map((review) => review.rating);
+      const averageRating = rating.reduce((total, raiting) => (total + raiting), 0) / rating.length;
+
+      return {
+        rating: Math.ceil(averageRating),
+        id
+      };
+    } catch (error) {
+      return rejectWithValue(ApiError.OnFetchReviews);
     }
   }
 );
