@@ -21,7 +21,7 @@ type FetchProductsReturnType = {
 
 type FetchAverageRatingReturnType = {
   id: number;
-  rating: number | null;
+  rating: number;
 }
 
 export const fetchPromoSlides = createAsyncThunk<TPromo[], undefined, TExtra>(
