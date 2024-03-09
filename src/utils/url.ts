@@ -1,3 +1,4 @@
+import { TSortOrder } from './../common/types/sort-types';
 import { APIRoute, BACKEND_URL, PRODUCT_LIMIT_PER_PAGE } from '../common/const';
 import { TSearchParams } from '../common/types/search-params';
 
@@ -50,4 +51,39 @@ export function getUrlWithSearchParams (searchParams: TArguments) {
   }
 
   return url;
+}
+
+export function getUrlForFetchingPrice (order: TSortOrder, params: Partial<TSearchParams>) {
+  let urlForPrice = `${BACKEND_URL}${APIRoute.Cameras}?_order=${order}`;
+
+  if (params.sort) {
+    urlForPrice = `${urlForPrice}&_sort=${params.sort}`;
+  } else {
+    urlForPrice = `${urlForPrice}&_sort=price`;
+  }
+
+  if (params?.minPrice && params?.maxPrice && params?.minPrice === params?.maxPrice) {
+    urlForPrice = `${urlForPrice}&_like=${params?.minPrice}`;
+  }
+
+  if (params?.minPrice && !/_like/g.test(urlForPrice)) {
+    urlForPrice = `${urlForPrice}&price_gte=${params?.minPrice}`;
+  }
+
+  if (params?.maxPrice && !/_like=/g.test(urlForPrice)) {
+    urlForPrice = `${urlForPrice}&price_lte=${params?.maxPrice}`;
+  }
+
+  if (params?.category) {
+    urlForPrice = `${urlForPrice}&category=${params?.category}`;
+  }
+
+  if (params?.type?.length) {
+    urlForPrice = params.type.reduce((acc, type) => `${acc}&type=${type}`, urlForPrice);
+  }
+
+  if (params?.level?.length) {
+    urlForPrice = params.level.reduce((acc, level) => `${acc}&level=${level}`, urlForPrice);
+  }
+  return urlForPrice;
 }

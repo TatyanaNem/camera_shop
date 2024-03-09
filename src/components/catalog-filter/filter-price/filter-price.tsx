@@ -1,10 +1,12 @@
 import { ChangeEvent, FocusEvent, useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { fetchPrice } from '../../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../../common/hooks';
-import { selectMaxPrice, selectMinPrice } from '../../../store/filter-process/selectors';
+import { selectCategory, selectCurrentCameraLevels, selectCurrentCameraTypes, selectMaxPrice, selectMinPrice } from '../../../store/filter-process/selectors';
 import { debounce } from '../../../utils/debounce';
 import { setMaxPrice, setMinPrice } from '../../../store/filter-process/filter-process';
 import { setCurrentOrderType } from '../../../store/sort-process/sort-process';
+import { getUrlForFetchingPrice } from '../../../utils/url';
+import { TSearchParams } from '../../../common/types/search-params';
 
 type TFilterPriceProps = {
   navigateToDefaultPage: () => void;
@@ -18,6 +20,9 @@ export function FilterPrice ({navigateToDefaultPage}: TFilterPriceProps) {
   const [minModifier, setMinModifier] = useState('');
   const [maxModifier, setMaxModifier] = useState('');
   const dispatch = useAppDispatch();
+  const category = useAppSelector(selectCategory);
+  const cameraTypes = useAppSelector(selectCurrentCameraTypes);
+  const level = useAppSelector(selectCurrentCameraLevels);
   const minPrice = useAppSelector(selectMinPrice);
   const maxPrice = useAppSelector(selectMaxPrice);
 
@@ -103,17 +108,18 @@ export function FilterPrice ({navigateToDefaultPage}: TFilterPriceProps) {
   };
 
   useLayoutEffect(() => {
-    dispatch(fetchPrice('asc')).then((res) => {
+    const params: Partial<TSearchParams> = {minPrice, maxPrice, category, type: cameraTypes, level};
+    dispatch(fetchPrice(getUrlForFetchingPrice('asc', params))).then((res) => {
       if (res.payload) {
         setMinCatalogPrice(res.payload);
       }
     });
-    dispatch(fetchPrice('desc')).then((res) => {
+    dispatch(fetchPrice(getUrlForFetchingPrice('desc', params))).then((res) => {
       if (res.payload) {
         setMaxCatalogPrice(res.payload);
       }
     });
-  }, [dispatch]);
+  }, [dispatch, cameraTypes, category, level, maxPrice, minPrice]);
 
   useLayoutEffect(() => {
     updateMinPrice();

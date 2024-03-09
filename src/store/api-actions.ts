@@ -1,12 +1,11 @@
 import { TCamera } from './../common/types/camera';
 import { AxiosInstance } from 'axios';
-import { APIRoute, ApiError, BACKEND_URL, NameSpace, PRODUCT_LIMIT_PER_PAGE } from '../common/const';
+import { APIRoute, ApiError, NameSpace, PRODUCT_LIMIT_PER_PAGE } from '../common/const';
 import { TPromo } from '../common/types/promo';
 import { AppDispatch, State } from '../common/types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TReview } from '../common/types/review';
 import { TPostReviewProps } from '../common/types/review-data';
-import { TSortOrder } from '../common/types/sort-types';
 
 type TExtra = {
   dispatch: AppDispatch;
@@ -45,6 +44,17 @@ export const fetchProducts = createAsyncThunk<FetchProductsReturnType, {url: str
       const products = response.data;
       const totalPagesCount = products.length ? Math.ceil(maxCatalogCount / PRODUCT_LIMIT_PER_PAGE) : 0;
       return {products, totalPagesCount};
+    } catch (error) {
+      return rejectWithValue(ApiError.OnFetchProducts);
+    }
+  });
+
+export const fetchAllProducts = createAsyncThunk<TCamera[], undefined, TExtra>(
+  `${NameSpace.DataProcess}/fetchProducts`,
+  async (_arg, {extra: api, rejectWithValue}) => {
+    try {
+      const response = await api.get<TCamera[]>(APIRoute.Cameras);
+      return response.data;
     } catch (error) {
       return rejectWithValue(ApiError.OnFetchProducts);
     }
@@ -111,10 +121,10 @@ export const postReview = createAsyncThunk<TReview, TPostReviewProps, TExtra>(
   }
 );
 
-export const fetchPrice = createAsyncThunk<string, TSortOrder, TExtra>(
+export const fetchPrice = createAsyncThunk<string, string, TExtra>(
   `${NameSpace.FilterProcess}/fetchPrice`,
-  async (order, {extra: api, rejectWithValue}) => {
-    const URL = `${BACKEND_URL}/cameras?_sort=price&_order=${order}&_start=0&_limit=1`;
+  async (url, {extra: api, rejectWithValue}) => {
+    const URL = `${url}&_start=0&_limit=1`;
     try {
       const {data} = await api.get<TCamera[]>(URL);
       return data[0].price.toString();

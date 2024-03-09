@@ -1,7 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../../common/hooks';
 import { TSortType, TSortInputType } from '../../../common/types/sort-types';
 import { selectCurrentSortType } from '../../../store/sort-process/selectors';
-import { setCurrentSortType } from '../../../store/sort-process/sort-process';
+import { setCurrentOrderType, setCurrentSortType } from '../../../store/sort-process/sort-process';
 
 type TSortTypeInputProps = {
   sort: Exclude<TSortType, ''>;
@@ -17,7 +17,10 @@ export function SortTypeInput ({sort}: TSortTypeInputProps) {
   const currentSortType = useAppSelector(selectCurrentSortType);
   const dispatch = useAppDispatch();
   function handleSortByTypeChange () {
-    dispatch(setCurrentSortType(sort));
+    if (sort === 'rating') {
+      dispatch(setCurrentSortType(sort));
+      dispatch(setCurrentOrderType('desc'));
+    }
   }
 
   return (
