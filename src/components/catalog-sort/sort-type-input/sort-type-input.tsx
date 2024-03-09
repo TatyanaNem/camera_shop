@@ -21,6 +21,7 @@ export function SortTypeInput ({sort}: TSortTypeInputProps) {
       dispatch(setCurrentSortType(sort));
       dispatch(setCurrentOrderType('desc'));
     }
+    dispatch(setCurrentSortType(sort));
   }
 
   return (

@@ -51,8 +51,6 @@ export type TSortProcess = {
 export type TFilterProcess = {
   minPrice: string;
   maxPrice: string;
-  minCatalogPrice: string;
-  maxCatalogPrice: string;
   category: CameraCategory | null;
   unavailableType: TUnavailableType[];
   cameraType: CameraType[];

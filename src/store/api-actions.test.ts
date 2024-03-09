@@ -278,16 +278,16 @@ describe('when async actions', () => {
   });
 
   describe('fetch price', () => {
-    const URL = `${BACKEND_URL}/cameras?_sort=price&_order=asc&_start=0&_limit=1`;
+    const URL = `${BACKEND_URL}/cameras?_order=desc&_sort=price&_start=0&_limit=1`;
     it('should call actions with server 200 response', async () => {
       const store = mockStoreCreator();
       mockAxiosAdapter
         .onGet(URL)
-        .reply(200, mockProducts);
+        .reply(200, [mockActiveProduct]);
 
       expect(store.getActions()).toEqual([]);
 
-      await store.dispatch(fetchPrice('asc'));
+      await store.dispatch(fetchPrice(`${BACKEND_URL}/cameras?_order=desc&_sort=price`));
       const actions = extractActionTypes(store.getActions());
 
       expect(actions).toEqual(

@@ -6,8 +6,6 @@ import { TFilterProcess } from '../../common/types/state';
 const initialState: TFilterProcess = {
   minPrice: '',
   maxPrice: '',
-  minCatalogPrice: '',
-  maxCatalogPrice: '',
   category: null,
   unavailableType:[],
   cameraType: [],
