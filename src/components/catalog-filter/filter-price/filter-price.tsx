@@ -33,13 +33,11 @@ export function FilterPrice ({navigateToDefaultPage}: TFilterPriceProps) {
   const checkIsMaxPriceNotValid = (maxPriceValue: number) =>
     maxPriceValue <= 0
     || (maxCatalogPrice && maxPriceValue > Number(maxCatalogPrice))
-    || (minPrice && maxPriceValue < Number(minPrice))
     || (minCatalogPrice && maxPriceValue < Number(minCatalogPrice));
 
   const checkIsMinPriceNotValid = (minPriceValue: number) =>
     minPriceValue <= 0
-    || (minCatalogPrice && minPriceValue < Number(minCatalogPrice))
-    || (maxPrice && minPriceValue > Number(maxPrice));
+    || (minCatalogPrice && minPriceValue < Number(minCatalogPrice));
 
   const updateMinPriceModifier = (value: string) => {
     if (!value) {
@@ -108,7 +106,7 @@ export function FilterPrice ({navigateToDefaultPage}: TFilterPriceProps) {
   };
 
   useLayoutEffect(() => {
-    const params: Partial<TSearchParams> = {minPrice, maxPrice, category, type: cameraTypes, level};
+    const params: Partial<TSearchParams> = {category, type: cameraTypes, level};
     dispatch(fetchPrice(getUrlForFetchingPrice('asc', params))).then((res) => {
       if (res.payload) {
         setMinCatalogPrice(res.payload);
@@ -119,7 +117,14 @@ export function FilterPrice ({navigateToDefaultPage}: TFilterPriceProps) {
         setMaxCatalogPrice(res.payload);
       }
     });
-  }, [dispatch, cameraTypes, category, level, maxPrice, minPrice]);
+  }, [dispatch, cameraTypes, category, level]);
+
+  const handleInputKeyDown = (event: KeyboardEvent) => {
+    const input = event.target as HTMLInputElement;
+    if (event.key === 'Enter') {
+      input.blur();
+    }
+  };
 
   useLayoutEffect(() => {
     updateMinPrice();
@@ -147,6 +152,7 @@ export function FilterPrice ({navigateToDefaultPage}: TFilterPriceProps) {
               placeholder={`${minCatalogPrice}`}
               onChange={handleMinPriceInputChange}
               onBlur={handleMinPriceBlur}
+              onKeyDown={handleInputKeyDown}
             />
           </label>
         </div>
@@ -159,6 +165,7 @@ export function FilterPrice ({navigateToDefaultPage}: TFilterPriceProps) {
               placeholder={`${maxCatalogPrice}`}
               onChange={handleMaxPriceInputChange}
               onBlur={handleMaxPriceBlur}
+              onKeyDown={handleInputKeyDown}
             />
           </label>
         </div>

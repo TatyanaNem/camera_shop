@@ -123,14 +123,10 @@ export const postReview = createAsyncThunk<TReview, TPostReviewProps, TExtra>(
 
 export const fetchPrice = createAsyncThunk<string, string, TExtra>(
   `${NameSpace.FilterProcess}/fetchPrice`,
-  async (url, {extra: api, rejectWithValue}) => {
+  async (url, {extra: api}) => {
     const URL = `${url}&_start=0&_limit=1`;
-    try {
-      const {data} = await api.get<TCamera[]>(URL);
-      return data[0].price.toString();
-    } catch (error) {
-      return rejectWithValue(ApiError.OnFetchProducts);
-    }
+    const {data} = await api.get<TCamera[]>(URL);
+    return data[0].price.toString();
   }
 );
 
