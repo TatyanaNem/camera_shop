@@ -22,7 +22,7 @@ export function FilterCategory ({navigateToDefaultPage}: TFilterCategoryProps) {
           dispatch(removeCameraType(item));
         });
       }
-      if (category === 'Фотоаппарат') {
+      if (category === 'Фотокамера') {
         dispatch(removeUnavailableTypes());
       }
     } else {

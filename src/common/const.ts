@@ -46,8 +46,8 @@ export enum CameraType {
 }
 
 export enum CameraCategory {
-  Videocamera = 'Видеокамера',
-  Photocamera = 'Фотоаппарат'
+  Photocamera = 'Фотокамера',
+  Videocamera = 'Видеокамера'
 }
 
 export enum CameraLevel {

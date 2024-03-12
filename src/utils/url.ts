@@ -39,6 +39,9 @@ export function getUrlWithSearchParams (searchParams: TArguments) {
   }
 
   if (params?.category) {
+    if (params.category === 'Фотокамера') {
+      url = `${url}&category=Фотоаппарат`;
+    }
     url = `${url}&category=${params?.category}`;
   }
 
@@ -75,6 +78,9 @@ export function getUrlForFetchingPrice (order: TSortOrder, params: Partial<TSear
   }
 
   if (params?.category) {
+    if (params.category === 'Фотокамера') {
+      urlForPrice = `${urlForPrice}&category=Фотоаппарат`;
+    }
     urlForPrice = `${urlForPrice}&category=${params?.category}`;
   }
 
