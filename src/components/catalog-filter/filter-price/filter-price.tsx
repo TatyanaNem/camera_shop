@@ -1,4 +1,4 @@
-import { ChangeEvent, FocusEvent, useEffect, useLayoutEffect, useRef, useState } from 'react';
+import { ChangeEvent, FocusEvent, useEffect, useLayoutEffect, useRef, useState, KeyboardEvent } from 'react';
 import { fetchPrice } from '../../../store/api-actions';
 import { useAppDispatch, useAppSelector } from '../../../common/hooks';
 import { selectCategory, selectCurrentCameraLevels, selectCurrentCameraTypes, selectMaxPrice, selectMinPrice } from '../../../store/filter-process/selectors';
@@ -119,7 +119,7 @@ export function FilterPrice ({navigateToDefaultPage}: TFilterPriceProps) {
     });
   }, [dispatch, cameraTypes, category, level]);
 
-  const handleInputKeyDown = (event: KeyboardEvent) => {
+  const handleInputKeyDown = (event: KeyboardEvent<HTMLInputElement>) => {
     const input = event.target as HTMLInputElement;
     if (event.key === 'Enter') {
       input.blur();
