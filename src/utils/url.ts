@@ -26,10 +26,6 @@ export function getUrlWithSearchParams (searchParams: TArguments) {
     url = `${url}&_order=${params.order}`;
   }
 
-  if (params?.minPrice && params?.maxPrice && params?.minPrice === params?.maxPrice) {
-    url = `${url}&_like=${params?.minPrice}`;
-  }
-
   if (params?.minPrice && !/_like/g.test(url)) {
     url = `${url}&price_gte=${params?.minPrice}`;
   }
@@ -52,7 +48,7 @@ export function getUrlWithSearchParams (searchParams: TArguments) {
   if (params?.level?.length) {
     url = params.level.reduce((acc, level) => `${acc}&level=${level}`, url);
   }
-
+  console.log(url);
   return url;
 }
 
@@ -63,10 +59,6 @@ export function getUrlForFetchingPrice (order: TSortOrder, params: Partial<TSear
     urlForPrice = `${urlForPrice}&_sort=${params.sort}`;
   } else {
     urlForPrice = `${urlForPrice}&_sort=price`;
-  }
-
-  if (params?.minPrice && params?.maxPrice && params?.minPrice === params?.maxPrice) {
-    urlForPrice = `${urlForPrice}&_like=${params?.minPrice}`;
   }
 
   if (params?.minPrice && !/_like/g.test(urlForPrice)) {
