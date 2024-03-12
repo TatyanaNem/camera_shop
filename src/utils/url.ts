@@ -48,7 +48,6 @@ export function getUrlWithSearchParams (searchParams: TArguments) {
   if (params?.level?.length) {
     url = params.level.reduce((acc, level) => `${acc}&level=${level}`, url);
   }
-  console.log(url);
   return url;
 }
 
