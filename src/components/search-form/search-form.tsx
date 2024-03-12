@@ -71,13 +71,13 @@ export function SearchForm () {
   return (
     <div
       className={classNames('form-search', {
-        'list-opened': searchValue
+        'list-opened': searchValue !== ''
       })}
       data-testid='search-form'
     >
       <form onReset={handleFormReset} ref={searchRef}>
         <SearchInput onChange={handleInputChange}/>
-        {!!searchCameras &&
+        {!!searchCameras && searchValue.length >= 3 &&
         <SearchList
           products={searchCameras}
           searchFetchingStatus={searchFetchingStatus}
