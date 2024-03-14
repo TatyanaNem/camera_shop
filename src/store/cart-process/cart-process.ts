@@ -5,7 +5,9 @@ import { TCamera } from '../../common/types/camera';
 
 const initialState: TCartProcess = {
   isAddToCartModalOpen: false,
-  product: null
+  product: null,
+  camerasInCart: [],
+  isSuccessModalOpen: false
 };
 
 export const cartProcess = createSlice({
@@ -18,8 +20,19 @@ export const cartProcess = createSlice({
     },
     closeAddToCartModal: (state) => {
       state.isAddToCartModalOpen = false;
+    },
+    addToCart: (state, action: PayloadAction<TCamera>) => {
+      state.camerasInCart = [...state.camerasInCart, action.payload];
+      state.isAddToCartModalOpen = false;
+      state.isSuccessModalOpen = true;
+    },
+    openAddToCartModalSuccess: (state) => {
+      state.isSuccessModalOpen = true;
+    },
+    closeAddToCartModalSuccess: (state) => {
+      state.isSuccessModalOpen = false;
     }
   }
 });
 
-export const {openAddToCartModal, closeAddToCartModal} = cartProcess.actions;
+export const {openAddToCartModal, closeAddToCartModal, addToCart, openAddToCartModalSuccess, closeAddToCartModalSuccess} = cartProcess.actions;

@@ -36,6 +36,8 @@ export type TReviewProcess = {
 export type TCartProcess = {
   isAddToCartModalOpen: boolean;
   product: null | TCamera;
+  camerasInCart: TCamera[];
+  isSuccessModalOpen: boolean;
 }
 
 export type TSearchProcess = {

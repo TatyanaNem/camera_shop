@@ -12,8 +12,9 @@ import ReviewsBlock from '../../components/reviews-block';
 import GoTopButton from '../../components/common/go-top-button';
 import {Spinner} from '../../components/common/spinner/spinner';
 import { selectReviews } from '../../store/review-process/selectors';
-import ModalAddToCart from '../../components/modals/modal-add-to-cart';
-import { closeAddToCartModal } from '../../store/cart-process/cart-process';
+import { closeAddToCartModal, closeAddToCartModalSuccess } from '../../store/cart-process/cart-process';
+import { ModalAddToCartSuccess } from '../../components/modals';
+import { ModalAddToCart } from '../../components/modals';
 
 export function ProductPage () {
   const [showsScrollTop, setShowScrollTop] = useState(false);
@@ -28,6 +29,10 @@ export function ProductPage () {
 
   const handleModalClose = () => {
     dispatch(closeAddToCartModal());
+  };
+
+  const handleModalSuccessClose = () => {
+    dispatch(closeAddToCartModalSuccess());
   };
 
   useEffect(() => {
@@ -103,6 +108,7 @@ export function ProductPage () {
         {!!activeProductReviews && <ReviewsBlock reviews={activeProductReviews} activeProductId={Number(id)}/>}
       </div>
       <ModalAddToCart onModalClose={handleModalClose}/>
+      <ModalAddToCartSuccess onModalSuccessClose={handleModalSuccessClose}/>
       {showsScrollTop && <GoTopButton />}
     </>
   );

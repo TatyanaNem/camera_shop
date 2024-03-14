@@ -11,12 +11,13 @@ import { ProductList } from '../../components/product-list/product-list';
 import {Spinner} from '../../components/common/spinner/spinner';
 import { selectAppStatus } from '../../store/app-process/selectors';
 import ModalAddToCart from '../../components/modals/modal-add-to-cart';
-import { closeAddToCartModal } from '../../store/cart-process/cart-process';
+import { closeAddToCartModal, closeAddToCartModalSuccess } from '../../store/cart-process/cart-process';
 import { selectCurrentSortOrder, selectCurrentSortType } from '../../store/sort-process/selectors';
 import { TSearchParams } from '../../common/types/search-params';
 import { getUrlWithSearchParams } from '../../utils/url';
 import { selectCategory, selectCurrentCameraLevels, selectCurrentCameraTypes, selectMaxPrice, selectMinPrice } from '../../store/filter-process/selectors';
 import { getSortedProducts } from '../../utils/sort';
+import { ModalAddToCartSuccess } from '../../components/modals';
 
 export function CatalogPage () {
   const [, setSearchParams] = useSearchParams();
@@ -63,6 +64,10 @@ export function CatalogPage () {
     dispatch(closeAddToCartModal());
   };
 
+  const handleModalSuccessClose = () => {
+    dispatch(closeAddToCartModalSuccess());
+  };
+
   const sortedProducts = getSortedProducts(products, order);
 
   return (
@@ -83,6 +88,8 @@ export function CatalogPage () {
         </div>
       </section>
       <ModalAddToCart onModalClose={handleModalClose}/>
+      <ModalAddToCartSuccess onModalSuccessClose={handleModalSuccessClose}/>
+
     </>
   );
 }

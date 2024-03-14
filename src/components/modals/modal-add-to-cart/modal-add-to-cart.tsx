@@ -1,16 +1,25 @@
 import { useRef } from 'react';
 import Modal from '../../common/modal';
-import { useAppSelector } from '../../../common/hooks';
+import { useAppDispatch, useAppSelector } from '../../../common/hooks';
 import { selectModalAddToCartStatus, selectProduct } from '../../../store/cart-process/selectors';
+import { addToCart, openAddToCartModalSuccess } from '../../../store/cart-process/cart-process';
 
 type TModalAddToCartProps = {
   onModalClose: () => void;
 }
 
 export function ModalAddToCart ({onModalClose}: TModalAddToCartProps) {
+  const dispatch = useAppDispatch();
   const addButtonRef = useRef<HTMLButtonElement>(null);
   const isModalActive = useAppSelector(selectModalAddToCartStatus);
   const product = useAppSelector(selectProduct);
+
+  function handleOnAddToCartButtonClick () {
+    if (product) {
+      dispatch(addToCart(product));
+      dispatch(openAddToCartModalSuccess());
+    }
+  }
 
   return (
     <Modal
@@ -44,6 +53,7 @@ export function ModalAddToCart ({onModalClose}: TModalAddToCartProps) {
           className="btn btn--purple modal__btn modal__btn--fit-width"
           type="button"
           ref={addButtonRef}
+          onClick={handleOnAddToCartButtonClick}
         >
           <svg width="24" height="16" aria-hidden="true">
             <use xlinkHref="#icon-add-basket"></use>

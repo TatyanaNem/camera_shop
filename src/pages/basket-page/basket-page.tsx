@@ -1,4 +1,13 @@
+import { useEffect } from 'react';
+
 export function BasketPage () {
+  useEffect(() => {
+    scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
+  }, []);
   return (
     <section className="basket">
       <div className="container">
