@@ -8,7 +8,9 @@ describe('Component: ModalAddToCart', () => {
   const initialState = {
     [NameSpace.CartProcess]: {
       isAddToCartModalOpen: true,
-      product: mockActiveProduct
+      product: mockActiveProduct,
+      camerasInCart: [],
+      isSuccessModalOpen: false
     }
   };
 

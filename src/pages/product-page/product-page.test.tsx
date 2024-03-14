@@ -31,7 +31,9 @@ describe('Component: ProductPage', () => {
     },
     [NameSpace.CartProcess]: {
       isAddToCartModalOpen: false,
-      product: null
+      product: null,
+      camerasInCart: [],
+      isSuccessModalOpen: false
     }
   };
   it('should render correctly', () => {

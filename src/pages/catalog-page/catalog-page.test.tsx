@@ -31,7 +31,9 @@ describe('Component: CatalogPage', () => {
     },
     [NameSpace.CartProcess]: {
       isAddToCartModalOpen: false,
-      product: null
+      product: null,
+      camerasInCart: [],
+      isSuccessModalOpen: false
     },
     [NameSpace.SortProcess]: {
       currentSortOrder: 'asc',

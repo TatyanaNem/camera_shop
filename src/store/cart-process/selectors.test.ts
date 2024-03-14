@@ -5,7 +5,9 @@ describe('AppProcess selectors', () => {
   const state = {
     [NameSpace.CartProcess]: {
       isAddToCartModalOpen: false,
-      product: null
+      product: null,
+      camerasInCart: [],
+      isSuccessModalOpen: false
     }
   };
 

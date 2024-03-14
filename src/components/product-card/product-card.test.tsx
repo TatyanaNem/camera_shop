@@ -23,7 +23,9 @@ describe('Component: ProductCard', () => {
     },
     [NameSpace.CartProcess]: {
       isAddToCartModalOpen: false,
-      product: null
+      product: null,
+      camerasInCart: [],
+      isSuccessModalOpen: false
     }
   };
 

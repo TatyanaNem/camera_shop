@@ -6,7 +6,9 @@ describe('test of cart-process reducer', () => {
   it('should return the initial state', () => {
     const initialState: TCartProcess = {
       isAddToCartModalOpen: false,
-      product: null
+      product: null,
+      camerasInCart: [],
+      isSuccessModalOpen: false
     };
 
     expect(cartProcess.reducer(undefined, {type: undefined}))
