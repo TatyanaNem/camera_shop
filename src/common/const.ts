@@ -109,3 +109,8 @@ export const SortInputData: Partial<Record<TSortType, TSortInputType>> = {
 
 export const DEFAULT_SORT_TYPE: TSortType = 'price';
 export const UNAVAILABLE_TYPE: TUnavailableType[] = [CameraType.Film, CameraType.Snapshot];
+
+export enum ProductAmount {
+  Min = 1,
+  Max = 99
+}

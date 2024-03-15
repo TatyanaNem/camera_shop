@@ -1,3 +1,4 @@
+import { TOrder } from './../../common/types/order';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace } from '../../common/const';
 import { TCartProcess } from '../../common/types/state';
@@ -22,9 +23,24 @@ export const cartProcess = createSlice({
       state.isAddToCartModalOpen = false;
     },
     addToCart: (state, action: PayloadAction<TCamera>) => {
-      state.camerasInCart = [...state.camerasInCart, action.payload];
+      const order = state.camerasInCart.find((item) => item.camera.id === action.payload.id);
+      if (order) {
+        order.quantity += 1;
+      } else {
+        const newOrder = {
+          camera: action.payload,
+          quantity: 1
+        };
+        state.camerasInCart.push(newOrder);
+      }
       state.isAddToCartModalOpen = false;
       state.isSuccessModalOpen = true;
+    },
+    changeQuantity: (state, action: PayloadAction<TOrder>) => {
+      const order = state.camerasInCart.find((item) => item.camera.id === action.payload.camera.id);
+      if (order) {
+        order.quantity = action.payload.quantity;
+      }
     },
     openAddToCartModalSuccess: (state) => {
       state.isSuccessModalOpen = true;
@@ -35,4 +51,4 @@ export const cartProcess = createSlice({
   }
 });
 
-export const {openAddToCartModal, closeAddToCartModal, addToCart, openAddToCartModalSuccess, closeAddToCartModalSuccess} = cartProcess.actions;
+export const {openAddToCartModal, closeAddToCartModal, addToCart, openAddToCartModalSuccess, closeAddToCartModalSuccess, changeQuantity} = cartProcess.actions;

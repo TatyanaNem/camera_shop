@@ -2,6 +2,7 @@ import { store } from '../../store';
 import { ApiError, CameraCategory, CameraLevel, CameraType, RequestStatus } from '../const';
 import { TCamera } from './camera';
 import { TUnavailableType } from './filter-types';
+import { TOrder } from './order';
 import { TPromo } from './promo';
 import { TReview } from './review';
 import { TSortOrder, TSortType } from './sort-types';
@@ -36,7 +37,7 @@ export type TReviewProcess = {
 export type TCartProcess = {
   isAddToCartModalOpen: boolean;
   product: null | TCamera;
-  camerasInCart: TCamera[];
+  camerasInCart: TOrder[];
   isSuccessModalOpen: boolean;
 }
 
