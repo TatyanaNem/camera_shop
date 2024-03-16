@@ -7,8 +7,10 @@ import { TCamera } from '../../common/types/camera';
 const initialState: TCartProcess = {
   isAddToCartModalOpen: false,
   product: null,
+  productForRemove: null,
   camerasInCart: [],
-  isSuccessModalOpen: false
+  isSuccessModalOpen: false,
+  isRemoveFromCartModalOpen: false
 };
 
 export const cartProcess = createSlice({
@@ -36,6 +38,18 @@ export const cartProcess = createSlice({
       state.isAddToCartModalOpen = false;
       state.isSuccessModalOpen = true;
     },
+    selectProductForRemove: (state, action: PayloadAction<TOrder>) => {
+      state.productForRemove = action.payload;
+      state.isRemoveFromCartModalOpen = true;
+    },
+    closeRemoveFromCartModal: (state) => {
+      state.isRemoveFromCartModalOpen = false;
+    },
+    removeFromCart: (state) => {
+      const newCamerasInCartList = state.camerasInCart.filter((item) => item.camera.id !== state.productForRemove?.camera.id);
+      state.camerasInCart = newCamerasInCartList;
+      state.isRemoveFromCartModalOpen = false;
+    },
     changeQuantity: (state, action: PayloadAction<TOrder>) => {
       const order = state.camerasInCart.find((item) => item.camera.id === action.payload.camera.id);
       if (order) {
@@ -51,4 +65,14 @@ export const cartProcess = createSlice({
   }
 });
 
-export const {openAddToCartModal, closeAddToCartModal, addToCart, openAddToCartModalSuccess, closeAddToCartModalSuccess, changeQuantity} = cartProcess.actions;
+export const {
+  openAddToCartModal,
+  closeAddToCartModal,
+  addToCart,
+  selectProductForRemove,
+  removeFromCart,
+  closeRemoveFromCartModal,
+  openAddToCartModalSuccess,
+  closeAddToCartModalSuccess,
+  changeQuantity
+} = cartProcess.actions;

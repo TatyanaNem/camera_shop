@@ -7,3 +7,5 @@ export const selectModalAddToCartStatus = (state: Pick<State, NameSpace.CartProc
 export const selectProduct = (state: Pick<State, NameSpace.CartProcess>): TCamera | null => state[NameSpace.CartProcess].product;
 export const selectProductsInCart = (state: Pick<State, NameSpace.CartProcess>): TOrder[] => state[NameSpace.CartProcess].camerasInCart;
 export const selectModalAddToCartSuccessStatus = (state: Pick<State, NameSpace.CartProcess>): boolean => state[NameSpace.CartProcess].isSuccessModalOpen;
+export const selectModalRemoveFromCartStatus = (state: Pick<State, NameSpace.CartProcess>): boolean => state[NameSpace.CartProcess].isRemoveFromCartModalOpen;
+

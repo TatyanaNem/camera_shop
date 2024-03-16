@@ -2,7 +2,7 @@ import { ChangeEvent, useEffect, useState } from 'react';
 import { ProductAmount } from '../../common/const';
 import { TOrder } from '../../common/types/order';
 import { useAppDispatch } from '../../common/hooks';
-import { changeQuantity } from '../../store/cart-process/cart-process';
+import { changeQuantity, selectProductForRemove } from '../../store/cart-process/cart-process';
 
 type TBasketItemProps = {
   product: TOrder;
@@ -43,6 +43,11 @@ export function BasketItem ({product}: TBasketItemProps) {
 
   function handleCamerasQuantityDecrease () {
     setQuantity((prevState) => prevState - 1);
+  }
+
+  function handleDeleteButtonClick () {
+    document.body.style.overflow = 'hidden';
+    dispatch(selectProductForRemove(product));
   }
 
   useEffect(() => {
@@ -102,7 +107,12 @@ export function BasketItem ({product}: TBasketItemProps) {
         </button>
       </div>
       <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>{`${price * quantity} ₽`}</div>
-      <button className="cross-btn" type="button" aria-label="Удалить товар">
+      <button
+        className="cross-btn"
+        type="button"
+        aria-label="Удалить товар"
+        onClick={handleDeleteButtonClick}
+      >
         <svg width="10" height="10" aria-hidden="true">
           <use xlinkHref="#icon-close"></use>
         </svg>
