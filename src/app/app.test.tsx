@@ -30,7 +30,9 @@ describe('Component: App', () => {
       isAddToCartModalOpen: false,
       product: null,
       camerasInCart: [],
-      isSuccessModalOpen: false
+      isSuccessModalOpen: false,
+      isRemoveFromCartModalOpen: false,
+      productForRemove: null
     },
     [NameSpace.SortProcess]: {
       currentSortOrder: 'asc',

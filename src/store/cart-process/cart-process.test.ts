@@ -8,7 +8,9 @@ describe('test of cart-process reducer', () => {
       isAddToCartModalOpen: false,
       product: null,
       camerasInCart: [],
-      isSuccessModalOpen: false
+      isSuccessModalOpen: false,
+      isRemoveFromCartModalOpen: false,
+      productForRemove: null
     };
 
     expect(cartProcess.reducer(undefined, {type: undefined}))

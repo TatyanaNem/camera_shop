@@ -25,7 +25,9 @@ describe('Component: ProductCard', () => {
       isAddToCartModalOpen: false,
       product: null,
       camerasInCart: [],
-      isSuccessModalOpen: false
+      isSuccessModalOpen: false,
+      isRemoveFromCartModalOpen: false,
+      productForRemove: null
     }
   };
 

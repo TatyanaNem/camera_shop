@@ -10,7 +10,9 @@ describe('Component: ModalAddToCart', () => {
       isAddToCartModalOpen: true,
       product: mockActiveProduct,
       camerasInCart: [],
-      isSuccessModalOpen: false
+      isSuccessModalOpen: false,
+      isRemoveFromCartModalOpen: false,
+      productForRemove: null
     }
   };
 
