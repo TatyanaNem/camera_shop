@@ -20,6 +20,17 @@ describe('Component: SimilarProducts', () => {
       [NameSpace.AppProcess]: {
         status: RequestStatus.Idle,
         error: null
+      },
+      [NameSpace.CartProcess]: {
+        isAddToCartModalOpen: false,
+        product: null,
+        camerasInCart: [],
+        isSuccessModalOpen: false,
+        isRemoveFromCartModalOpen: false,
+        productForRemove: null,
+        promoCode: '',
+        promoCodeSendingStatus: RequestStatus.Idle,
+        discount: null
       }
     };
 
