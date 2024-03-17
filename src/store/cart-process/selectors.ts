@@ -10,3 +10,5 @@ export const selectModalAddToCartSuccessStatus = (state: Pick<State, NameSpace.C
 export const selectModalRemoveFromCartStatus = (state: Pick<State, NameSpace.CartProcess>): boolean => state[NameSpace.CartProcess].isRemoveFromCartModalOpen;
 export const selectDiscount = (state: Pick<State, NameSpace.CartProcess>): null | number => state[NameSpace.CartProcess].discount;
 export const selectPromoCodeSendingStatus = (state: Pick<State, NameSpace.CartProcess>): RequestStatus => state[NameSpace.CartProcess].promoCodeSendingStatus;
+export const selectPromoCode = (state: Pick<State, NameSpace.CartProcess>): string => state[NameSpace.CartProcess].promoCode;
+export const selectCameraForRemove = (state: Pick<State, NameSpace.CartProcess>): TOrder | null => state[NameSpace.CartProcess].productForRemove;

@@ -3,6 +3,7 @@ import { ProductAmount } from '../../common/const';
 import { TOrder } from '../../common/types/order';
 import { useAppDispatch } from '../../common/hooks';
 import { changeQuantity, selectProductForRemove } from '../../store/cart-process/cart-process';
+import { getCategory } from '../../utils/getCategory';
 
 type TBasketItemProps = {
   product: TOrder;
@@ -12,13 +13,6 @@ export function BasketItem ({product}: TBasketItemProps) {
   const dispatch = useAppDispatch();
   const [quantity, setQuantity] = useState(product.quantity);
   const {previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, name, type, category, level, price, vendorCode} = product.camera;
-
-  const getCategory = (cameraCategory: string) => {
-    if (cameraCategory === 'Фотоаппарат') {
-      cameraCategory = 'Фотокамера';
-    }
-    return cameraCategory;
-  };
 
   function handleInputQuantityChange (event: ChangeEvent<HTMLInputElement>) {
     const quantityNumber = Number(event.target.value);

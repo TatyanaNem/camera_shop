@@ -1,7 +1,7 @@
 import { FormEvent, useEffect, useState } from 'react';
 import BasketPromo from './basket-promo';
 import { useAppDispatch, useAppSelector } from '../../common/hooks';
-import { selectDiscount, selectProductsInCart, selectPromoCodeSendingStatus } from '../../store/cart-process/selectors';
+import { selectDiscount, selectProductsInCart, selectPromoCode, selectPromoCodeSendingStatus } from '../../store/cart-process/selectors';
 import { addPromoCode } from '../../store/cart-process/cart-process';
 import { PromoValidationStatus, RequestStatus } from '../../common/const';
 import { sendPromo } from '../../store/api-actions';
@@ -10,7 +10,8 @@ import OrderSummary from './order-summary';
 export function BasketSummary () {
   const productsInCart = useAppSelector(selectProductsInCart);
   const dispatch = useAppDispatch();
-  const [promoCode, setPromoCode] = useState('');
+  const initialPromoCode = useAppSelector(selectPromoCode);
+  const [promoCode, setPromoCode] = useState(initialPromoCode);
   const [promoCodeValidationStatus, setPromoValidationStatus] = useState(PromoValidationStatus.Default);
   const isCartEmpty = productsInCart.length === 0;
   const discountPrice = useAppSelector(selectDiscount);
