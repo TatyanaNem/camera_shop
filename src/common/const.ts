@@ -35,7 +35,8 @@ export enum APIRoute {
   Promo = '/promo',
   Cameras = '/cameras',
   Similar = '/similar',
-  Reviews = '/reviews'
+  Reviews = '/reviews',
+  Coupons = '/coupons'
 }
 
 export enum CameraType {
@@ -81,6 +82,7 @@ export enum ApiError {
   OnFetchSimilar = 'Ошибка при загрузке похожих товаров',
   OnFetchReviews = 'Ошибка при загрузке комментариев',
   OnPostReview = 'Ошибка при записи нового комментария',
+  OnSendPromoCode = 'Ошибка отправки промокода'
 }
 
 export enum SearchProductsError {
@@ -113,4 +115,11 @@ export const UNAVAILABLE_TYPE: TUnavailableType[] = [CameraType.Film, CameraType
 export enum ProductAmount {
   Min = 1,
   Max = 99
+}
+
+export enum PromoValidationStatus {
+  Valid = 'valid',
+  NotValid = 'not-valid',
+  Default = 'default',
+  Error = 'error'
 }

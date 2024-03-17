@@ -1,4 +1,4 @@
-import { NameSpace } from '../../common/const';
+import { NameSpace, RequestStatus } from '../../common/const';
 import { selectModalAddToCartStatus, selectProduct } from './selectors';
 
 describe('AppProcess selectors', () => {
@@ -9,7 +9,10 @@ describe('AppProcess selectors', () => {
       camerasInCart: [],
       isSuccessModalOpen: false,
       isRemoveFromCartModalOpen: false,
-      productForRemove: null
+      productForRemove: null,
+      promoCode: '',
+      promoCodeSendingStatus: RequestStatus.Idle,
+      discount: null
     }
   };
 

@@ -50,6 +50,8 @@ export function BasketItem ({product}: TBasketItemProps) {
     dispatch(selectProductForRemove(product));
   }
 
+  const totalItemPrice = price * quantity;
+
   useEffect(() => {
     dispatch(changeQuantity({camera: product.camera, quantity}));
   }, [quantity, dispatch, product.camera]);
@@ -71,7 +73,7 @@ export function BasketItem ({product}: TBasketItemProps) {
           <li className="basket-item__list-item">{`${level} уровень`}</li>
         </ul>
       </div>
-      <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{`${price} ₽`}</p>
+      <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{`${price.toLocaleString()} ₽`}</p>
       <div className="quantity">
         <button
           className="btn-icon btn-icon--prev"
@@ -106,7 +108,7 @@ export function BasketItem ({product}: TBasketItemProps) {
           </svg>
         </button>
       </div>
-      <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>{`${price * quantity} ₽`}</div>
+      <div className="basket-item__total-price"><span className="visually-hidden">Общая цена:</span>{`${totalItemPrice.toLocaleString()} ₽`}</div>
       <button
         className="cross-btn"
         type="button"

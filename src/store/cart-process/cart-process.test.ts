@@ -1,3 +1,4 @@
+import { RequestStatus } from '../../common/const';
 import { TCartProcess } from '../../common/types/state';
 import { mockActiveProduct } from '../../mocks/mock-active-product';
 import { cartProcess, openAddToCartModal } from './cart-process';
@@ -10,7 +11,10 @@ describe('test of cart-process reducer', () => {
       camerasInCart: [],
       isSuccessModalOpen: false,
       isRemoveFromCartModalOpen: false,
-      productForRemove: null
+      productForRemove: null,
+      promoCode: '',
+      promoCodeSendingStatus: RequestStatus.Idle,
+      discount: null
     };
 
     expect(cartProcess.reducer(undefined, {type: undefined}))

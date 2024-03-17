@@ -35,7 +35,10 @@ describe('Component: CatalogPage', () => {
       camerasInCart: [],
       isSuccessModalOpen: false,
       isRemoveFromCartModalOpen: false,
-      productForRemove: null
+      productForRemove: null,
+      promoCode: '',
+      promoCodeSendingStatus: RequestStatus.Idle,
+      discount: null
     },
     [NameSpace.SortProcess]: {
       currentSortOrder: 'asc',

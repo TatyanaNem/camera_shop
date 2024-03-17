@@ -1,6 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import ModalAddToCart from '.';
-import { NameSpace } from '../../../common/const';
+import { NameSpace, RequestStatus } from '../../../common/const';
 import { withStore } from '../../../mocks/mock-components/with-store';
 import { mockActiveProduct } from '../../../mocks/mock-active-product';
 
@@ -12,7 +12,10 @@ describe('Component: ModalAddToCart', () => {
       camerasInCart: [],
       isSuccessModalOpen: false,
       isRemoveFromCartModalOpen: false,
-      productForRemove: null
+      productForRemove: null,
+      promoCode: '',
+      promoCodeSendingStatus: RequestStatus.Idle,
+      discount: null
     }
   };
 

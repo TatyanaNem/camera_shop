@@ -130,12 +130,7 @@ export const fetchPrice = createAsyncThunk<string, string, TExtra>(
   }
 );
 
-export const fetchAverageRating = createAsyncThunk<FetchAverageRatingReturnType, number, {
-  dispatch: AppDispatch;
-  state: State;
-  extra: AxiosInstance;
-}
->(
+export const fetchAverageRating = createAsyncThunk<FetchAverageRatingReturnType, number, TExtra>(
   'camera/fetchAvarageRatings',
   async (id, { extra: api, rejectWithValue}) => {
     try {
@@ -150,6 +145,18 @@ export const fetchAverageRating = createAsyncThunk<FetchAverageRatingReturnType,
       };
     } catch (error) {
       return rejectWithValue(ApiError.OnFetchReviews);
+    }
+  }
+);
+
+export const sendPromo = createAsyncThunk<number, string, TExtra>(
+  `${NameSpace.CartProcess}/sendPromo`,
+  async (promo, {extra: api, rejectWithValue}) => {
+    try {
+      const {data} = await api.post<number>(APIRoute.Coupons, {coupon: promo});
+      return data;
+    } catch (error) {
+      return rejectWithValue(ApiError.OnSendPromoCode);
     }
   }
 );

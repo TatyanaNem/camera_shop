@@ -35,7 +35,10 @@ describe('Component: ProductPage', () => {
       camerasInCart: [],
       isSuccessModalOpen: false,
       isRemoveFromCartModalOpen: false,
-      productForRemove: null
+      productForRemove: null,
+      promoCode: '',
+      promoCodeSendingStatus: RequestStatus.Idle,
+      discount: null
     }
   };
   it('should render correctly', () => {

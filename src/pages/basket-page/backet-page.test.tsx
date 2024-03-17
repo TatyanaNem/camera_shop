@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import BasketPage from '.';
 import { withStore } from '../../mocks/mock-components/with-store';
-import { NameSpace } from '../../common/const';
+import { NameSpace, RequestStatus } from '../../common/const';
 import { State } from '../../common/types/state';
 
 describe('Component: BasketPage', () => {
@@ -12,7 +12,10 @@ describe('Component: BasketPage', () => {
       camerasInCart: [],
       isSuccessModalOpen: false,
       isRemoveFromCartModalOpen: false,
-      productForRemove: null
+      productForRemove: null,
+      promoCode: '',
+      promoCodeSendingStatus: RequestStatus.Idle,
+      discount: null
     }
   };
 

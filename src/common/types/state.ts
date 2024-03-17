@@ -41,6 +41,9 @@ export type TCartProcess = {
   productForRemove: null | TOrder;
   isSuccessModalOpen: boolean;
   isRemoveFromCartModalOpen: boolean;
+  promoCode: string;
+  promoCodeSendingStatus: RequestStatus;
+  discount: null | number;
 }
 
 export type TSearchProcess = {

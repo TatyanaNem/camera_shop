@@ -1,8 +1,9 @@
 import { TOrder } from './../../common/types/order';
 import { PayloadAction, createSlice } from '@reduxjs/toolkit';
-import { NameSpace } from '../../common/const';
+import { NameSpace, RequestStatus } from '../../common/const';
 import { TCartProcess } from '../../common/types/state';
 import { TCamera } from '../../common/types/camera';
+import { sendPromo } from '../api-actions';
 
 const initialState: TCartProcess = {
   isAddToCartModalOpen: false,
@@ -10,7 +11,10 @@ const initialState: TCartProcess = {
   productForRemove: null,
   camerasInCart: [],
   isSuccessModalOpen: false,
-  isRemoveFromCartModalOpen: false
+  isRemoveFromCartModalOpen: false,
+  promoCode: '',
+  promoCodeSendingStatus: RequestStatus.Idle,
+  discount: null
 };
 
 export const cartProcess = createSlice({
@@ -61,7 +65,23 @@ export const cartProcess = createSlice({
     },
     closeAddToCartModalSuccess: (state) => {
       state.isSuccessModalOpen = false;
+    },
+    addPromoCode: (state, action: PayloadAction<string>) => {
+      state.promoCode = action.payload;
     }
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(sendPromo.pending, (state) => {
+        state.promoCodeSendingStatus = RequestStatus.Loading;
+      })
+      .addCase(sendPromo.fulfilled, (state, action) => {
+        state.promoCodeSendingStatus = RequestStatus.Success;
+        state.discount = action.payload;
+      })
+      .addCase(sendPromo.rejected, (state) => {
+        state.promoCodeSendingStatus = RequestStatus.Failed;
+      });
   }
 });
 
@@ -74,5 +94,6 @@ export const {
   closeRemoveFromCartModal,
   openAddToCartModalSuccess,
   closeAddToCartModalSuccess,
-  changeQuantity
+  changeQuantity,
+  addPromoCode
 } = cartProcess.actions;
