@@ -23,6 +23,17 @@ describe('Component: Layout', () => {
       [NameSpace.SearchProcess]: {
         searchProducts: [],
         searchProductsFetchingStatus: RequestStatus.Idle
+      },
+      [NameSpace.CartProcess]: {
+        isAddToCartModalOpen: false,
+        product: null,
+        camerasInCart: [],
+        isSuccessModalOpen: false,
+        isRemoveFromCartModalOpen: false,
+        productForRemove: null,
+        promoCode: '',
+        promoCodeSendingStatus: RequestStatus.Idle,
+        discount: null
       }
     };
     const layoutTestId = 'app-layout';
