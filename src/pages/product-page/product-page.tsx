@@ -12,7 +12,7 @@ import ReviewsBlock from '../../components/reviews-block';
 import GoTopButton from '../../components/common/go-top-button';
 import {Spinner} from '../../components/common/spinner/spinner';
 import { selectReviews } from '../../store/review-process/selectors';
-import { closeAddToCartModal, closeAddToCartModalSuccess } from '../../store/cart-process/cart-process';
+import { closeAddToCartModal, closeAddToCartModalSuccess, openAddToCartModal } from '../../store/cart-process/cart-process';
 import { ModalAddToCartSuccess } from '../../components/modals';
 import { ModalAddToCart } from '../../components/modals';
 
@@ -35,6 +35,13 @@ export function ProductPage () {
     dispatch(closeAddToCartModalSuccess());
   };
 
+  const handleAddToCartButtonClick = () => {
+    if (activeProduct) {
+      dispatch(openAddToCartModal(activeProduct));
+      document.body.style.overflow = 'hidden';
+    }
+  };
+
   useEffect(() => {
     if (lastLoadedId !== id) {
       dispatch(fetchActiveProduct(id)).then((response) => {
@@ -55,6 +62,14 @@ export function ProductPage () {
     return () => {
       window.removeEventListener('scroll', scrollCallback);
     };
+  }, []);
+
+  useEffect(() => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   }, []);
 
   if (fetchingStatus === RequestStatus.Loading) {
@@ -85,7 +100,11 @@ export function ProductPage () {
               <h1 className="title title--h3">{name}</h1>
               <StarRating rating={rating} reviewCount={reviewCount} block={'product'}/>
               <p className="product__price"><span className="visually-hidden">Цена:</span>{`${price.toLocaleString()} ₽`}</p>
-              <button className="btn btn--purple" type="button">
+              <button
+                className="btn btn--purple"
+                type="button"
+                onClick={handleAddToCartButtonClick}
+              >
                 <svg width="24" height="16" aria-hidden="true">
                   <use xlinkHref="#icon-add-basket"></use>
                 </svg>Добавить в корзину

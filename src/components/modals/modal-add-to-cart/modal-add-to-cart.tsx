@@ -3,6 +3,7 @@ import Modal from '../../common/modal';
 import { useAppDispatch, useAppSelector } from '../../../common/hooks';
 import { selectModalAddToCartStatus, selectProduct } from '../../../store/cart-process/selectors';
 import { addToCart, openAddToCartModalSuccess } from '../../../store/cart-process/cart-process';
+import { getCategory } from '../../../utils/getCategory';
 
 type TModalAddToCartProps = {
   onModalClose: () => void;
@@ -42,8 +43,8 @@ export function ModalAddToCart ({onModalClose}: TModalAddToCartProps) {
           <ul className="basket-item__list">
             <li className="basket-item__list-item"><span className="basket-item__article">Артикул:</span> <span className="basket-item__number">{product.vendorCode}</span>
             </li>
-            <li className="basket-item__list-item">{product.type}</li>
-            <li className="basket-item__list-item">{product.category}</li>
+            <li className="basket-item__list-item">{`${product.type} ${getCategory(product.category).toLowerCase()}`}</li>
+            <li className="basket-item__list-item">{`${product.level} уровень`}</li>
           </ul>
           <p className="basket-item__price"><span className="visually-hidden">Цена:</span>{`${product.price.toLocaleString()} ₽`}</p>
         </div>

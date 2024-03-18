@@ -3,7 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../common/hooks';
 import { selectModalAddToCartSuccessStatus } from '../../../store/cart-process/selectors';
 import Modal from '../../common/modal';
 import { useNavigate } from 'react-router-dom';
-import { AppRoute } from '../../../common/const';
+import { AppRoute, DEFAULT_PAGE } from '../../../common/const';
 import { closeAddToCartModalSuccess } from '../../../store/cart-process/cart-process';
 
 type TModalAddToCartSuccessProps = {
@@ -24,6 +24,7 @@ export function ModalAddToCartSuccess ({onModalSuccessClose}: TModalAddToCartSuc
 
   function handleReturnBackButtonClick () {
     dispatch(closeAddToCartModalSuccess());
+    navigate(`/${AppRoute.Catalog}/${DEFAULT_PAGE}`);
     document.body.style.overflow = 'visible';
   }
   return (
