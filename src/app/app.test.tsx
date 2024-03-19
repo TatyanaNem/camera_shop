@@ -35,7 +35,9 @@ describe('Component: App', () => {
       productForRemove: null,
       promoCode: '',
       promoCodeSendingStatus: RequestStatus.Idle,
-      discount: null
+      discount: null,
+      orderSendingStatus: RequestStatus.Idle,
+      isSendOrderSuccessModalOpen: false
     },
     [NameSpace.SortProcess]: {
       currentSortOrder: 'asc',

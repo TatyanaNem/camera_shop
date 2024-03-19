@@ -3,6 +3,7 @@ import BasketPage from '.';
 import { withStore } from '../../mocks/mock-components/with-store';
 import { NameSpace, RequestStatus } from '../../common/const';
 import { State } from '../../common/types/state';
+import { BrowserRouter } from 'react-router-dom';
 
 describe('Component: BasketPage', () => {
   const initialState: Partial<State> = {
@@ -15,7 +16,9 @@ describe('Component: BasketPage', () => {
       productForRemove: null,
       promoCode: '',
       promoCodeSendingStatus: RequestStatus.Idle,
-      discount: null
+      discount: null,
+      orderSendingStatus: RequestStatus.Idle,
+      isSendOrderSuccessModalOpen: false
     }
   };
 
@@ -24,7 +27,7 @@ describe('Component: BasketPage', () => {
     global.scrollTo = scrollToFunc;
     const {withStoreComponent} = withStore(<BasketPage />, initialState);
 
-    render(withStoreComponent);
+    render(withStoreComponent, {wrapper: BrowserRouter});
 
     expect(screen.getByText('Корзина')).toBeInTheDocument();
   });

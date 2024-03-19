@@ -20,7 +20,9 @@ describe('Component: Header', () => {
       productForRemove: null,
       promoCode: '',
       promoCodeSendingStatus: RequestStatus.Idle,
-      discount: null
+      discount: null,
+      orderSendingStatus: RequestStatus.Idle,
+      isSendOrderSuccessModalOpen: false
     }
   };
   it('should render correctly', () => {

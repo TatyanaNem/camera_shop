@@ -18,7 +18,9 @@ describe('Component: ProductList', () => {
       productForRemove: null,
       promoCode: '',
       promoCodeSendingStatus: RequestStatus.Idle,
-      discount: null
+      discount: null,
+      orderSendingStatus: RequestStatus.Idle,
+      isSendOrderSuccessModalOpen: false
     }
   };
 

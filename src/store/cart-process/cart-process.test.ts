@@ -14,7 +14,9 @@ describe('test of cart-process reducer', () => {
       productForRemove: null,
       promoCode: '',
       promoCodeSendingStatus: RequestStatus.Idle,
-      discount: null
+      discount: null,
+      orderSendingStatus: RequestStatus.Idle,
+      isSendOrderSuccessModalOpen: false
     };
 
     expect(cartProcess.reducer(undefined, {type: undefined}))
