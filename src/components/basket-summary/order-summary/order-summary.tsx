@@ -2,11 +2,16 @@ type TOrderSummaryProps = {
   discountPrice: number | null;
   camerasInCartTotalPrice: number;
   isCartEmpty: boolean;
+  onSendOrderButtonClick: () => void;
 }
 
-export function OrderSummary ({discountPrice, camerasInCartTotalPrice, isCartEmpty}: TOrderSummaryProps) {
+export function OrderSummary ({discountPrice, camerasInCartTotalPrice, isCartEmpty, onSendOrderButtonClick}: TOrderSummaryProps) {
   const bonusValue = discountPrice ? Math.ceil(camerasInCartTotalPrice * discountPrice / 100) : 0;
   const finalPrice = camerasInCartTotalPrice - bonusValue;
+
+  function handleSendOrderButtonClick () {
+    onSendOrderButtonClick();
+  }
 
   return (
     <div className="basket__summary-order">
@@ -17,6 +22,7 @@ export function OrderSummary ({discountPrice, camerasInCartTotalPrice, isCartEmp
         className="btn btn--purple"
         type="submit"
         disabled={isCartEmpty}
+        onClick={handleSendOrderButtonClick}
       >
         Оформить заказ
       </button>

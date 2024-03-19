@@ -3,15 +3,22 @@ import { useAppDispatch, useAppSelector } from '../../common/hooks';
 import { selectProductsInCart } from '../../store/cart-process/selectors';
 import { BasketItem } from '../../components/basket-item/basket-item';
 import './basket-page.css';
-import { closeRemoveFromCartModal } from '../../store/cart-process/cart-process';
+import { closeRemoveFromCartModal, closeSendOrderModalSuccess } from '../../store/cart-process/cart-process';
 import { ModalRemoveFromCart } from '../../components/modals';
 import BasketSummary from '../../components/basket-summary';
+import { ModalSendOrderSuccess } from '../../components/modals/modal-send-order-success/modal-send-order-success';
 
 export function BasketPage () {
   const productsInCart = useAppSelector(selectProductsInCart);
   const dispatch = useAppDispatch();
+
   function handleModalClose () {
     dispatch(closeRemoveFromCartModal());
+  }
+
+  function handleModalSuccessClose () {
+    document.body.style.overflow = 'visible';
+    dispatch(closeSendOrderModalSuccess());
   }
 
   useEffect(() => {
@@ -43,6 +50,7 @@ export function BasketPage () {
         </div>
       </section>
       <ModalRemoveFromCart onModalClose={handleModalClose}/>
+      <ModalSendOrderSuccess onModalSuccessClose={handleModalSuccessClose}/>
     </>
   );
 }

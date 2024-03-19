@@ -6,6 +6,7 @@ import { AppDispatch, State } from '../common/types/state';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { TReview } from '../common/types/review';
 import { TPostReviewProps } from '../common/types/review-data';
+import { OrderData } from '../common/types/order';
 
 type TExtra = {
   dispatch: AppDispatch;
@@ -157,6 +158,17 @@ export const sendPromo = createAsyncThunk<number, string, TExtra>(
       return data;
     } catch (error) {
       return rejectWithValue(ApiError.OnSendPromoCode);
+    }
+  }
+);
+
+export const sendOrder = createAsyncThunk<void, OrderData, TExtra>(
+  `${NameSpace.CartProcess}/sendOrder`,
+  async (userOrderData, {extra: api, rejectWithValue}) => {
+    try {
+      await api.post<OrderData>(APIRoute.Orders, userOrderData);
+    } catch (error) {
+      return rejectWithValue(ApiError.OnSendOrder);
     }
   }
 );

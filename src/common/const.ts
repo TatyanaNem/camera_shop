@@ -36,7 +36,8 @@ export enum APIRoute {
   Cameras = '/cameras',
   Similar = '/similar',
   Reviews = '/reviews',
-  Coupons = '/coupons'
+  Coupons = '/coupons',
+  Orders = '/orders'
 }
 
 export enum CameraType {
@@ -82,7 +83,8 @@ export enum ApiError {
   OnFetchSimilar = 'Ошибка при загрузке похожих товаров',
   OnFetchReviews = 'Ошибка при загрузке комментариев',
   OnPostReview = 'Ошибка при записи нового комментария',
-  OnSendPromoCode = 'Ошибка отправки промокода'
+  OnSendPromoCode = 'Ошибка отправки промокода',
+  OnSendOrder = 'Не удалось отправить заказ'
 }
 
 export enum SearchProductsError {

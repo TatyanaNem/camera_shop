@@ -2,9 +2,9 @@ import { FormEvent, useEffect, useState } from 'react';
 import BasketPromo from './basket-promo';
 import { useAppDispatch, useAppSelector } from '../../common/hooks';
 import { selectDiscount, selectProductsInCart, selectPromoCode, selectPromoCodeSendingStatus } from '../../store/cart-process/selectors';
-import { addPromoCode } from '../../store/cart-process/cart-process';
+import { addPromoCode, openSendOrderModalSuccess } from '../../store/cart-process/cart-process';
 import { PromoValidationStatus, RequestStatus } from '../../common/const';
-import { sendPromo } from '../../store/api-actions';
+import { sendOrder, sendPromo } from '../../store/api-actions';
 import OrderSummary from './order-summary';
 
 export function BasketSummary () {
@@ -18,6 +18,8 @@ export function BasketSummary () {
   const camerasInCartTotalPrice = productsInCart.reduce((acc, item) => acc + item.camera.price * item.quantity, 0);
   const promoCodeSendingStatus = useAppSelector(selectPromoCodeSendingStatus);
 
+  const camerasIds = productsInCart.map((item) => item.camera.id);
+
   function handleInputPromoChange (value: string) {
     if(value === '') {
       setPromoValidationStatus(PromoValidationStatus.Default);
@@ -30,6 +32,21 @@ export function BasketSummary () {
     const validPromoCode = promoCode.trim().split(' ').join('');
     dispatch(sendPromo(validPromoCode));
     dispatch(addPromoCode(validPromoCode));
+  }
+
+  function handleSendOrderButtonClick () {
+    const validCoupon = promoCodeValidationStatus === PromoValidationStatus.Valid ? promoCode.split(' ').join('') : null;
+    dispatch(sendOrder({
+      camerasIds,
+      coupon: validCoupon
+    })).unwrap().then(
+      () => {
+        dispatch(openSendOrderModalSuccess());
+        document.body.style.overflow = 'hidden';
+        setPromoValidationStatus(PromoValidationStatus.Default);
+        setPromoCode('');
+      }
+    );
   }
 
   useEffect(() => {
@@ -58,6 +75,7 @@ export function BasketSummary () {
         discountPrice={discountPrice}
         camerasInCartTotalPrice={camerasInCartTotalPrice}
         isCartEmpty={isCartEmpty}
+        onSendOrderButtonClick={handleSendOrderButtonClick}
       />
     </div>
   );

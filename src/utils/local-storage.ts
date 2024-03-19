@@ -10,7 +10,9 @@ const DEFAULT_CART_STATE = {
   isRemoveFromCartModalOpen: false,
   promoCode: '',
   promoCodeSendingStatus: RequestStatus.Idle,
-  discount: null
+  discount: null,
+  orderSendingStatus: RequestStatus.Idle,
+  isSendOrderSuccessModalOpen: false
 };
 
 const CART_STATE_KEY = 'cart-state';

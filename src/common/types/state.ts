@@ -44,6 +44,8 @@ export type TCartProcess = {
   promoCode: string;
   promoCodeSendingStatus: RequestStatus;
   discount: null | number;
+  orderSendingStatus: RequestStatus;
+  isSendOrderSuccessModalOpen: boolean;
 }
 
 export type TSearchProcess = {

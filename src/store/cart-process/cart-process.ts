@@ -3,7 +3,7 @@ import { PayloadAction, createSlice } from '@reduxjs/toolkit';
 import { NameSpace, RequestStatus } from '../../common/const';
 import { TCartProcess } from '../../common/types/state';
 import { TCamera } from '../../common/types/camera';
-import { sendPromo } from '../api-actions';
+import { sendOrder, sendPromo } from '../api-actions';
 
 const initialState: TCartProcess = {
   isAddToCartModalOpen: false,
@@ -14,7 +14,9 @@ const initialState: TCartProcess = {
   isRemoveFromCartModalOpen: false,
   promoCode: '',
   promoCodeSendingStatus: RequestStatus.Idle,
-  discount: null
+  discount: null,
+  orderSendingStatus: RequestStatus.Idle,
+  isSendOrderSuccessModalOpen: false
 };
 
 export const cartProcess = createSlice({
@@ -68,6 +70,12 @@ export const cartProcess = createSlice({
     },
     addPromoCode: (state, action: PayloadAction<string>) => {
       state.promoCode = action.payload;
+    },
+    openSendOrderModalSuccess: (state) => {
+      state.isSendOrderSuccessModalOpen = true;
+    },
+    closeSendOrderModalSuccess: (state) => {
+      state.isSendOrderSuccessModalOpen = false;
     }
   },
   extraReducers: (builder) => {
@@ -81,6 +89,20 @@ export const cartProcess = createSlice({
       })
       .addCase(sendPromo.rejected, (state) => {
         state.promoCodeSendingStatus = RequestStatus.Failed;
+      })
+      .addCase(sendOrder.pending, (state) => {
+        state.orderSendingStatus = RequestStatus.Loading;
+      })
+      .addCase(sendOrder.fulfilled, (state) => {
+        state.orderSendingStatus = RequestStatus.Success;
+        state.camerasInCart = [];
+        state.promoCode = '';
+        state.discount = null;
+        state.productForRemove = null;
+        state.promoCodeSendingStatus = RequestStatus.Idle;
+      })
+      .addCase(sendOrder.rejected, (state) => {
+        state.orderSendingStatus = RequestStatus.Failed;
       });
   }
 });
@@ -95,5 +117,7 @@ export const {
   openAddToCartModalSuccess,
   closeAddToCartModalSuccess,
   changeQuantity,
-  addPromoCode
+  addPromoCode,
+  openSendOrderModalSuccess,
+  closeSendOrderModalSuccess
 } = cartProcess.actions;
