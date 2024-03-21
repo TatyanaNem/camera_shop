@@ -45,6 +45,7 @@ export function BasketPromo ({promoCode, onInputPromoChange, onPromoSubmit, isCa
           <button
             className="btn"
             type="submit"
+            data-testid='submit-button'
             disabled={isCartEmpty}
           >
             Применить

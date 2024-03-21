@@ -72,6 +72,7 @@ export function BasketItem ({product}: TBasketItemProps) {
         <button
           className="btn-icon btn-icon--prev"
           aria-label="уменьшить количество товара"
+          data-testid='decrease-quantity'
           onClick={handleCamerasQuantityDecrease}
           disabled={quantity <= ProductAmount.Min}
         >
@@ -83,9 +84,9 @@ export function BasketItem ({product}: TBasketItemProps) {
         <input
           type="number"
           id="counter1"
-          defaultValue='1'
           min="1"
           max="99"
+          data-testid='quantity-input'
           aria-label="количество товара"
           value={quantity.toString()}
           onChange={handleInputQuantityChange}
@@ -94,6 +95,7 @@ export function BasketItem ({product}: TBasketItemProps) {
         <button
           className="btn-icon btn-icon--next"
           aria-label="увеличить количество товара"
+          data-testid='increase-quantity'
           onClick={handleCamerasQuantityIncrease}
           disabled={quantity >= ProductAmount.Max}
         >

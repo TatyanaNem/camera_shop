@@ -63,7 +63,7 @@ export function BasketSummary () {
   },[discountPrice, promoCodeSendingStatus]);
 
   return (
-    <div className="basket__summary">
+    <div className="basket__summary" data-testid='basket-summary'>
       <BasketPromo
         promoCode={promoCode}
         onInputPromoChange={handleInputPromoChange}

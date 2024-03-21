@@ -44,6 +44,8 @@ describe('Component: ProductPage', () => {
     }
   };
   it('should render correctly', () => {
+    const scrollToFunc = vitest.fn();
+    global.scrollTo = scrollToFunc;
     const {withStoreComponent} = withStore(<ProductPage />, initialState);
 
     render(withStoreComponent, {wrapper: BrowserRouter});

@@ -9,7 +9,7 @@ export function BasketItemShort ({product}: TBasketItemShortProps) {
   const {previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, name, type, category, level, vendorCode} = product.camera;
 
   return (
-    <div className="basket-item basket-item--short">
+    <div className="basket-item basket-item--short" data-testid='basket-item-short'>
       <div className="basket-item__img">
         <picture>
           <source type="image/webp" srcSet={`${previewImgWebp}, ${previewImgWebp2x} 2x`}/>
