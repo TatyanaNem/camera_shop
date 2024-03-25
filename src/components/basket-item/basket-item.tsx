@@ -11,12 +11,17 @@ type TBasketItemProps = {
 
 export function BasketItem ({product}: TBasketItemProps) {
   const dispatch = useAppDispatch();
-  const [quantity, setQuantity] = useState(product.quantity);
+  const [quantity, setQuantity] = useState<number>(product.quantity);
   const {previewImg, previewImg2x, previewImgWebp, previewImgWebp2x, name, type, category, level, price, vendorCode} = product.camera;
 
   function handleInputQuantityChange (event: ChangeEvent<HTMLInputElement>) {
-    const quantityNumber = Number(event.target.value);
-    setQuantity(quantityNumber);
+    const {value} = event.target;
+    if (value === '') {
+      setQuantity(0);
+    } else {
+      const quantityNumber = parseInt(value, 10);
+      setQuantity(quantityNumber);
+    }
     dispatch(changeQuantity({camera: product.camera, quantity}));
   }
 
