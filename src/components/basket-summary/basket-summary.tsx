@@ -29,13 +29,12 @@ export function BasketSummary () {
 
   function handlePromoFormSubmit (event: FormEvent) {
     event.preventDefault();
-    const validPromoCode = promoCode.trim().split(' ').join('');
-    dispatch(sendPromo(validPromoCode));
-    dispatch(addPromoCode(validPromoCode));
+    dispatch(sendPromo(promoCode));
+    dispatch(addPromoCode(promoCode));
   }
 
   function handleSendOrderButtonClick () {
-    const validCoupon = promoCodeValidationStatus === PromoValidationStatus.Valid ? promoCode.split(' ').join('') : null;
+    const validCoupon = promoCodeValidationStatus === PromoValidationStatus.Valid ? promoCode : null;
     dispatch(sendOrder({
       camerasIds,
       coupon: validCoupon
